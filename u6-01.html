@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Словосполучення і речення · Урок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EBDFFB;
+    --bg-soft:#F4EEFD;
+    --card:#FFFBEA;
+    --ink:#241934;
+    --ink-soft:#8577A0;
+    --line: rgba(36,25,52,0.08);
+
+    --c1-a:#C9A6FF; --c1-b:#8B5CF6; --c1-sh: rgba(139,92,246,0.45);
+    --c3-a:#5FE0A8; --c3-b:#17A863; --c3-sh: rgba(23,168,99,0.4);
+    --c2-b:#D8393E;
+    --c4-a:#FFD98A; --c4-b:#E8871E;
+    --terra:#B5442B;
+
+    --correct-bg:#E6F8EE;
+    --correct-ink:#128A54;
+    --wrong-bg:#FDECEC;
+    --wrong-ink:#D8393E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding:28px 16px 64px;
+    position:relative;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:16px;margin-bottom:22px;
+    border-bottom:1.5px solid rgba(36,25,52,0.14);
+  }
+  .kicker{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink);opacity:.55;
+  }
+  .kicker.tag{opacity:.4;}
+
+  h1{
+    font-family:'Manrope',sans-serif;font-weight:800;
+    font-size:clamp(24px,5.6vw,36px);line-height:1.08;letter-spacing:-0.01em;
+    margin:0 0 8px;text-transform:uppercase;
+  }
+  h1 .hl{color:var(--c1-b);}
+  .sub{color:var(--ink-soft);font-size:15px;max-width:56ch;margin:0 0 22px;font-weight:500;}
+
+  .topictoggle{display:flex;gap:10px;margin-bottom:14px;}
+  .topictoggle button{
+    flex:1;padding:15px;border-radius:20px;border:none;background:var(--card);
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:14.5px;color:var(--ink-soft);
+    cursor:pointer;box-shadow:0 8px 18px -14px rgba(36,25,52,.3);
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .topictoggle button.active{
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;
+    box-shadow:0 10px 20px -10px var(--c1-sh);
+  }
+
+  .tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .tab{
+    padding:10px 15px 10px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.9);
+    background:#FFFFFF;
+    color:var(--ink-soft);font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;
+    cursor:pointer;display:flex;align-items:center;gap:8px;
+    box-shadow: 0 10px 20px -12px rgba(36,25,52,0.45), inset 0 1px 0 rgba(255,255,255,0.8);
+    transition:transform .13s ease, box-shadow .13s ease, background .13s ease;
+  }
+  .tab:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 14px 24px -12px rgba(36,25,52,0.5), inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  .tab:active{ transform:translateY(0) scale(0.97); }
+  .tab .dot{
+    width:22px;height:22px;border-radius:8px;background:rgba(139,92,246,.16);color:var(--c1-b);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;
+  }
+  .tab.active{
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-color:transparent;
+    box-shadow:0 12px 22px -8px var(--c1-sh), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .tab.active:hover{
+    box-shadow:0 16px 26px -8px var(--c1-sh), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .tab.active .dot{background:rgba(255,255,255,.28);color:#fff;}
+
+  .card{
+    background:var(--card);border-radius:28px;padding:28px 24px;
+    box-shadow: 0 20px 44px -28px rgba(36,25,52,0.35);
+  }
+
+  .section-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.005em;margin:0 0 8px;}
+  .section-intro{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 18px;}
+  .section-intro b{color:var(--ink);}
+
+  .m{background:var(--terra);color:#fff;border-radius:6px;padding:1px 8px;font-weight:700;}
+  .d{background:var(--c3-b);color:#fff;border-radius:6px;padding:1px 8px;font-weight:700;}
+
+  /* flip cards */
+  .cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:560px){.cardgrid{grid-template-columns:1fr;}}
+  .flip{perspective:1200px;height:158px;cursor:pointer;position:relative;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;}
+  .flip.open .flip-inner{transform:rotateY(180deg);}
+  .flip-face{position:absolute;inset:0;border-radius:20px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;}
+  .flip-front{background:var(--bg-soft);}
+  .flip-back{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;transform:rotateY(180deg);align-items:center;text-align:center;}
+  .flip-tag{font-family:'Manrope',sans-serif;font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin-bottom:7px;}
+  .flip-back .flip-tag{opacity:.75;}
+  .flip-rule{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;line-height:1.32;}
+  .flip-desc{font-size:12.5px;margin-top:7px;opacity:.8;line-height:1.4;}
+  .flip-example{font-size:15px;font-weight:700;margin-bottom:5px;}
+  .flip-example:last-child{margin-bottom:0;}
+  .flip-note{font-size:11px;opacity:.7;font-weight:500;margin-bottom:3px;}
+  .flip-hint{position:absolute;bottom:9px;right:14px;font-size:10px;font-weight:700;opacity:.4;}
+
+  /* --- кольори ролей членів речення (єдина палітра для схем і дерева) --- */
+  :root{
+    --role-subj:#8B5CF6;
+    --role-pred:#E8871E;
+    --role-obj:#3355EE;
+    --role-attr:#17A863;
+    --role-adv:#D8393E;
+  }
+
+  /* --- word-to-word arrow schemes: міні-гра "знайди головне слово" --- */
+  .schemegrid{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin:8px 0 4px;}
+  .wordscheme{
+    background:var(--bg-soft);border-radius:20px;padding:20px 24px 18px;
+    min-width:190px;text-align:center;
+  }
+  .ws-hint{font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-bottom:10px;}
+  .ws-q{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;color:var(--c1-b);
+    margin-bottom:5px;height:16px;opacity:0;transition:opacity .2s ease;
+  }
+  .wordscheme.revealed .ws-q{opacity:1;}
+  .ws-arcwrap{position:relative;height:28px;margin-bottom:3px;opacity:0;transition:opacity .2s ease;}
+  .wordscheme.revealed .ws-arcwrap{opacity:1;}
+  .ws-arcwrap svg{position:absolute;left:50%;top:0;transform:translateX(-50%);}
+  .ws-words{
+    display:inline-flex;gap:14px;align-items:flex-end;
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:16px;
+    white-space:nowrap;
+  }
+  .ws-btn{
+    border:2px solid var(--line);background:#fff;border-radius:14px;padding:8px 14px;
+    cursor:pointer;font:inherit;color:var(--ink);position:relative;
+    transition:transform .12s ease, border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .ws-btn:hover{transform:translateY(-1px);}
+  .ws-btn[disabled]{cursor:default;}
+  .ws-btn.is-main{color:var(--terra);}
+  .ws-btn.is-dep{color:var(--c3-b);}
+  .wordscheme.revealed .ws-btn.is-main{background:rgba(181,68,43,.1);border-color:var(--terra);}
+  .wordscheme.revealed .ws-btn.is-main::after{
+    content:'×';position:absolute;top:-8px;right:-8px;font-size:11px;color:#fff;font-weight:800;
+    background:var(--terra);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  }
+  .wordscheme.revealed .ws-btn.is-dep{background:rgba(23,168,99,.08);border-color:var(--c3-b);}
+  .wordscheme.wrong-pick .ws-btn.is-dep[data-picked]{border-color:var(--c2-b);background:rgba(216,57,62,.08);}
+
+  /* --- underline schemes (члени речення з підкресленням і питаннями) --- */
+  .sentscheme{background:var(--bg-soft);border-radius:18px;padding:22px 20px 16px;margin-bottom:10px;}
+  .sentscheme:last-child{margin-bottom:0;}
+  .ss-hint{font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-bottom:12px;}
+  .ss-text{font-family:'Manrope',sans-serif;font-weight:700;font-size:17px;line-height:2.6;}
+  .ss-tok{
+    position:relative;padding:2px 3px;border:none;background:none;font:inherit;color:var(--ink);
+    cursor:default;border-radius:8px;transition:background .2s ease;
+  }
+  .ss-tok[data-role]{cursor:pointer;}
+  .ss-tok[data-role]:hover{background:rgba(139,92,246,.08);}
+  .ss-tok.subj{border-bottom:3px solid var(--role-subj);color:var(--role-subj);}
+  .ss-tok.pred{border-bottom:4px double var(--role-pred);color:var(--role-pred);}
+  .ss-tok.obj{border-bottom:2px dotted var(--role-obj);color:var(--role-obj);}
+  .ss-tok.attr{text-decoration:underline wavy var(--role-attr) 2px;text-decoration-skip-ink:none;color:var(--role-attr);}
+  .ss-tok.adv{border-bottom:2px dashed var(--role-adv);color:var(--role-adv);}
+  .ss-q{
+    position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:10.5px;
+    white-space:nowrap;margin-bottom:3px;opacity:0;pointer-events:none;transition:opacity .2s ease;
+  }
+  .ss-tok.revealed .ss-q{opacity:1;}
+  .ss-q::after{
+    content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);
+    border-left:1px solid currentColor;height:5px;
+  }
+  .ss-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:14px;font-size:12px;color:var(--ink-soft);font-weight:700;}
+  .ss-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .ss-legend i{display:inline-block;width:22px;height:0;}
+  .ss-legend i.subj{border-bottom:3px solid var(--role-subj);}
+  .ss-legend i.pred{border-bottom:4px double var(--role-pred);}
+  .ss-legend i.obj{border-bottom:2px dotted var(--role-obj);}
+  .ss-legend i.attr{border-bottom:2px solid transparent;text-decoration:underline wavy var(--role-attr) 2px;width:22px;}
+  .ss-legend i.adv{border-bottom:2px dashed var(--role-adv);}
+
+  /* --- members-of-sentence tree diagram (кольорові, клікабельні листочки) --- */
+  .memtree{display:flex;flex-direction:column;align-items:center;gap:0;margin:4px 0 6px;}
+  .memtree .root{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:#fff;
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));
+    padding:10px 18px;border-radius:14px;box-shadow:0 10px 20px -10px var(--c1-sh);
+  }
+  .memtree .branchline{width:2px;height:16px;background:var(--line);}
+  .memtree .row1{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;}
+  .memtree .row1 .grp{display:flex;flex-direction:column;align-items:center;}
+  .memtree .grp-label{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:12px;color:var(--ink);
+    background:var(--c4-a);padding:7px 14px;border-radius:12px;margin-bottom:14px;
+  }
+  .memtree .grp-label.second{background:var(--bg-soft);}
+  .memtree .leaves{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:230px;}
+  .leafwrap{display:flex;flex-direction:column;align-items:center;}
+  .memtree .leaf{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:11.5px;
+    background:#fff;border:2px solid var(--line);padding:7px 12px;border-radius:12px;
+    cursor:pointer;transition:transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .15s ease;
+  }
+  .memtree .leaf:hover{transform:translateY(-2px);}
+  .leafwrap.open .leaf{transform:scale(1.05);}
+  .memtree .leaf.subj{color:var(--role-subj);border-color:var(--role-subj);background:rgba(139,92,246,.08);}
+  .memtree .leaf.pred{color:var(--role-pred);border-color:var(--role-pred);background:rgba(232,135,30,.1);}
+  .memtree .leaf.obj{color:var(--role-obj);border-color:var(--role-obj);background:rgba(51,85,238,.08);}
+  .memtree .leaf.attr{color:var(--role-attr);border-color:var(--role-attr);background:rgba(23,168,99,.08);}
+  .memtree .leaf.adv{color:var(--role-adv);border-color:var(--role-adv);background:rgba(216,57,62,.08);}
+  .leaf-cap{
+    max-height:0;overflow:hidden;opacity:0;text-align:center;max-width:128px;
+    font-size:11px;color:var(--ink-soft);font-weight:500;line-height:1.4;
+    transition:max-height .25s ease, opacity .2s ease, margin .25s ease;
+  }
+  .leafwrap.open .leaf-cap{max-height:90px;opacity:1;margin-top:8px;}
+  .leaf-cap i{display:block;font-style:normal;font-weight:700;margin-top:2px;}
+  .memtree .leaf-hint{font-size:11px;color:var(--ink-soft);font-weight:600;margin-top:16px;}
+
+  /* mini quiz */
+  .qprog{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
+  .qtext{font-family:'Manrope',sans-serif;font-size:19px;font-weight:700;line-height:1.4;margin:0 0 18px;}
+  .qtext .m, .qtext .d{font-size:19px;}
+  .qtext u{text-decoration-color:var(--c1-b);text-decoration-thickness:2.5px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:13px;text-align:left;width:100%;
+    padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--bg-soft);
+    cursor:pointer;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:500;color:var(--ink);
+    transition:transform .12s ease, background .15s ease;
+  }
+  .opt:hover{transform:translateY(-1px);}
+  .opt[disabled]{cursor:default;}
+  .opt[disabled]:hover{transform:none;}
+  .tile{
+    position:relative;width:30px;height:30px;min-width:30px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--c1-b);
+    background: linear-gradient(150deg, rgba(255,255,255,0.75), rgba(139,92,246,0.22));
+    border:1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 4px 12px -7px var(--c1-sh), inset 0 1px 1px rgba(255,255,255,0.8);
+  }
+  .badge{
+    position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;
+    border:2px solid var(--card);display:flex;align-items:center;justify-content:center;
+    font-size:9.5px;font-weight:800;color:#fff;
+  }
+  .badge.ok{background:var(--c3-b);}
+  .badge.no{background:var(--c2-b);}
+  .opt.correct{background:var(--correct-bg);}
+  .opt.wrong{background:var(--wrong-bg);}
+  .opt.dim{opacity:.5;}
+
+  /* написання відповіді */
+  .writebox{display:flex;flex-direction:column;gap:12px;}
+  .writebox input[type=text]{
+    font:600 16px 'Inter',sans-serif;padding:14px 16px;border-radius:16px;
+    border:2px solid var(--line);background:#fff;color:var(--ink);
+  }
+  .writebox input[type=text]:focus{outline:none;border-color:var(--c1-b);}
+  .writebox input[disabled]{opacity:.7;}
+  .writehint{font-size:12px;color:var(--ink-soft);}
+
+  .feedback{margin-top:16px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600;display:none;align-items:center;gap:9px;}
+  .feedback.show{display:flex;}
+  .feedback.ok{background:var(--correct-bg);color:var(--correct-ink);}
+  .feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink);}
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:22px;}
+  .btn{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;padding:12px 22px;
+    border-radius:999px;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .btn.primary{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;box-shadow:0 10px 20px -8px var(--c1-sh);}
+  .btn.ghost{background:transparent;color:var(--ink-soft);}
+  .btn:disabled{opacity:.3;cursor:default;box-shadow:none;}
+
+  .tab.pressed{
+    transform:scale(0.95);
+    background:#F1E7FF;
+    box-shadow: inset 0 3px 8px rgba(36,25,52,0.22);
+  }
+  .tab.active.pressed{
+    background:linear-gradient(155deg,var(--c1-b),var(--c1-b));
+    box-shadow: inset 0 3px 8px rgba(36,25,52,0.3);
+  }
+  .topictoggle button.pressed{
+    transform:scale(0.97);
+    box-shadow: inset 0 3px 8px rgba(36,25,52,0.22);
+  }
+  .opt.pressed{ transform:scale(0.98); background:#EEE6FB; }
+  .btn.pressed{ transform:scale(0.95); filter:brightness(0.94); }
+  .flip.pressed .flip-inner{ transform:scale(0.97); }
+  .flip.open.pressed .flip-inner{ transform:rotateY(180deg) scale(0.97); }
+  .done-screen .ring{
+    width:110px;height:110px;margin:0 auto 16px;border-radius:50%;
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 16px 30px -12px var(--c1-sh);
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .done-screen .big{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;color:#fff;}
+
+  footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft);font-weight:500;}
+
+  /* ===================== DRAWING / TEACHER MODE ===================== */
+  #drawCanvas{position:absolute;top:0;left:0;z-index:9998;pointer-events:none;}
+  #drawToggleBtn{
+    position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;
+    border:1px solid rgba(255,255,255,0.5);
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%),
+      linear-gradient(155deg,var(--c1-a),var(--c1-b));
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    box-shadow:
+      0 14px 28px -10px var(--c1-sh),
+      inset 0 1px 1px rgba(255,255,255,0.6),
+      inset 0 -6px 10px -4px rgba(0,0,0,0.15);
+    color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), background .2s ease, box-shadow .2s ease;
+  }
+  #drawToggleBtn svg{width:24px;height:24px;display:block;transition:transform .25s ease, opacity .15s ease;}
+  #drawToggleBtn:active{transform:scale(0.90);}
+  #drawToggleBtn.on{
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%),
+      linear-gradient(155deg,#FF8A65,var(--c2-b));
+    box-shadow:
+      0 14px 28px -10px rgba(216,57,62,0.55),
+      inset 0 1px 1px rgba(255,255,255,0.6),
+      inset 0 -6px 10px -4px rgba(0,0,0,0.15);
+  }
+  #drawToggleBtn.on svg{ transform:rotate(90deg); }
+  #drawToolbar{
+    position:fixed;left:50%;bottom:22px;
+    transform:translateX(-50%) translateY(130%) scale(0.94);opacity:0;
+    display:flex;align-items:center;gap:12px;
+    background: linear-gradient(150deg, rgba(255,255,255,0.6), rgba(255,255,255,0.15));
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.7);padding:9px 16px;border-radius:999px;
+    box-shadow: 0 24px 48px -20px rgba(36,25,52,0.45), inset 0 1px 1px rgba(255,255,255,0.9);
+    z-index:9999;transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;pointer-events:none;
+  }
+  #drawToolbar.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  #drawToolbar.mini{transform:translateX(-50%) translateY(130%) scale(0.94);opacity:0;pointer-events:none;}
+  #drawToolbarMini{
+    position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(130%) scale(0.9);opacity:0;
+    width:40px;height:26px;border-radius:14px;border:1px solid rgba(255,255,255,0.5);
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 10px 20px -10px var(--c1-sh);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;pointer-events:none;
+  }
+  #drawToolbarMini svg{width:18px;height:18px;}
+  #drawToolbarMini.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  .swatch{
+    position:relative;width:25px;height:25px;border-radius:50%;border:none;
+    box-shadow: 0 3px 8px -2px rgba(36,25,52,0.35), inset 0 1px 1px rgba(255,255,255,0.5);
+    cursor:pointer;padding:0;transition:transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .swatch::after{
+    content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--ink);
+    opacity:0;transform:scale(0.7);transition:opacity .15s ease, transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .swatch.selected{ transform:scale(1.08); }
+  .swatch.selected::after{ opacity:1; transform:scale(1); }
+  .tool-btn{
+    width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,0.5);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .15s ease, color .15s ease, transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .tool-btn svg{ width:16px; height:16px; }
+  .tool-btn .dot{border-radius:50%;background:currentColor;}
+  #xthinBtn .dot{ width:3.5px; height:3.5px; }
+  #thinBtn .dot{ width:7px; height:7px; }
+  #thickBtn .dot{ width:12.5px; height:12.5px; }
+  .tool-btn.selected{background:var(--c1-b);color:#fff;transform:scale(1.06);}
+  .tool-sep{width:1px;height:22px;background:rgba(36,25,52,0.14);}
+  @media (max-width:480px){
+    #drawToolbar{max-width:94vw;overflow-x:auto;padding:8px 13px;gap:9px;}
+    .swatch{width:21px;height:21px;}
+    .tool-btn{width:30px;height:30px;}
+    .tool-btn svg{width:14px;height:14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="kicker">Словосполучення і речення · 6 клас</div>
+    <div class="kicker tag" id="totalTag"></div>
+  </div>
+
+  <h1>Слово<span class="hl">сполучення</span> і речення</h1>
+
+  <div class="topictoggle" id="topictoggle"></div>
+  <div class="tabbar" id="subtabbar"></div>
+
+  <div class="card" id="lessonArea"></div>
+
+  <footer>@movoznavka</footer>
+</div>
+
+<canvas id="drawCanvas"></canvas>
+
+<button id="drawToggleBtn" title="Малювати">
+  <svg id="drawIcon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 20L4.6 16.6C4.7 15.9 5.03 15.26 5.55 14.79L15.3 5.7C16.09 4.96 17.34 4.99 18.09 5.78L18.34 6.04C19.08 6.83 19.04 8.08 18.25 8.81L8.5 17.9C8 18.37 7.37 18.66 6.7 18.75L4 20Z" stroke="white" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M13.5 7.5L16.5 10.3" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+  </svg>
+</button>
+<div id="drawToolbar">
+  <button class="swatch selected" style="background:#F5304A" data-color="#F5304A"></button>
+  <button class="swatch" style="background:#3355EE" data-color="#3355EE"></button>
+  <button class="swatch" style="background:#17A863" data-color="#17A863"></button>
+  <button class="swatch" style="background:#241934" data-color="#241934"></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn selected" id="xthinBtn" title="Дуже тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thinBtn" title="Тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thickBtn" title="Товста лінія"><span class="dot"></span></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="eraserBtn" title="Ластик">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.5 13.5L10.5 21.5H5.5L2.5 18.5C2.11 18.11 2.11 17.48 2.5 17.09L13.5 6.09C13.89 5.7 14.52 5.7 14.91 6.09L18.5 9.68C19.5 10.68 19.5 12.5 18.5 13.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M9 13.5L15 19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <button class="tool-btn" id="clearBtn" title="Очистити все">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 7H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9.5 7V4.8C9.5 4.36 9.86 4 10.3 4H13.7C14.14 4 14.5 4.36 14.5 4.8V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M7 7L7.6 19.2C7.63 19.9 8.2 20.5 8.9 20.5H15.1C15.8 20.5 16.37 19.9 16.4 19.2L17 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="minimizeBtn" title="Згорнути панель">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+<button id="drawToolbarMini" title="Розгорнути панель">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 15L12 9L18 15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script>
+/* ============================================================
+   ЯК ДОДАТИ/ЗМІНИТИ МАТЕРІАЛ
+   Весь контент — в об'єкті TOPICS: rule (Правило) і exercises (Вправи).
+   Типи вкладок:
+     "cards"  — картки-фліпи (тисни, щоб перегорнути)
+     "scheme" — схеми зі стрілочками між словами (kind:"arrow"),
+                або речення з підкресленням членів речення (kind:"sentence")
+     "tree"   — діаграма "члени речення" з гілками
+     "quiz"   — вправи: mode "options" (вибір відповіді) або
+                mode "write" (учень пише відповідь у полі)
+   Щоб додати картку/питання — скопіюй існуючий об'єкт у потрібному
+   масиві і зміни текст.
+   ============================================================ */
+
+function ex(word){ return {word: word}; }
+
+const TOPICS = {
+  rule: {
+    label: "Правило",
+    subs: [
+      {
+        id: "t1", tab: "Словосполучення", dot: "1",
+        title: "Словосполучення",
+        intro: "Усе про словосполучення: що це таке, чого воно НЕ включає і як позначити на схемі.",
+        blocks: [
+          {
+            type: "cards",
+            heading: "Що таке словосполучення",
+            intro: "Словосполучення — це щонайменше два самостійних слова, одне з яких <b>головне</b>, а інше — <b>залежне</b>. Від головного слова ставимо питання до залежного.",
+            cards: [
+              {rule: "Головне слово", desc: "від нього ставимо питання; на схемі позначаємо значком ×", examples: [ex('<span class="m">вода</span> яка? <span class="d">джерельна</span>')]},
+              {rule: "Залежне слово", desc: "відповідає на питання, поставлене від головного", examples: [ex('<span class="d">джерельна</span> ← <span class="m">вода</span>')]},
+              {rule: "Для зв'язку", desc: "слова в словосполученні можна поєднувати за допомогою прийменників", examples: [ex("пішов за братом"), ex("сидів під деревом")]},
+              {rule: "Не плутай", desc: "самостійні слова — іменник, прикметник, числівник, займенник, дієслово, прислівник", examples: [ex("працювати за комп'ютером")]}
+            ]
+          },
+          {
+            type: "cards",
+            heading: "Що НЕ є словосполученням",
+            intro: "Тисни на картку, щоб побачити приклад.",
+            cards: [
+              {rule: "Підмет і присудок", desc: "граматична основа речення — це не словосполучення", examples: [ex("мама усміхнулася")]},
+              {rule: "Прийменник + слово", desc: "службове слово не є самостійним", examples: [ex("перед хатою")]},
+              {rule: "Однорідні члени", desc: "рівноправні слова, з'єднані сполучником чи комою", examples: [ex("дощ і вітер")]},
+              {rule: "Фразеологізм", desc: "стійкий вислів, який має цілісне значення", examples: [ex("накивати п'ятами"), ex("зарубати на носі")]}
+            ]
+          },
+          {
+            type: "scheme", kind: "arrow",
+            heading: "Схема",
+            intro: "На схемі стрілку проводимо від головного слова (позначено ×) до залежного, а над стрілкою пишемо питання.",
+            diagrams: [
+              {main: "вода", dep: "джерельна", question: "яка?", mainFirst: false},
+              {main: "слова", dep: "татові", question: "чиї?", mainFirst: false},
+              {main: "розказувати", dep: "вірш", question: "що?", mainFirst: true},
+              {main: "приїхати", dep: "вранці", question: "коли?", mainFirst: true}
+            ]
+          }
+        ]
+      },
+      {
+        id: "t2", tab: "Речення", dot: "2",
+        title: "Речення",
+        intro: "Що таке речення і які бувають його види.",
+        blocks: [
+          {
+            type: "cards",
+            heading: "Поняття про речення",
+            intro: "Найменша одиниця людського спілкування — речення.",
+            cards: [
+              {rule: "Речення", desc: "одне або кілька слів, якими виражаємо відносно закінчену думку", examples: [ex("Будуть сонячні весни усміхатися людям.")]},
+              {rule: "Інтонація", desc: "на початок і кінець речення вказує відповідна інтонація, речення відділяємо паузою", examples: [ex(".  ?  !")]},
+              {rule: "Зв'язок слів", desc: "слова в реченні поєднуємо за змістом і граматично — закінченнями та службовими словами", examples: [ex("трава на футбольному полі")]},
+              {rule: "Пунктограма", desc: "вживання розділового знака в реченні відповідно до правил", examples: [ex("кома, крапка, знак питання…")]}
+            ]
+          },
+          {
+            type: "cards",
+            heading: "За метою висловлювання",
+            intro: "Розповідні, питальні й спонукальні речення.",
+            cards: [
+              {rule: "Розповідне", desc: "містить повідомлення про якісь факти, явища, події; у кінці — крапка або три крапки", examples: [ex("Над доріжкою з асфальту дві берізки обнялись.")]},
+              {rule: "Питальне", desc: "містить питання; у кінці — знак питання", examples: [ex("Ти любиш дивитись на небо?")]},
+              {rule: "Спонукальне", desc: "містить спонукання до дії: наказ, прохання, пораду, вимогу", examples: [ex("Розкажи мені казку теплим голосом ночі…")]}
+            ]
+          },
+          {
+            type: "cards",
+            heading: "За емоційним забарвленням",
+            intro: "Розповідні, питальні й спонукальні речення можуть бути окличними або неокличними.",
+            cards: [
+              {rule: "Окличні", desc: "виражають сильні емоції: радість, здивування, захоплення, біль, страх; у кінці — знак оклику", examples: [ex("Яка розкішна цьогоріч зима!")]},
+              {rule: "Неокличні", desc: "вимовляються без окличної інтонації, знака оклику немає", examples: [ex("Дiти читають сучасні художні твори.")]}
+            ]
+          }
+        ]
+      },
+      {
+        id: "t3", tab: "Члени речення", dot: "3",
+        title: "Члени речення",
+        intro: "Головні й другорядні члени речення — хто є хто в реченні.",
+        blocks: [
+          {
+            type: "tree",
+            intro: "У реченні, крім головних членів, можуть бути ще й другорядні: додаток, означення, обставина."
+          },
+          {
+            type: "scheme", kind: "sentence",
+            heading: "Підмет і присудок",
+            intro: "Підмет і присудок — головні члени речення, разом вони становлять граматичну основу. Підмет підкреслюємо однією рискою, присудок — двома.",
+            sentences: [
+              {tokens: [
+                {t:"Вітер", role:"subj", q:"хто? що?"},
+                {t:"хилить", role:"pred", q:"що робить?"},
+                {t:"клени."}
+              ]},
+              {tokens: [
+                {t:"Травневе"},
+                {t:"сонце", role:"subj", q:"хто? що?"},
+                {t:"в травах"},
+                {t:"спочивало.", role:"pred", q:"що робило?"}
+              ]},
+              {tokens: [
+                {t:"Книжка", role:"subj", q:"хто? що?"},
+                {t:"—"},
+                {t:"найкращий порадник.", role:"pred", q:"що вона таке?"}
+              ]}
+            ],
+            legend: [
+              {cls:"subj", label:"підмет"},
+              {cls:"pred", label:"присудок"}
+            ]
+          },
+          {
+            type: "scheme", kind: "sentence",
+            heading: "Додаток, означення, обставина",
+            intro: "Додаток відповідає на питання відмінків (крім називного), означення — який? чий? котрий?, обставина — як? де? коли? тощо.",
+            sentences: [
+              {tokens: [
+                {t:"Даруйте"},
+                {t:"людям", role:"obj", q:"кому?"},
+                {t:"радість.", role:"obj", q:"що?"}
+              ]},
+              {tokens: [
+                {t:"У"},
+                {t:"міському", role:"attr", q:"якому?"},
+                {t:"парку"},
+                {t:"ростуть"},
+                {t:"троянди."}
+              ]},
+              {tokens: [
+                {t:"Осика"},
+                {t:"сонно", role:"adv", q:"як?"},
+                {t:"шелестить."}
+              ]},
+              {tokens: [
+                {t:"Місячне світло влилося"},
+                {t:"в кімнату.", role:"adv", q:"куди?"}
+              ]}
+            ],
+            legend: [
+              {cls:"obj", label:"додаток"},
+              {cls:"attr", label:"означення"},
+              {cls:"adv", label:"обставина"}
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  exercises: {
+    label: "Вправи",
+    subs: [
+      {
+        id: "e1", tab: "Головне слово", dot: "1", type: "quiz", mode: "options",
+        title: "Знайди головне слово",
+        intro: "У кожному словосполученні оберіть головне слово (те, від якого ставимо питання).",
+        opts: ["перше слово","друге слово"],
+        questions: [
+          {q:"холодна вода", a:1},
+          {q:"читати книгу", a:0},
+          {q:"працювати за комп'ютером", a:0},
+          {q:"кожен із нас", a:0},
+          {q:"говорити голосно", a:0},
+          {q:"збирати гриби", a:0},
+          {q:"зоряний шлях", a:1},
+          {q:"розказувати вірш", a:0}
+        ]
+      },
+      {
+        id: "e2", tab: "Тип речення", dot: "2", type: "quiz", mode: "options",
+        title: "Визнач тип речення за метою висловлювання",
+        intro: "Прочитайте речення і визначте, розповідне воно, питальне чи спонукальне.",
+        opts: ["розповідне","питальне","спонукальне"],
+        questions: [
+          {q:"Діти читають сучасні художні твори.", a:0},
+          {q:"Діти читають сучасні художні твори?", a:1},
+          {q:"Діти, читайте сучасні художні твори.", a:2},
+          {q:"Чим допомогти?", a:1},
+          {q:"Розкажи мені казку теплим голосом ночі…", a:2},
+          {q:"Над доріжкою з асфальту дві берізки обнялись.", a:0},
+          {q:"Що трапилося?", a:1}
+        ]
+      },
+      {
+        id: "e3", tab: "Член речення", dot: "3", type: "quiz", mode: "options",
+        title: "Визнач член речення",
+        intro: "Яким членом речення є підкреслене слово?",
+        opts: ["підмет","присудок","додаток","означення","обставина"],
+        questions: [
+          {q:"<u>Вітер</u> хилить клени.", a:0},
+          {q:"Вітер <u>хилить</u> клени.", a:1},
+          {q:"Даруйте <u>людям</u> радість.", a:2},
+          {q:"У <u>міському</u> парку ростуть троянди.", a:3},
+          {q:"Осика <u>сонно</u> шелестить.", a:4},
+          {q:"<u>Книжка</u> — найкращий порадник.", a:0},
+          {q:"Зерно нап'ється сонця <u>в полі</u>.", a:4},
+          {q:"Я розкажу тобі цікаву <u>історію</u>.", a:2}
+        ]
+      },
+      {
+        id: "e4", tab: "Постав питання", dot: "4", type: "quiz", mode: "write",
+        title: "Постав питання від головного до залежного",
+        intro: "Напишіть лише питання (без розділових знаків), яке ставимо від головного слова до залежного. Приклад: до «джерельна вода» — «яка?».",
+        questions: [
+          {q:"тепле літо", a:["яке"]},
+          {q:"читати книгу", a:["що"]},
+          {q:"наш клас", a:["чий"]},
+          {q:"прийти рано", a:["коли"]},
+          {q:"веселий настрій", a:["який"]},
+          {q:"бігти швидко", a:["як"]},
+          {q:"дах хати", a:["чий","чого"]},
+          {q:"писати старанно", a:["як"]}
+        ]
+      }
+    ]
+  }
+};
+
+const LETTERS = ["А","Б","В","Г","Д","Е","Є"];
+const TOPIC_ORDER = ["rule"]; // "exercises" вимкнено; додай його сюди, щоб повернути вкладку «Вправи»
+
+let activeTopic = "rule";
+let activeSub = 0;
+let quizIdx = 0;
+let quizAnswers = {};
+
+const topictoggle = document.getElementById('topictoggle');
+const subtabbar = document.getElementById('subtabbar');
+const lessonArea = document.getElementById('lessonArea');
+
+function resetNav(){ activeSub = 0; quizIdx = 0; quizAnswers = {}; }
+function resetQuiz(){ quizIdx = 0; quizAnswers = {}; }
+function currentSub(){ return TOPICS[activeTopic].subs[activeSub]; }
+function currentSection(){ return currentSub(); }
+
+const drawStore = {};
+function sectionKey(){
+  const sec = currentSection();
+  let k = activeTopic + '__' + activeSub;
+  if(sec.type === "quiz") k += '__q' + quizIdx;
+  return k;
+}
+function saveCurrentDrawing(){ if(window.getDrawingSnapshot) drawStore[sectionKey()] = window.getDrawingSnapshot(); }
+function restoreCurrentDrawing(){ if(window.setDrawingSnapshot) window.setDrawingSnapshot(drawStore[sectionKey()] || null); }
+
+function renderTopics(){
+  if(TOPIC_ORDER.length < 2){ topictoggle.style.display = "none"; topictoggle.innerHTML = ""; return; }
+  topictoggle.innerHTML = TOPIC_ORDER.map(key => `
+    <button class="${key===activeTopic?'active':''}" data-key="${key}">${TOPICS[key].label}</button>
+  `).join('');
+  topictoggle.querySelectorAll('button').forEach(btn=>{
+    const nav = ()=>{
+      saveCurrentDrawing();
+      activeTopic = btn.dataset.key;
+      resetNav();
+      renderAll();
+    };
+    attachTapToggle(btn, nav);
+  });
+}
+
+function renderSubs(){
+  const subs = TOPICS[activeTopic].subs;
+  subtabbar.innerHTML = subs.map((s,i)=>`
+    <button class="tab ${i===activeSub?'active':''}" data-i="${i}">
+      <span class="dot">${s.dot}</span>${s.tab}
+    </button>`).join('');
+  subtabbar.querySelectorAll('.tab').forEach(btn=>{
+    const nav = ()=>{
+      saveCurrentDrawing();
+      activeSub = +btn.dataset.i;
+      resetQuiz();
+      renderSubs();
+      renderContent();
+    };
+    attachTapToggle(btn, nav);
+  });
+}
+
+// --- SVG arc для схеми "стрілочка від головного до залежного" ---
+const LEAF_DEFS = {
+  subj: {label:"підмет", text:"хто? що? виконує дію", example:"Вітер хилить клени."},
+  pred: {label:"присудок", text:"що робить підмет? що з ним робиться?", example:"Вітер хилить клени."},
+  obj: {label:"додаток", text:"кого? чого? кому? чому? ким? чим?", example:"Даруйте людям радість."},
+  attr: {label:"означення", text:"який? чий? котрий?", example:"У міському парку ростуть троянди."},
+  adv: {label:"обставина", text:"як? де? коли? куди? чому?", example:"Осика сонно шелестить."}
+};
+
+function arcSVG(){
+  return `<svg width="112" height="24" viewBox="0 0 112 24" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="ah" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+        <path d="M0,0 L7,3.5 L0,7 Z" fill="#8B5CF6"/>
+      </marker>
+    </defs>
+    <path d="M96,20 C 78,2 34,2 16,20" stroke="#8B5CF6" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  </svg>`;
+}
+
+function wordSchemeHTML(d, key){
+  const first = d.mainFirst ? {w:d.main, cls:'is-main', role:'main'} : {w:d.dep, cls:'is-dep', role:'dep'};
+  const second = d.mainFirst ? {w:d.dep, cls:'is-dep', role:'dep'} : {w:d.main, cls:'is-main', role:'main'};
+  return `<div class="wordscheme" data-ws-key="${key}">
+    <div class="ws-hint">тисни на головне слово</div>
+    <div class="ws-q">${d.question}</div>
+    <div class="ws-arcwrap">${arcSVG()}</div>
+    <div class="ws-words">
+      <button type="button" class="ws-btn ${first.cls}" data-ws-role="${first.role}">${first.w}</button>
+      <button type="button" class="ws-btn ${second.cls}" data-ws-role="${second.role}">${second.w}</button>
+    </div>
+  </div>`;
+}
+
+function sentenceSchemeHTML(sec){
+  const legendHtml = sec.legend.map(l=>`<span><i class="${l.cls}"></i>${l.label}</span>`).join('');
+  const sentsHtml = sec.sentences.map(s=>{
+    const tokensHtml = s.tokens.map(tok=>{
+      if(!tok.role) return `<span class="ss-tok">${tok.t}</span>`;
+      const qHtml = tok.q ? `<span class="ss-q">${tok.q}</span>` : '';
+      return `<button type="button" class="ss-tok ${tok.role}" data-role="${tok.role}">${qHtml}${tok.t}</button>`;
+    }).join(' ');
+    return `<div class="sentscheme"><div class="ss-text">${tokensHtml}</div></div>`;
+  }).join('');
+  return `<div class="ss-hint">тисни на кольорове слово, щоб побачити питання</div>` + sentsHtml + `<div class="ss-legend">${legendHtml}</div>`;
+}
+
+function memberTreeHTML(){
+  function leaf(role){
+    const d = LEAF_DEFS[role];
+    return `<div class="leafwrap" data-leaf-role="${role}">
+      <button type="button" class="leaf ${role}">${d.label}</button>
+      <div class="leaf-cap">${d.text}<i>«${d.example}»</i></div>
+    </div>`;
+  }
+  return `<div class="memtree">
+    <div class="root">ЧЛЕНИ РЕЧЕННЯ</div>
+    <div class="branchline"></div>
+    <div class="row1">
+      <div class="grp">
+        <div class="grp-label">головні</div>
+        <div class="leaves">
+          ${leaf('subj')}
+          ${leaf('pred')}
+        </div>
+      </div>
+      <div class="grp">
+        <div class="grp-label second">другорядні</div>
+        <div class="leaves">
+          ${leaf('obj')}
+          ${leaf('attr')}
+          ${leaf('adv')}
+        </div>
+      </div>
+    </div>
+    <div class="leaf-hint">тисни на будь-який member, щоб побачити пояснення</div>
+  </div>`;
+}
+
+function wireInteractiveBlocks(root){
+  // словосполучення: тисни на слово, яке вважаєш головним
+  root.querySelectorAll('.wordscheme').forEach(ws=>{
+    ws.querySelectorAll('.ws-btn').forEach(btn=>{
+      attachTapToggle(btn, ()=>{
+        if(ws.classList.contains('revealed')) return;
+        ws.classList.add('revealed');
+        if(btn.dataset.wsRole === 'dep'){
+          ws.classList.add('wrong-pick');
+          btn.setAttribute('data-picked', '1');
+        }
+        ws.querySelectorAll('.ws-btn').forEach(b=>b.disabled = true);
+      });
+    });
+  });
+
+  // члени речення (підмет/присудок/додаток/означення/обставина): тисни, щоб побачити питання
+  root.querySelectorAll('.ss-tok[data-role]').forEach(tok=>{
+    attachTapToggle(tok, ()=>{ tok.classList.toggle('revealed'); });
+  });
+
+  // дерево "члени речення": тисни на листочок, щоб побачити пояснення
+  root.querySelectorAll('.leafwrap').forEach(wrap=>{
+    const btn = wrap.querySelector('.leaf');
+    attachTapToggle(btn, ()=>{ wrap.classList.toggle('open'); });
+  });
+}
+
+function renderContent(){
+  const s = currentSection();
+  const secKey = sectionKey();
+  let html = `<p class="section-title">${s.title}</p><p class="section-intro">${s.intro}</p>`;
+
+  if(s.blocks){
+    html += s.blocks.map((b, bi) => blockHTML(b, secKey, bi)).join('');
+    lessonArea.innerHTML = html;
+    lessonArea.querySelectorAll('[data-kind="card"]').forEach(el=>{
+      const toggle = ()=>{ el.classList.toggle('open'); };
+      attachTapToggle(el, toggle);
+    });
+    wireInteractiveBlocks(lessonArea);
+    syncCanvasAfterRender();
+    return;
+  }
+
+  if(s.type === "quiz"){
+    lessonArea.innerHTML = html;
+    renderQuiz(s);
+    syncCanvasAfterRender();
+    return;
+  }
+
+  lessonArea.innerHTML = html;
+  syncCanvasAfterRender();
+}
+
+function blockHTML(b, secKey, bi){
+  let out = '';
+  if(b.heading){
+    out += `<p class="section-title" style="margin-top:${bi===0?'2px':'26px'};font-size:17px;">${b.heading}</p>`;
+  } else if(bi > 0){
+    out += `<div style="margin-top:22px;"></div>`;
+  }
+  if(b.intro) out += `<p class="section-intro">${b.intro}</p>`;
+
+  if(b.type === "cards"){
+    out += `<div class="cardgrid">${b.cards.map((c,idx)=>`
+      <div class="flip" data-kind="card" data-card-key="${secKey}__b${bi}__card${idx}">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="flip-rule">${c.rule}</div>
+            <div class="flip-desc">${c.desc||''}</div>
+            <div class="flip-hint">натисни →</div>
+          </div>
+          <div class="flip-face flip-back">
+            ${c.examples.map(e=>`<div class="flip-example">${e.word}</div>`).join('')}
+          </div>
+        </div>
+      </div>`).join('')}</div>`;
+  } else if(b.type === "scheme" && b.kind === "arrow"){
+    out += `<div class="schemegrid">${b.diagrams.map((d,di)=>wordSchemeHTML(d, secKey+'__b'+bi+'__ws'+di)).join('')}</div>`;
+  } else if(b.type === "scheme" && b.kind === "sentence"){
+    out += sentenceSchemeHTML(b);
+  } else if(b.type === "tree"){
+    out += memberTreeHTML();
+  }
+  return out;
+}
+
+function syncCanvasAfterRender(){
+  if(window.resizeDrawCanvas){
+    requestAnimationFrame(()=> requestAnimationFrame(()=>{
+      window.resizeDrawCanvas();
+      restoreCurrentDrawing();
+    }));
+  }
+}
+
+function quizScore(qs){
+  let correct = 0, answered = 0;
+  qs.forEach((_,i)=>{ const r = quizAnswers[i]; if(r){ answered++; if(r.correct) correct++; } });
+  return {correct, answered, total: qs.length};
+}
+
+function normalizeWrite(s){
+  return (s||'').toLowerCase().trim()
+    .replace(/['’ʼ]/g,"’")
+    .replace(/[.?!]/g,'')
+    .replace(/\s*\+\s*/g,' + ')
+    .replace(/\s+/g,' ');
+}
+
+function renderQuiz(s){
+  const total = s.questions.length;
+
+  if(quizIdx >= total){
+    const {correct} = quizScore(s.questions);
+    const extra = document.createElement('div');
+    extra.innerHTML = `
+      <div class="done-screen">
+        <div class="ring"><div class="big">${correct}/${total}</div></div>
+        <p class="section-intro" style="margin-top:10px;">${correct===total ? 'Ідеально! Матеріал засвоєно 🎉' : 'Непогано — можна пройти ще раз.'}</p>
+        <button class="btn primary" id="quizRestart" style="margin-top:6px;">Пройти ще раз</button>
+      </div>`;
+    lessonArea.appendChild(extra);
+    attachTapToggle(document.getElementById('quizRestart'), ()=>{ resetQuiz(); renderContent(); });
+    return;
+  }
+
+  const q = s.questions[quizIdx];
+  const rec = quizAnswers[quizIdx];
+  const box = document.createElement('div');
+
+  if(s.mode === "write"){
+    const typedVal = rec ? rec.typed : '';
+    box.innerHTML = `
+      <div class="qprog">Питання ${quizIdx+1} з ${total}</div>
+      <p class="qtext">${q.q}</p>
+      <div class="writebox">
+        <input type="text" id="writeInput" placeholder="Напишіть тут…" value="${typedVal.replace(/"/g,'&quot;')}" ${rec?'disabled':''} autocomplete="off">
+        <div class="writehint">Пишіть одне слово-питання, без розділових знаків.</div>
+        <div>
+          <button class="btn primary" id="writeCheck" ${rec?'disabled':''}>Перевірити</button>
+        </div>
+      </div>
+      <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">
+        ${rec ? (rec.correct ? `<span><b>Правильно.</b></span>` : `<span>Правильний варіант: <b>${q.a[0]}?</b></span>`) : ''}
+      </div>
+      <div class="nav-row">
+        <button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button>
+        <button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button>
+      </div>`;
+    lessonArea.appendChild(box);
+
+    const input = document.getElementById('writeInput');
+    const checkBtn = document.getElementById('writeCheck');
+    if(checkBtn){
+      attachTapToggle(checkBtn, ()=>{
+        if(quizAnswers[quizIdx]) return;
+        const typed = input.value;
+        const norm = normalizeWrite(typed);
+        const correct = q.a.some(a=>normalizeWrite(a)===norm);
+        quizAnswers[quizIdx] = {typed, correct};
+        renderContent();
+      });
+    }
+    if(input && !rec){
+      input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); checkBtn.click(); } });
+    }
+  } else {
+    box.innerHTML = `
+      <div class="qprog">Питання ${quizIdx+1} з ${total}</div>
+      <p class="qtext">«${q.q}»</p>
+      <div class="options">
+        ${s.opts.map((o,i)=>`
+          <button class="opt" data-i="${i}" ${rec?'disabled':''}>
+            <span class="tile"><span>${LETTERS[i]}</span></span><span>${o}</span>
+          </button>`).join('')}
+      </div>
+      <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">
+        ${rec ? (rec.correct ? `<span><b>Правильно.</b></span>` : `<span>Правильна відповідь — ${LETTERS[q.a]}. ${s.opts[q.a]}</span>`) : ''}
+      </div>
+      <div class="nav-row">
+        <button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button>
+        <button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button>
+      </div>`;
+    lessonArea.appendChild(box);
+
+    if(rec){
+      box.querySelectorAll('.opt').forEach((btn,i)=>{
+        const tile = btn.querySelector('.tile');
+        if(i===q.a){ btn.classList.add('correct'); tile.insertAdjacentHTML('beforeend','<span class="badge ok">✓</span>'); }
+        else if(i===rec.picked){ btn.classList.add('wrong'); tile.insertAdjacentHTML('beforeend','<span class="badge no">✕</span>'); }
+        else { btn.classList.add('dim'); }
+      });
+    }
+    box.querySelectorAll('.opt').forEach(btn=>{
+      attachTapToggle(btn, ()=>{
+        if(quizAnswers[quizIdx]) return;
+        const picked = +btn.dataset.i;
+        quizAnswers[quizIdx] = {picked, correct: picked===q.a};
+        renderContent();
+      });
+    });
+  }
+
+  const prevBtn = document.getElementById('quizPrev');
+  const nextBtn = document.getElementById('quizNext');
+  if(prevBtn) attachTapToggle(prevBtn, ()=>{ saveCurrentDrawing(); quizIdx--; renderContent(); });
+  if(nextBtn) attachTapToggle(nextBtn, ()=>{ saveCurrentDrawing(); quizIdx++; renderContent(); });
+}
+
+function attachTapToggle(el, handler){
+  if(!el) return;
+  let sx = 0, sy = 0, penTap = false, tracking = false;
+  el.addEventListener('pointerdown', (e)=>{
+    tracking = true; sx = e.clientX; sy = e.clientY; penTap = e.pointerType === 'pen';
+    el.classList.add('pressed');
+  }, {passive:true});
+  el.addEventListener('pointerup', (e)=>{
+    el.classList.remove('pressed');
+    if(!tracking) return;
+    tracking = false;
+    if(penTap && window.isDrawingActive && window.isDrawingActive()) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if(Math.hypot(dx,dy) > 10) return;
+    handler(e);
+  });
+  el.addEventListener('pointercancel', ()=>{ tracking = false; el.classList.remove('pressed'); });
+  el.addEventListener('pointerleave', ()=>{ if(tracking) el.classList.remove('pressed'); });
+}
+window.attachTapToggle = attachTapToggle;
+
+function renderAll(){
+  renderTopics();
+  renderSubs();
+  renderContent();
+}
+renderAll();
+
+// ======================================================================
+// МАЛЮВАННЯ ПОВЕРХ ЕКРАНА (режим "учитель") — той самий механізм, що й
+// у решті уроків: просте растрове малювання пером, чорнило кожної
+// вкладки/питання зберігається окремо.
+// ======================================================================
+(function(){
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  const toggleBtn = document.getElementById('drawToggleBtn');
+  const toolbar = document.getElementById('drawToolbar');
+  const toolbarMini = document.getElementById('drawToolbarMini');
+  const minimizeBtn = document.getElementById('minimizeBtn');
+  const xthinBtn = document.getElementById('xthinBtn');
+  const thinBtn = document.getElementById('thinBtn');
+  const thickBtn = document.getElementById('thickBtn');
+  const eraserBtn = document.getElementById('eraserBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const swatches = document.querySelectorAll('.swatch');
+
+  let drawingActive = false;
+  let isDrawing = false;
+  let currentColor = "#F5304A";
+  let currentWidth = 4;
+  let eraserMode = false;
+  let lastX = 0, lastY = 0;
+  let activePointerId = null;
+
+  window.isDrawingActive = function(){ return drawingActive; };
+
+  function currentDocHeight(){
+    return Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, window.innerHeight);
+  }
+
+  function resizeCanvas(){
+    const docWidth = document.documentElement.clientWidth;
+    const docHeight = currentDocHeight();
+    const prev = document.createElement('canvas');
+    prev.width = canvas.width; prev.height = canvas.height;
+    if(canvas.width && canvas.height){ prev.getContext('2d').drawImage(canvas, 0, 0); }
+    canvas.width = docWidth * devicePixelRatio;
+    canvas.height = docHeight * devicePixelRatio;
+    canvas.style.width = docWidth + 'px';
+    canvas.style.height = docHeight + 'px';
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if(prev.width && prev.height){
+      ctx.drawImage(prev, 0, 0, prev.width / devicePixelRatio, prev.height / devicePixelRatio);
+    }
+  }
+  window.resizeDrawCanvas = resizeCanvas;
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('orientationchange', resizeCanvas);
+  if(window.ResizeObserver){ new ResizeObserver(()=> resizeCanvas()).observe(document.body); }
+
+  window.clearDrawing = function(){ ctx.clearRect(0, 0, canvas.width, canvas.height); };
+  window.getDrawingSnapshot = function(){
+    try{ return (canvas.width && canvas.height) ? canvas.toDataURL('image/png') : null; }catch(e){ return null; }
+  };
+  window.setDrawingSnapshot = function(dataURL){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if(!dataURL) return;
+    const img = new Image();
+    img.onload = function(){ ctx.drawImage(img, 0, 0, canvas.width / devicePixelRatio, canvas.height / devicePixelRatio); };
+    img.src = dataURL;
+  };
+
+  function setActive(on){
+    drawingActive = on;
+    toolbar.classList.toggle('show', on);
+    toolbar.classList.remove('mini');
+    if(toolbarMini) toolbarMini.classList.remove('show');
+    toggleBtn.classList.toggle('on', on);
+    toggleBtn.title = on ? 'Вимкнути малювання' : 'Малювати';
+  }
+  toggleBtn.addEventListener('click', ()=> setActive(!drawingActive));
+
+  if(minimizeBtn && toolbarMini){
+    minimizeBtn.addEventListener('click', ()=>{
+      toolbar.classList.remove('show'); toolbar.classList.add('mini'); toolbarMini.classList.add('show');
+    });
+    toolbarMini.addEventListener('click', ()=>{
+      toolbar.classList.remove('mini'); toolbar.classList.add('show'); toolbarMini.classList.remove('show');
+    });
+  }
+
+  swatches.forEach(sw=>{
+    sw.addEventListener('click', ()=>{
+      swatches.forEach(s=>s.classList.remove('selected'));
+      sw.classList.add('selected');
+      currentColor = sw.dataset.color;
+      eraserMode = false;
+      eraserBtn.classList.remove('selected');
+    });
+  });
+
+  if(xthinBtn){
+    xthinBtn.addEventListener('click', ()=>{
+      currentWidth = 2;
+      [xthinBtn,thinBtn,thickBtn].forEach(b=>b.classList.remove('selected'));
+      xthinBtn.classList.add('selected');
+    });
+  }
+  thinBtn.addEventListener('click', ()=>{
+    currentWidth = xthinBtn ? 5 : 4;
+    [xthinBtn,thinBtn,thickBtn].forEach(b=>b&&b.classList.remove('selected'));
+    thinBtn.classList.add('selected');
+  });
+  thickBtn.addEventListener('click', ()=>{
+    currentWidth = xthinBtn ? 11 : 12;
+    [xthinBtn,thinBtn,thickBtn].forEach(b=>b&&b.classList.remove('selected'));
+    thickBtn.classList.add('selected');
+  });
+  eraserBtn.addEventListener('click', ()=>{
+    eraserMode = !eraserMode;
+    eraserBtn.classList.toggle('selected', eraserMode);
+  });
+  clearBtn.addEventListener('click', ()=>{ window.clearDrawing(); });
+
+  function pointerPos(e){
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top, pressure: e.pressure || 0.5 };
+  }
+  function isOnControls(e){
+    return !!(e.target.closest && e.target.closest('#drawToolbar, #drawToolbarMini, #drawToggleBtn'));
+  }
+
+  document.addEventListener('pointerdown', (e)=>{
+    if(!drawingActive) return;
+    if(e.pointerType !== 'pen') return;
+    if(isOnControls(e)) return;
+    e.preventDefault();
+    isDrawing = true;
+    activePointerId = e.pointerId;
+    const p = pointerPos(e);
+    lastX = p.x; lastY = p.y;
+  }, { passive: false });
+
+  document.addEventListener('pointermove', (e)=>{
+    if(!drawingActive || !isDrawing) return;
+    if(e.pointerId !== activePointerId) return;
+    e.preventDefault();
+    const p = pointerPos(e);
+    ctx.globalCompositeOperation = eraserMode ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = currentColor;
+    const pressureFactor = 0.6 + (p.pressure || 0.5) * 0.8;
+    ctx.lineWidth = (eraserMode ? currentWidth * 3 : currentWidth) * pressureFactor;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastX = p.x; lastY = p.y;
+  }, { passive: false });
+
+  function stopDrawing(e){
+    if(e && e.pointerId !== undefined && e.pointerId !== activePointerId) return;
+    isDrawing = false; activePointerId = null;
+  }
+  document.addEventListener('pointerup', stopDrawing);
+  document.addEventListener('pointercancel', stopDrawing);
+
+  document.addEventListener('touchmove', function(e){
+    if(drawingActive && e.touches && e.touches[0] && e.touches[0].touchType === 'stylus'){ e.preventDefault(); }
+  }, { passive: false });
+})();
+</script>
+</body>
+</html>
