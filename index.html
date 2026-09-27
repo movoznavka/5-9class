@@ -397,6 +397,22 @@
     transform:translateY(-3px);
     box-shadow: 0 18px 30px -16px rgba(19,33,59,0.4);
   }
+
+  /* --- Клас-пікер: у режимі вчителя теми ховаються, поки не обрано клас --- */
+  body.teacher-mode .block{
+    display:none;
+  }
+  body.teacher-mode .block.active{
+    display:block;
+  }
+  .class-nav a.active{
+    background: var(--c1-b);
+    box-shadow: 0 18px 30px -16px var(--c1-sh);
+  }
+  .class-nav a.active .num,
+  .class-nav a.active .lbl{
+    color:#fff;
+  }
 </style>
 </head>
 <body>
@@ -409,7 +425,7 @@
   <div class="teacher-banner">Режим вчителя — учні цього не бачать</div>
 
   <h1>Усі <span class="hl">теми</span></h1>
-  <p class="sub" id="subDesc">Кожному учню — своє посилання з кодом (…/index.html?u=Ім'я). Він бачить лише ті теми, які ви йому відкрили — і урок, і тест до нього. Собі додайте в кінець ?vchytel=1 — побачите все і хто що має відкритим.</p>
+  <p class="sub" id="subDesc">Кожному учню — своє посилання з кодом (…/index.html?u=Ім'я). Він бачить лише ті теми, які ви йому відкрили — і урок, і тест до нього. Собі додайте в кінець ?vchytel=1 — побачите все і хто що має відкритим. Оберіть клас нижче, щоб побачити його теми.</p>
 
   <div class="class-nav" id="classNav">
     <a href="#klas-5"><span class="num">5</span><span class="lbl">клас</span></a>
@@ -955,7 +971,7 @@ const BLOCKS = [
           test: {status: "soon", href: "ne-z-diyepryslivnykamy7.html"},
           tasks: {status: "soon", href: "zavdannya7-ne-z-diyepryslivnykamy.html"}},
         {icon: "У", status: "soon", title: "Узагальнення вивченого з тем «Дієприкметник. Дієслівні форми на -но, -то» та «Дієприслівник»", href: "urok7-uzahalnennya-vyvchenoho-z-tem-diyeprykmetnyk-diyeslivni-formy-na-no-to-ta-diyepryslivnyk.html",
-          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-tem-diyeprykmetnyk-diyeslivni-formy-na-no-to-ta-diyepryslivnyk7.html"},
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-tem-diyeprykmetnyk-diyeslivni-formy-na-no-to-ta-diyepryslivnyk9.html"},
           tasks: {status: "soon", href: "zavdannya7-uzahalnennya-vyvchenoho-z-tem-diyeprykmetnyk-diyeslivni-formy-na-no-to-ta-diyepryslivnyk.html"}}
       ]},
       { title: "ПРИСЛІВНИК", items: [
@@ -1352,6 +1368,35 @@ function renderBlocks_(){
 renderBlocks_();
 
 // ============================================================
+// Клас-пікер: показуємо теми лише того класу, який обрано.
+// Активний лише у режимі вчителя (?vchytel=1) — там теми всіх
+// класів рендеряться разом, тож без цього довелось би гортати
+// довгу сторінку. У режимі учня (?u=Ім'я) все одно видно лише
+// відкриті йому теми, тому пікер там не потрібен.
+// ============================================================
+function setupClassNav_(){
+  const nav = document.getElementById('classNav');
+  if(!nav) return;
+  const links = Array.from(nav.querySelectorAll('a'));
+
+  function showClass(id){
+    document.querySelectorAll('.block').forEach(function(b){
+      b.classList.toggle('active', b.id === id);
+    });
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      showClass(a.getAttribute('href').slice(1));
+    });
+  });
+}
+
+// ============================================================
 // ДЗ — /exec-посилання того самого бота (Code89.gs / @resultat89_bot),
 // у якому CLASSES/TOPICS/LESSON_ACCESS_TOPICS вже мають записи
 // "5 клас".."9 клас".
@@ -1452,6 +1497,8 @@ function applyAccessAndRender_(studentCode, allowed, displayName){
   });
   document.querySelectorAll('.block').forEach(function(b){
     if (!b.querySelector('.card')) b.remove();
+    // У режимі учня показуємо тему одразу, без клас-пікера.
+    b.classList.add('active');
   });
 
   document.querySelectorAll('#switchWho').forEach(function(el){ el.closest('p').remove(); });
@@ -1582,6 +1629,7 @@ function showNamePicker_(studentCode, allowed, members){
     }
 
     renderOpenBadges_({});
+    setupClassNav_();
 
     if (HOMEWORK_API_URL && HOMEWORK_API_URL.indexOf('ВСТАВТЕ') !== 0) {
       window.applyAllAccess = renderOpenBadges_;
