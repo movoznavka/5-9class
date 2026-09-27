@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Уроки й тести · 8-9 клас</title>
+<title>Уроки й тести · 5-9 клас</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -356,19 +356,68 @@
   }
   .open-badge.open{ background:var(--correct-bg); color:var(--correct-ink); }
   .open-badge.closed{ background:rgba(229,72,77,0.12); color:var(--c2-b); }
+
+  .class-nav{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(84px, 1fr));
+    gap:12px;
+    margin-bottom:32px;
+    max-width:560px;
+  }
+  .class-nav a{
+    text-decoration:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    padding:18px 10px;
+    border-radius:20px;
+    background:var(--card);
+    color:var(--ink);
+    box-shadow: 0 14px 26px -18px rgba(19,33,59,0.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .class-nav a .num{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:26px;
+    color:var(--c1-b);
+    line-height:1;
+  }
+  .class-nav a .lbl{
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+  }
+  .class-nav a:hover{
+    transform:translateY(-3px);
+    box-shadow: 0 18px 30px -16px rgba(19,33,59,0.4);
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="topbar">
-    <div class="kicker">Навігація · 8-9 клас</div>
+    <div class="kicker">Навігація · 5-9 клас</div>
     <div class="kicker tag">для вчителя</div>
   </div>
 
   <div class="teacher-banner">Режим вчителя — учні цього не бачать</div>
 
   <h1>Усі <span class="hl">теми</span></h1>
-  <p class="sub" id="subDesc">Кожному учню — своє посилання з кодом (…/index89.html?u=Ім'я). Він бачить лише ті теми, які ви йому відкрили — і урок, і тест до нього. Собі додайте в кінець ?vchytel=1 — побачите все і хто що має відкритим.</p>
+  <p class="sub" id="subDesc">Кожному учню — своє посилання з кодом (…/index.html?u=Ім'я). Він бачить лише ті теми, які ви йому відкрили — і урок, і тест до нього. Собі додайте в кінець ?vchytel=1 — побачите все і хто що має відкритим.</p>
+
+  <div class="class-nav" id="classNav">
+    <a href="#klas-5"><span class="num">5</span><span class="lbl">клас</span></a>
+    <a href="#klas-6"><span class="num">6</span><span class="lbl">клас</span></a>
+    <a href="#klas-7"><span class="num">7</span><span class="lbl">клас</span></a>
+    <a href="#klas-8"><span class="num">8</span><span class="lbl">клас</span></a>
+    <a href="#klas-9"><span class="num">9</span><span class="lbl">клас</span></a>
+  </div>
 
   <div id="blocks"></div>
 
@@ -376,22 +425,610 @@
 </div>
 
 <script>
-/* ============================================================
-   ЯК ДОДАТИ НОВУ ТЕМУ — так само, як в 11-класному index.html:
-   BLOCKS (розділ, тут "8 клас" / "9 клас") → subgroups (підрозділ) →
-   items (картка теми з уроком і, за бажання, тестом та завданнями).
-
-   У кожної теми є:
-     href  — урок
-     test  — "📝 Тест до теми"
-     tasks — "✏️ Завдання" (звичайні вправи; необов'язкове поле)
-
-   Зараз усі теми стоять як "soon" (заглушки за програмою 8-9 класу).
-   Коли з'явиться готовий урок, тест чи завдання — заміни status на "ready" і
-   встав ПОВНЕ посилання (https://movoznavka.github.io/...).
-   ============================================================ */
-
 const BLOCKS = [
+  {
+    name: "5 клас",
+    subgroups: [
+      { title: "ЛЕКСИКОЛОГІЯ", items: [
+        {icon: "Л", status: "soon", title: "Лексичне значення слова. Однозначні та багатозначні слова", href: "urok5-leksychne-znachennya-slova-odnoznachni-ta-bahatoznachni-slova.html",
+          test: {status: "soon", href: "leksychne-znachennya-slova-odnoznachni-ta-bahatoznachni-slova5.html"},
+          tasks: {status: "soon", href: "zavdannya5-leksychne-znachennya-slova-odnoznachni-ta-bahatoznachni-slova.html"}},
+        {icon: "П", status: "soon", title: "Пряме і переносне значення слова", href: "urok5-pryame-i-perenosne-znachennya-slova.html",
+          test: {status: "soon", href: "pryame-i-perenosne-znachennya-slova5.html"},
+          tasks: {status: "soon", href: "zavdannya5-pryame-i-perenosne-znachennya-slova.html"}},
+        {icon: "С", status: "soon", title: "Синоніми", href: "urok5-synonimy.html",
+          test: {status: "soon", href: "synonimy5.html"},
+          tasks: {status: "soon", href: "zavdannya5-synonimy.html"}},
+        {icon: "А", status: "soon", title: "Антоніми", href: "urok5-antonimy.html",
+          test: {status: "soon", href: "antonimy5.html"},
+          tasks: {status: "soon", href: "zavdannya5-antonimy.html"}},
+        {icon: "О", status: "soon", title: "Омоніми", href: "urok5-omonimy.html",
+          test: {status: "soon", href: "omonimy5.html"},
+          tasks: {status: "soon", href: "zavdannya5-omonimy.html"}},
+        {icon: "П", status: "soon", title: "Пароніми", href: "urok5-paronimy.html",
+          test: {status: "soon", href: "paronimy5.html"},
+          tasks: {status: "soon", href: "zavdannya5-paronimy.html"}},
+        {icon: "П", status: "soon", title: "Правильне вживання слів", href: "urok5-pravylne-vzhyvannya-sliv.html",
+          test: {status: "soon", href: "pravylne-vzhyvannya-sliv5.html"},
+          tasks: {status: "soon", href: "zavdannya5-pravylne-vzhyvannya-sliv.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділу «Лексикологія»", href: "urok5-uzahalnennya-vyvchenoho-z-rozdilu-leksykolohiya.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdilu-leksykolohiya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-uzahalnennya-vyvchenoho-z-rozdilu-leksykolohiya.html"}}
+      ]},
+      { title: "БУДОВА СЛОВА. ОРФОГРАФІЯ", items: [
+        {icon: "О", status: "soon", title: "Основа слова та закінчення. Змінні і незмінні слова", href: "urok5-osnova-slova-ta-zakinchennya-zminni-i-nezminni-slova.html",
+          test: {status: "soon", href: "osnova-slova-ta-zakinchennya-zminni-i-nezminni-slova5.html"},
+          tasks: {status: "soon", href: "zavdannya5-osnova-slova-ta-zakinchennya-zminni-i-nezminni-slova.html"}},
+        {icon: "К", status: "soon", title: "Корінь слова. Спільнокореневі слова та форми слова", href: "urok5-korin-slova-spilnokorenevi-slova-ta-formy-slova.html",
+          test: {status: "soon", href: "korin-slova-spilnokorenevi-slova-ta-formy-slova5.html"},
+          tasks: {status: "soon", href: "zavdannya5-korin-slova-spilnokorenevi-slova-ta-formy-slova.html"}},
+        {icon: "П", status: "soon", title: "Префікс", href: "urok5-prefiks.html",
+          test: {status: "soon", href: "prefiks5.html"},
+          tasks: {status: "soon", href: "zavdannya5-prefiks.html"}},
+        {icon: "С", status: "soon", title: "Суфікс", href: "urok5-sufiks.html",
+          test: {status: "soon", href: "sufiks5.html"},
+          tasks: {status: "soon", href: "zavdannya5-sufiks.html"}},
+        {icon: "П", status: "soon", title: "Правопис значущих частин слова (повторення). Орфограма", href: "urok5-pravopys-znachushchykh-chastyn-slova-povtorennya-orfohrama.html",
+          test: {status: "soon", href: "pravopys-znachushchykh-chastyn-slova-povtorennya-orfohrama5.html"},
+          tasks: {status: "soon", href: "zavdannya5-pravopys-znachushchykh-chastyn-slova-povtorennya-orfohrama.html"}},
+        {icon: "Н", status: "soon", title: "Написання префіксів пре-, при-, прі-", href: "urok5-napysannya-prefiksiv-pre-pry-pri.html",
+          test: {status: "soon", href: "napysannya-prefiksiv-pre-pry-pri5.html"},
+          tasks: {status: "soon", href: "zavdannya5-napysannya-prefiksiv-pre-pry-pri.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділу «Будова слова. Орфографія»", href: "urok5-uzahalnennya-vyvchenoho-z-rozdilu-budova-slova-orfohrafiya.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdilu-budova-slova-orfohrafiya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-uzahalnennya-vyvchenoho-z-rozdilu-budova-slova-orfohrafiya.html"}}
+      ]},
+      { title: "ФОНЕТИКА. ГРАФІКА. ОРФОЕПІЯ. ОРФОГРАФІЯ", items: [
+        {icon: "З", status: "soon", title: "Звуки мови і звуки мовлення. Звуки голосні і приголосні", href: "urok5-zvuky-movy-i-zvuky-movlennya-zvuky-holosni-i-pryholosni.html",
+          test: {status: "soon", href: "zvuky-movy-i-zvuky-movlennya-zvuky-holosni-i-pryholosni5.html"},
+          tasks: {status: "soon", href: "zavdannya5-zvuky-movy-i-zvuky-movlennya-zvuky-holosni-i-pryholosni.html"}},
+        {icon: "П", status: "soon", title: "Приголосні тверді та м'які", href: "urok5-pryholosni-tverdi-ta-myaki.html",
+          test: {status: "soon", href: "pryholosni-tverdi-ta-myaki5.html"},
+          tasks: {status: "soon", href: "zavdannya5-pryholosni-tverdi-ta-myaki.html"}},
+        {icon: "П", status: "soon", title: "Приголосні дзвінкі та глухі", href: "urok5-pryholosni-dzvinki-ta-hlukhi.html",
+          test: {status: "soon", href: "pryholosni-dzvinki-ta-hlukhi5.html"},
+          tasks: {status: "soon", href: "zavdannya5-pryholosni-dzvinki-ta-hlukhi.html"}},
+        {icon: "П", status: "soon", title: "Позначення звуків на письмі. Алфавіт", href: "urok5-poznachennya-zvukiv-na-pysmi-alfavit.html",
+          test: {status: "soon", href: "poznachennya-zvukiv-na-pysmi-alfavit5.html"},
+          tasks: {status: "soon", href: "zavdannya5-poznachennya-zvukiv-na-pysmi-alfavit.html"}},
+        {icon: "С", status: "soon", title: "Склад. Правила переносу слова з рядка в рядок", href: "urok5-sklad-pravyla-perenosu-slova-z-ryadka-v-ryadok.html",
+          test: {status: "soon", href: "sklad-pravyla-perenosu-slova-z-ryadka-v-ryadok5.html"},
+          tasks: {status: "soon", href: "zavdannya5-sklad-pravyla-perenosu-slova-z-ryadka-v-ryadok.html"}},
+        {icon: "Н", status: "soon", title: "Наголос", href: "urok5-naholos.html",
+          test: {status: "soon", href: "naholos5.html"},
+          tasks: {status: "soon", href: "zavdannya5-naholos.html"}},
+        {icon: "В", status: "soon", title: "Вимова голосних. Позначення на письмі ненаголошених [е], [и] в коренях слів", href: "urok5-vymova-holosnykh-poznachennya-na-pysmi-nenaholoshenykh-e-y-v-korenyakh-sliv.html",
+          test: {status: "soon", href: "vymova-holosnykh-poznachennya-na-pysmi-nenaholoshenykh-e-y-v-korenyakh-sliv5.html"},
+          tasks: {status: "soon", href: "zavdannya5-vymova-holosnykh-poznachennya-na-pysmi-nenaholoshenykh-e-y-v-korenyakh-sliv.html"}},
+        {icon: "В", status: "soon", title: "Вимова приголосних звуків. Уподібнення приголосних", href: "urok5-vymova-pryholosnykh-zvukiv-upodibnennya-pryholosnykh.html",
+          test: {status: "soon", href: "vymova-pryholosnykh-zvukiv-upodibnennya-pryholosnykh5.html"},
+          tasks: {status: "soon", href: "zavdannya5-vymova-pryholosnykh-zvukiv-upodibnennya-pryholosnykh.html"}},
+        {icon: "П", status: "soon", title: "Правопис префіксів з- (с-, зі-), роз- (розі-), без-", href: "urok5-pravopys-prefiksiv-z-s-zi-roz-rozi-bez.html",
+          test: {status: "soon", href: "pravopys-prefiksiv-z-s-zi-roz-rozi-bez5.html"},
+          tasks: {status: "soon", href: "zavdannya5-pravopys-prefiksiv-z-s-zi-roz-rozi-bez.html"}},
+        {icon: "С", status: "soon", title: "Спрощення в групах приголосних", href: "urok5-sproshchennya-v-hrupakh-pryholosnykh.html",
+          test: {status: "soon", href: "sproshchennya-v-hrupakh-pryholosnykh5.html"},
+          tasks: {status: "soon", href: "zavdannya5-sproshchennya-v-hrupakh-pryholosnykh.html"}},
+        {icon: "Ч", status: "soon", title: "Чергування голосних звуків", href: "urok5-cherhuvannya-holosnykh-zvukiv.html",
+          test: {status: "soon", href: "cherhuvannya-holosnykh-zvukiv5.html"},
+          tasks: {status: "soon", href: "zavdannya5-cherhuvannya-holosnykh-zvukiv.html"}},
+        {icon: "Ч", status: "soon", title: "Чергування приголосних звуків", href: "urok5-cherhuvannya-pryholosnykh-zvukiv.html",
+          test: {status: "soon", href: "cherhuvannya-pryholosnykh-zvukiv5.html"},
+          tasks: {status: "soon", href: "zavdannya5-cherhuvannya-pryholosnykh-zvukiv.html"}},
+        {icon: "Ч", status: "soon", title: "Чергування [у] – [в], [і] – [й]", href: "urok5-cherhuvannya-u-v-i-y.html",
+          test: {status: "soon", href: "cherhuvannya-u-v-i-y5.html"},
+          tasks: {status: "soon", href: "zavdannya5-cherhuvannya-u-v-i-y.html"}},
+        {icon: "У", status: "soon", title: "Уживання прийменника з та його варіантів із, зі (зо)", href: "urok5-uzhyvannya-pryymennyka-z-ta-yoho-variantiv-iz-zi-zo.html",
+          test: {status: "soon", href: "uzhyvannya-pryymennyka-z-ta-yoho-variantiv-iz-zi-zo5.html"},
+          tasks: {status: "soon", href: "zavdannya5-uzhyvannya-pryymennyka-z-ta-yoho-variantiv-iz-zi-zo.html"}},
+        {icon: "П", status: "soon", title: "Позначення м'якості приголосних на письмі. Правила вживання м'якого знака", href: "urok5-poznachennya-myakosti-pryholosnykh-na-pysmi-pravyla-vzhyvannya-myakoho-znaka.html",
+          test: {status: "soon", href: "poznachennya-myakosti-pryholosnykh-na-pysmi-pravyla-vzhyvannya-myakoho-znaka5.html"},
+          tasks: {status: "soon", href: "zavdannya5-poznachennya-myakosti-pryholosnykh-na-pysmi-pravyla-vzhyvannya-myakoho-znaka.html"}},
+        {icon: "С", status: "soon", title: "Сполучення букв йо, ьо", href: "urok5-spoluchennya-bukv-yo-o.html",
+          test: {status: "soon", href: "spoluchennya-bukv-yo-o5.html"},
+          tasks: {status: "soon", href: "zavdannya5-spoluchennya-bukv-yo-o.html"}},
+        {icon: "У", status: "soon", title: "Уживання апострофа", href: "urok5-uzhyvannya-apostrofa.html",
+          test: {status: "soon", href: "uzhyvannya-apostrofa5.html"},
+          tasks: {status: "soon", href: "zavdannya5-uzhyvannya-apostrofa.html"}},
+        {icon: "П", status: "soon", title: "Подвоєння букв на позначення збігу однакових приголосних", href: "urok5-podvoyennya-bukv-na-poznachennya-zbihu-odnakovykh-pryholosnykh.html",
+          test: {status: "soon", href: "podvoyennya-bukv-na-poznachennya-zbihu-odnakovykh-pryholosnykh5.html"},
+          tasks: {status: "soon", href: "zavdannya5-podvoyennya-bukv-na-poznachennya-zbihu-odnakovykh-pryholosnykh.html"}},
+        {icon: "П", status: "soon", title: "Подвоєння букв на позначення подовжених приголосних", href: "urok5-podvoyennya-bukv-na-poznachennya-podovzhenykh-pryholosnykh.html",
+          test: {status: "soon", href: "podvoyennya-bukv-na-poznachennya-podovzhenykh-pryholosnykh5.html"},
+          tasks: {status: "soon", href: "zavdannya5-podvoyennya-bukv-na-poznachennya-podovzhenykh-pryholosnykh.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділу «Фонетика. Графіка. Орфоепія. Орфографія»", href: "urok5-uzahalnennya-vyvchenoho-z-rozdilu-fonetyka-hrafika-orfoepiya-orfohrafiya.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdilu-fonetyka-hrafika-orfoepiya-orfohrafiya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-uzahalnennya-vyvchenoho-z-rozdilu-fonetyka-hrafika-orfoepiya-orfohrafiya.html"}}
+      ]},
+      { title: "ВІДОМОСТІ ІЗ СИНТАКСИСУ ТА ПУНКТУАЦІЇ", items: [
+        {icon: "С", status: "soon", title: "Словосполучення", href: "urok5-slovospoluchennya.html",
+          test: {status: "soon", href: "slovospoluchennya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-slovospoluchennya.html"}},
+        {icon: "Г", status: "soon", title: "Граматична помилка у словосполученнях", href: "urok5-hramatychna-pomylka-u-slovospoluchennyakh.html",
+          test: {status: "soon", href: "hramatychna-pomylka-u-slovospoluchennyakh5.html"},
+          tasks: {status: "soon", href: "zavdannya5-hramatychna-pomylka-u-slovospoluchennyakh.html"}},
+        {icon: "Р", status: "soon", title: "Речення, його граматична основа", href: "urok5-rechennya-yoho-hramatychna-osnova.html",
+          test: {status: "soon", href: "rechennya-yoho-hramatychna-osnova5.html"},
+          tasks: {status: "soon", href: "zavdannya5-rechennya-yoho-hramatychna-osnova.html"}},
+        {icon: "В", status: "soon", title: "Види речень за метою висловлювання та емоційним забарвленням", href: "urok5-vydy-rechen-za-metoyu-vyslovlyuvannya-ta-emotsiynym-zabarvlennyam.html",
+          test: {status: "soon", href: "vydy-rechen-za-metoyu-vyslovlyuvannya-ta-emotsiynym-zabarvlennyam5.html"},
+          tasks: {status: "soon", href: "zavdannya5-vydy-rechen-za-metoyu-vyslovlyuvannya-ta-emotsiynym-zabarvlennyam.html"}},
+        {icon: "Д", status: "soon", title: "Додаток", href: "urok5-dodatok.html",
+          test: {status: "soon", href: "dodatok5.html"},
+          tasks: {status: "soon", href: "zavdannya5-dodatok.html"}},
+        {icon: "О", status: "soon", title: "Означення", href: "urok5-oznachennya.html",
+          test: {status: "soon", href: "oznachennya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-oznachennya.html"}},
+        {icon: "О", status: "soon", title: "Обставина", href: "urok5-obstavyna.html",
+          test: {status: "soon", href: "obstavyna5.html"},
+          tasks: {status: "soon", href: "zavdannya5-obstavyna.html"}},
+        {icon: "Р", status: "soon", title: "Речення з однорідними членами", href: "urok5-rechennya-z-odnoridnymy-chlenamy.html",
+          test: {status: "soon", href: "rechennya-z-odnoridnymy-chlenamy5.html"},
+          tasks: {status: "soon", href: "zavdannya5-rechennya-z-odnoridnymy-chlenamy.html"}},
+        {icon: "У", status: "soon", title: "Узагальнювальне слово в реченнях з однорідними членами", href: "urok5-uzahalnyuvalne-slovo-v-rechennyakh-z-odnoridnymy-chlenamy.html",
+          test: {status: "soon", href: "uzahalnyuvalne-slovo-v-rechennyakh-z-odnoridnymy-chlenamy5.html"},
+          tasks: {status: "soon", href: "zavdannya5-uzahalnyuvalne-slovo-v-rechennyakh-z-odnoridnymy-chlenamy.html"}},
+        {icon: "З", status: "soon", title: "Звертання", href: "urok5-zvertannya.html",
+          test: {status: "soon", href: "zvertannya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-zvertannya.html"}},
+        {icon: "Н", status: "soon", title: "Найбільш уживані вставні слова та сполучення слів", href: "urok5-naybilsh-uzhyvani-vstavni-slova-ta-spoluchennya-sliv.html",
+          test: {status: "soon", href: "naybilsh-uzhyvani-vstavni-slova-ta-spoluchennya-sliv5.html"},
+          tasks: {status: "soon", href: "zavdannya5-naybilsh-uzhyvani-vstavni-slova-ta-spoluchennya-sliv.html"}},
+        {icon: "С", status: "soon", title: "Складне речення", href: "urok5-skladne-rechennya.html",
+          test: {status: "soon", href: "skladne-rechennya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-skladne-rechennya.html"}},
+        {icon: "К", status: "soon", title: "Кома між частинами складного речення", href: "urok5-koma-mizh-chastynamy-skladnoho-rechennya.html",
+          test: {status: "soon", href: "koma-mizh-chastynamy-skladnoho-rechennya5.html"},
+          tasks: {status: "soon", href: "zavdannya5-koma-mizh-chastynamy-skladnoho-rechennya.html"}},
+        {icon: "Р", status: "soon", title: "Речення з прямою мовою", href: "urok5-rechennya-z-pryamoyu-movoyu.html",
+          test: {status: "soon", href: "rechennya-z-pryamoyu-movoyu5.html"},
+          tasks: {status: "soon", href: "zavdannya5-rechennya-z-pryamoyu-movoyu.html"}},
+        {icon: "Д", status: "soon", title: "Діалог", href: "urok5-dialoh.html",
+          test: {status: "soon", href: "dialoh5.html"},
+          tasks: {status: "soon", href: "zavdannya5-dialoh.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділу «Відомості із синтаксису та пунктуації»", href: "urok5-uzahalnennya-vyvchenoho-z-rozdilu-vidomosti-iz-syntaksysu-ta-punktuatsiyi.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdilu-vidomosti-iz-syntaksysu-ta-punktuatsiyi5.html"},
+          tasks: {status: "soon", href: "zavdannya5-uzahalnennya-vyvchenoho-z-rozdilu-vidomosti-iz-syntaksysu-ta-punktuatsiyi.html"}}
+      ]}
+    ]
+  },
+  {
+    name: "6 клас",
+    subgroups: [
+      { title: "ПОВТОРЕННЯ, УЗАГАЛЬНЕННЯ ТА ПОГЛИБЛЕННЯ ВИВЧЕНОГО", items: [
+        {icon: "С", status: "soon", title: "Словосполучення і речення. Головні й другорядні члени речення", href: "urok6-slovospoluchennya-i-rechennya-holovni-y-druhoryadni-chleny-rechennya.html",
+          test: {status: "soon", href: "slovospoluchennya-i-rechennya-holovni-y-druhoryadni-chleny-rechennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-slovospoluchennya-i-rechennya-holovni-y-druhoryadni-chleny-rechennya.html"}},
+        {icon: "О", status: "soon", title: "Однорідні члени речення. Звертання. Вставні слова", href: "urok6-odnoridni-chleny-rechennya-zvertannya-vstavni-slova.html",
+          test: {status: "soon", href: "odnoridni-chleny-rechennya-zvertannya-vstavni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-odnoridni-chleny-rechennya-zvertannya-vstavni-slova.html"}},
+        {icon: "С", status: "soon", title: "Складне речення. Пряма мова. Діалог", href: "urok6-skladne-rechennya-pryama-mova-dialoh.html",
+          test: {status: "soon", href: "skladne-rechennya-pryama-mova-dialoh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-skladne-rechennya-pryama-mova-dialoh.html"}},
+        {icon: "О", status: "soon", title: "Основні орфограми", href: "urok6-osnovni-orfohramy.html",
+          test: {status: "soon", href: "osnovni-orfohramy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-osnovni-orfohramy.html"}}
+      ]},
+      { title: "ЛЕКСИКОЛОГІЯ. ОРФОГРАФІЯ", items: [
+        {icon: "В", status: "soon", title: "Власне українські слова та слова іншомовного походження", href: "urok6-vlasne-ukrayinski-slova-ta-slova-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "vlasne-ukrayinski-slova-ta-slova-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vlasne-ukrayinski-slova-ta-slova-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "И", status: "soon", title: "И та і в словах іншомовного походження", href: "urok6-y-ta-i-v-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "y-ta-i-v-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-y-ta-i-v-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "П", status: "soon", title: "Подвоєні букви в словах іншомовного походження", href: "urok6-podvoyeni-bukvy-v-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "podvoyeni-bukvy-v-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-podvoyeni-bukvy-v-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "А", status: "soon", title: "Апостроф у словах іншомовного походження", href: "urok6-apostrof-u-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "apostrof-u-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-apostrof-u-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "М", status: "soon", title: "М'який знак у словах іншомовного походження", href: "urok6-myakyy-znak-u-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "myakyy-znak-u-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-myakyy-znak-u-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "А", status: "soon", title: "Активна та пасивна лексика", href: "urok6-aktyvna-ta-pasyvna-leksyka.html",
+          test: {status: "soon", href: "aktyvna-ta-pasyvna-leksyka6.html"},
+          tasks: {status: "soon", href: "zavdannya6-aktyvna-ta-pasyvna-leksyka.html"}},
+        {icon: "З", status: "soon", title: "Загальновживані слова. Професійні слова й терміни", href: "urok6-zahalnovzhyvani-slova-profesiyni-slova-y-terminy.html",
+          test: {status: "soon", href: "zahalnovzhyvani-slova-profesiyni-slova-y-terminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zahalnovzhyvani-slova-profesiyni-slova-y-terminy.html"}},
+        {icon: "Д", status: "soon", title: "Діалектні та просторічні слова", href: "urok6-dialektni-ta-prostorichni-slova.html",
+          test: {status: "soon", href: "dialektni-ta-prostorichni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-dialektni-ta-prostorichni-slova.html"}},
+        {icon: "С", status: "soon", title: "Стилістично забарвлені слова", href: "urok6-stylistychno-zabarvleni-slova.html",
+          test: {status: "soon", href: "stylistychno-zabarvleni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-stylistychno-zabarvleni-slova.html"}},
+        {icon: "П", status: "soon", title: "Правильне вживання слів", href: "urok6-pravylne-vzhyvannya-sliv.html",
+          test: {status: "soon", href: "pravylne-vzhyvannya-sliv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravylne-vzhyvannya-sliv.html"}}
+      ]},
+      { title: "ФРАЗЕОЛОГІЯ", items: [
+        {icon: "Ф", status: "soon", title: "Фразеологізми", href: "urok6-frazeolohizmy.html",
+          test: {status: "soon", href: "frazeolohizmy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-frazeolohizmy.html"}},
+        {icon: "Д", status: "soon", title: "Джерела фразеологізмів", href: "urok6-dzherela-frazeolohizmiv.html",
+          test: {status: "soon", href: "dzherela-frazeolohizmiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-dzherela-frazeolohizmiv.html"}},
+        {icon: "П", status: "soon", title: "Прислів'я, приказки, крилаті вислови, афоризми", href: "urok6-pryslivya-prykazky-krylati-vyslovy-aforyzmy.html",
+          test: {status: "soon", href: "pryslivya-prykazky-krylati-vyslovy-aforyzmy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pryslivya-prykazky-krylati-vyslovy-aforyzmy.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділів «Лексикологія. Орфографія» і «Фразеологія»", href: "urok6-uzahalnennya-vyvchenoho-z-rozdiliv-leksykolohiya-orfohrafiya-i-frazeolohiya.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdiliv-leksykolohiya-orfohrafiya-i-frazeolohiya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-rozdiliv-leksykolohiya-orfohrafiya-i-frazeolohiya.html"}}
+      ]},
+      { title: "СЛОВОТВІР. ОРФОГРАФІЯ", items: [
+        {icon: "З", status: "soon", title: "Змінювання і творення слів. Похідні й непохідні слова", href: "urok6-zminyuvannya-i-tvorennya-sliv-pokhidni-y-nepokhidni-slova.html",
+          test: {status: "soon", href: "zminyuvannya-i-tvorennya-sliv-pokhidni-y-nepokhidni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zminyuvannya-i-tvorennya-sliv-pokhidni-y-nepokhidni-slova.html"}},
+        {icon: "О", status: "soon", title: "Основні способи словотворення", href: "urok6-osnovni-sposoby-slovotvorennya.html",
+          test: {status: "soon", href: "osnovni-sposoby-slovotvorennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-osnovni-sposoby-slovotvorennya.html"}},
+        {icon: "З", status: "soon", title: "Зміни приголосних під час творення слів за допомогою суфіксів -ськ-, -ств-", href: "urok6-zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv.html",
+          test: {status: "soon", href: "zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv.html"}},
+        {icon: "З", status: "soon", title: "Зміни приголосних під час творення іменників із суфіксом -ин-", href: "urok6-zminy-pryholosnykh-pid-chas-tvorennya-imennykiv-iz-sufiksom-yn.html",
+          test: {status: "soon", href: "zminy-pryholosnykh-pid-chas-tvorennya-imennykiv-iz-sufiksom-yn6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zminy-pryholosnykh-pid-chas-tvorennya-imennykiv-iz-sufiksom-yn.html"}},
+        {icon: "С", status: "soon", title: "Складні слова. Сполучні голосні звуки в складних словах", href: "urok6-skladni-slova-spoluchni-holosni-zvuky-v-skladnykh-slovakh.html",
+          test: {status: "soon", href: "skladni-slova-spoluchni-holosni-zvuky-v-skladnykh-slovakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-skladni-slova-spoluchni-holosni-zvuky-v-skladnykh-slovakh.html"}},
+        {icon: "П", status: "soon", title: "Правопис складних слів разом і з дефісом (загальні правила)", href: "urok6-pravopys-skladnykh-sliv-razom-i-z-defisom-zahalni-pravyla.html",
+          test: {status: "soon", href: "pravopys-skladnykh-sliv-razom-i-z-defisom-zahalni-pravyla6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravopys-skladnykh-sliv-razom-i-z-defisom-zahalni-pravyla.html"}},
+        {icon: "Т", status: "soon", title: "Творення і правопис складноскорочених слів", href: "urok6-tvorennya-i-pravopys-skladnoskorochenykh-sliv.html",
+          test: {status: "soon", href: "tvorennya-i-pravopys-skladnoskorochenykh-sliv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-tvorennya-i-pravopys-skladnoskorochenykh-sliv.html"}},
+        {icon: "Н", status: "soon", title: "Написання слів з пів-, напів-, полу-", href: "urok6-napysannya-sliv-z-piv-napiv-polu.html",
+          test: {status: "soon", href: "napysannya-sliv-z-piv-napiv-polu6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-sliv-z-piv-napiv-polu.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділу «Словотвір. Орфографія»", href: "urok6-uzahalnennya-vyvchenoho-z-rozdilu-slovotvir-orfohrafiya.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdilu-slovotvir-orfohrafiya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-rozdilu-slovotvir-orfohrafiya.html"}}
+      ]},
+      { title: "ІМЕННИК", items: [
+        {icon: "З", status: "soon", title: "Загальна характеристика частин мови", href: "urok6-zahalna-kharakterystyka-chastyn-movy.html",
+          test: {status: "soon", href: "zahalna-kharakterystyka-chastyn-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zahalna-kharakterystyka-chastyn-movy.html"}},
+        {icon: "І", status: "soon", title: "Іменник як частина мови", href: "urok6-imennyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "imennyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-imennyk-yak-chastyna-movy.html"}},
+        {icon: "З", status: "soon", title: "Загальні та власні назви. Велика буква у власних назвах", href: "urok6-zahalni-ta-vlasni-nazvy-velyka-bukva-u-vlasnykh-nazvakh.html",
+          test: {status: "soon", href: "zahalni-ta-vlasni-nazvy-velyka-bukva-u-vlasnykh-nazvakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zahalni-ta-vlasni-nazvy-velyka-bukva-u-vlasnykh-nazvakh.html"}},
+        {icon: "Л", status: "soon", title: "Лапки у власних назвах", href: "urok6-lapky-u-vlasnykh-nazvakh.html",
+          test: {status: "soon", href: "lapky-u-vlasnykh-nazvakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-lapky-u-vlasnykh-nazvakh.html"}},
+        {icon: "Р", status: "soon", title: "Рід іменників", href: "urok6-rid-imennykiv.html",
+          test: {status: "soon", href: "rid-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-rid-imennykiv.html"}},
+        {icon: "Р", status: "soon", title: "Рід незмінюваних іменників", href: "urok6-rid-nezminyuvanykh-imennykiv.html",
+          test: {status: "soon", href: "rid-nezminyuvanykh-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-rid-nezminyuvanykh-imennykiv.html"}},
+        {icon: "Ч", status: "soon", title: "Число іменників", href: "urok6-chyslo-imennykiv.html",
+          test: {status: "soon", href: "chyslo-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-chyslo-imennykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінки іменників. Відмінювання іменників", href: "urok6-vidminky-imennykiv-vidminyuvannya-imennykiv.html",
+          test: {status: "soon", href: "vidminky-imennykiv-vidminyuvannya-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminky-imennykiv-vidminyuvannya-imennykiv.html"}},
+        {icon: "В", status: "soon", title: "Відміни й групи іменників", href: "urok6-vidminy-y-hrupy-imennykiv.html",
+          test: {status: "soon", href: "vidminy-y-hrupy-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminy-y-hrupy-imennykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників I відміни", href: "urok6-vidminyuvannya-imennykiv-i-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-i-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-i-vidminy.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників II відміни", href: "urok6-vidminyuvannya-imennykiv-ii-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-ii-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-ii-vidminy.html"}},
+        {icon: "З", status: "soon", title: "Закінчення іменників чоловічого роду в родовому відмінку однини", href: "urok6-zakinchennya-imennykiv-cholovichoho-rodu-v-rodovomu-vidminku-odnyny.html",
+          test: {status: "soon", href: "zakinchennya-imennykiv-cholovichoho-rodu-v-rodovomu-vidminku-odnyny6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zakinchennya-imennykiv-cholovichoho-rodu-v-rodovomu-vidminku-odnyny.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників III відміни", href: "urok6-vidminyuvannya-imennykiv-iii-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-iii-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-iii-vidminy.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників IV відміни", href: "urok6-vidminyuvannya-imennykiv-iv-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-iv-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-iv-vidminy.html"}},
+        {icon: "У", status: "soon", title: "Уживання іменників у кличному відмінку однини (узагальнення вивченого)", href: "urok6-uzhyvannya-imennykiv-u-klychnomu-vidminku-odnyny-uzahalnennya-vyvchenoho.html",
+          test: {status: "soon", href: "uzhyvannya-imennykiv-u-klychnomu-vidminku-odnyny-uzahalnennya-vyvchenoho6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzhyvannya-imennykiv-u-klychnomu-vidminku-odnyny-uzahalnennya-vyvchenoho.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників, що мають форму тільки множини", href: "urok6-vidminyuvannya-imennykiv-shcho-mayut-formu-tilky-mnozhyny.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-shcho-mayut-formu-tilky-mnozhyny6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-shcho-mayut-formu-tilky-mnozhyny.html"}},
+        {icon: "Н", status: "soon", title: "Написання та відмінювання імен по батькові й прізвищ", href: "urok6-napysannya-ta-vidminyuvannya-imen-po-batkovi-y-prizvyshch.html",
+          test: {status: "soon", href: "napysannya-ta-vidminyuvannya-imen-po-batkovi-y-prizvyshch6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-ta-vidminyuvannya-imen-po-batkovi-y-prizvyshch.html"}},
+        {icon: "Б", status: "soon", title: "Букви е, и, і в суфіксах іменників", href: "urok6-bukvy-e-y-i-v-sufiksakh-imennykiv.html",
+          test: {status: "soon", href: "bukvy-e-y-i-v-sufiksakh-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-bukvy-e-y-i-v-sufiksakh-imennykiv.html"}},
+        {icon: "Н", status: "soon", title: "Написання не з іменниками", href: "urok6-napysannya-ne-z-imennykamy.html",
+          test: {status: "soon", href: "napysannya-ne-z-imennykamy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-ne-z-imennykamy.html"}},
+        {icon: "П", status: "soon", title: "Правопис складних іменників", href: "urok6-pravopys-skladnykh-imennykiv.html",
+          test: {status: "soon", href: "pravopys-skladnykh-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravopys-skladnykh-imennykiv.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Іменник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-imennyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-imennyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-imennyk.html"}}
+      ]},
+      { title: "ПРИКМЕТНИК", items: [
+        {icon: "П", status: "soon", title: "Прикметник як частина мови", href: "urok6-prykmetnyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "prykmetnyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-prykmetnyk-yak-chastyna-movy.html"}},
+        {icon: "Г", status: "soon", title: "Групи прикметників за значенням", href: "urok6-hrupy-prykmetnykiv-za-znachennyam.html",
+          test: {status: "soon", href: "hrupy-prykmetnykiv-za-znachennyam6.html"},
+          tasks: {status: "soon", href: "zavdannya6-hrupy-prykmetnykiv-za-znachennyam.html"}},
+        {icon: "С", status: "soon", title: "Ступені порівняння якісних прикметників", href: "urok6-stupeni-porivnyannya-yakisnykh-prykmetnykiv.html",
+          test: {status: "soon", href: "stupeni-porivnyannya-yakisnykh-prykmetnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-stupeni-porivnyannya-yakisnykh-prykmetnykiv.html"}},
+        {icon: "П", status: "soon", title: "Повні й короткі форми прикметників", href: "urok6-povni-y-korotki-formy-prykmetnykiv.html",
+          test: {status: "soon", href: "povni-y-korotki-formy-prykmetnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-povni-y-korotki-formy-prykmetnykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання прикметників", href: "urok6-vidminyuvannya-prykmetnykiv.html",
+          test: {status: "soon", href: "vidminyuvannya-prykmetnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-prykmetnykiv.html"}},
+        {icon: "Т", status: "soon", title: "Творення прикметників. Написання прикметникових суфіксів", href: "urok6-tvorennya-prykmetnykiv-napysannya-prykmetnykovykh-sufiksiv.html",
+          test: {status: "soon", href: "tvorennya-prykmetnykiv-napysannya-prykmetnykovykh-sufiksiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-tvorennya-prykmetnykiv-napysannya-prykmetnykovykh-sufiksiv.html"}},
+        {icon: "Н", status: "soon", title: "Написання не з прикметниками", href: "urok6-napysannya-ne-z-prykmetnykamy.html",
+          test: {status: "soon", href: "napysannya-ne-z-prykmetnykamy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-ne-z-prykmetnykamy.html"}},
+        {icon: "Н", status: "soon", title: "Написання н і нн у прикметниках", href: "urok6-napysannya-n-i-nn-u-prykmetnykakh.html",
+          test: {status: "soon", href: "napysannya-n-i-nn-u-prykmetnykakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-n-i-nn-u-prykmetnykakh.html"}},
+        {icon: "Н", status: "soon", title: "Написання складних прикметників разом і з дефісом", href: "urok6-napysannya-skladnykh-prykmetnykiv-razom-i-z-defisom.html",
+          test: {status: "soon", href: "napysannya-skladnykh-prykmetnykiv-razom-i-z-defisom6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-skladnykh-prykmetnykiv-razom-i-z-defisom.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Прикметник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-prykmetnyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-prykmetnyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-prykmetnyk.html"}}
+      ]},
+      { title: "ЧИСЛІВНИК", items: [
+        {icon: "Ч", status: "soon", title: "Числівник як частина мови", href: "urok6-chyslivnyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "chyslivnyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-chyslivnyk-yak-chastyna-movy.html"}},
+        {icon: "Г", status: "soon", title: "Групи числівників", href: "urok6-hrupy-chyslivnykiv.html",
+          test: {status: "soon", href: "hrupy-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-hrupy-chyslivnykiv.html"}},
+        {icon: "Р", status: "soon", title: "Розряди кількісних числівників", href: "urok6-rozryady-kilkisnykh-chyslivnykiv.html",
+          test: {status: "soon", href: "rozryady-kilkisnykh-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-rozryady-kilkisnykh-chyslivnykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання кількісних числівників, що означають цілі числа", href: "urok6-vidminyuvannya-kilkisnykh-chyslivnykiv-shcho-oznachayut-tsili-chysla.html",
+          test: {status: "soon", href: "vidminyuvannya-kilkisnykh-chyslivnykiv-shcho-oznachayut-tsili-chysla6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-kilkisnykh-chyslivnykiv-shcho-oznachayut-tsili-chysla.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання дробових і збірних числівників", href: "urok6-vidminyuvannya-drobovykh-i-zbirnykh-chyslivnykiv.html",
+          test: {status: "soon", href: "vidminyuvannya-drobovykh-i-zbirnykh-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-drobovykh-i-zbirnykh-chyslivnykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання та написання порядкових числівників", href: "urok6-vidminyuvannya-ta-napysannya-poryadkovykh-chyslivnykiv.html",
+          test: {status: "soon", href: "vidminyuvannya-ta-napysannya-poryadkovykh-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-ta-napysannya-poryadkovykh-chyslivnykiv.html"}},
+        {icon: "У", status: "soon", title: "Узгодження кількісних числівників з іменниками", href: "urok6-uzhodzhennya-kilkisnykh-chyslivnykiv-z-imennykamy.html",
+          test: {status: "soon", href: "uzhodzhennya-kilkisnykh-chyslivnykiv-z-imennykamy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzhodzhennya-kilkisnykh-chyslivnykiv-z-imennykamy.html"}},
+        {icon: "П", status: "soon", title: "Правильне вживання числівників на позначення часу й дат", href: "urok6-pravylne-vzhyvannya-chyslivnykiv-na-poznachennya-chasu-y-dat.html",
+          test: {status: "soon", href: "pravylne-vzhyvannya-chyslivnykiv-na-poznachennya-chasu-y-dat6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravylne-vzhyvannya-chyslivnykiv-na-poznachennya-chasu-y-dat.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Числівник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-chyslivnyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-chyslivnyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-chyslivnyk.html"}}
+      ]},
+      { title: "ЗАЙМЕННИК", items: [
+        {icon: "З", status: "soon", title: "Займенник як частина мови", href: "urok6-zaymennyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "zaymennyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zaymennyk-yak-chastyna-movy.html"}},
+        {icon: "О", status: "soon", title: "Особові та зворотний займенники", href: "urok6-osobovi-ta-zvorotnyy-zaymennyky.html",
+          test: {status: "soon", href: "osobovi-ta-zvorotnyy-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-osobovi-ta-zvorotnyy-zaymennyky.html"}},
+        {icon: "П", status: "soon", title: "Питальні й відносні займенники", href: "urok6-pytalni-y-vidnosni-zaymennyky.html",
+          test: {status: "soon", href: "pytalni-y-vidnosni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pytalni-y-vidnosni-zaymennyky.html"}},
+        {icon: "З", status: "soon", title: "Заперечні й неозначені займенники", href: "urok6-zaperechni-y-neoznacheni-zaymennyky.html",
+          test: {status: "soon", href: "zaperechni-y-neoznacheni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zaperechni-y-neoznacheni-zaymennyky.html"}},
+        {icon: "П", status: "soon", title: "Присвійні займенники", href: "urok6-prysviyni-zaymennyky.html",
+          test: {status: "soon", href: "prysviyni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-prysviyni-zaymennyky.html"}},
+        {icon: "В", status: "soon", title: "Вказівні й означальні займенники", href: "urok6-vkazivni-y-oznachalni-zaymennyky.html",
+          test: {status: "soon", href: "vkazivni-y-oznachalni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vkazivni-y-oznachalni-zaymennyky.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Займенник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-zaymennyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-zaymennyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-zaymennyk.html"}}
+      ]},
+      { title: "ПОВТОРЕННЯ ТА УЗАГАЛЬНЕННЯ ВИВЧЕНОГО В КІНЦІ РОКУ", items: [
+        {icon: "П", status: "soon", title: "Повторення та узагальнення вивченого в кінці року", href: "urok6-povtorennya-ta-uzahalnennya-vyvchenoho-v-kintsi-roku.html",
+          test: {status: "soon", href: "povtorennya-ta-uzahalnennya-vyvchenoho-v-kintsi-roku6.html"},
+          tasks: {status: "soon", href: "zavdannya6-povtorennya-ta-uzahalnennya-vyvchenoho-v-kintsi-roku.html"}}
+      ]}
+    ]
+  },
+  {
+    name: "7 клас",
+    subgroups: [
+      { title: "ПОВТОРЕННЯ ТА УЗАГАЛЬНЕННЯ ВИВЧЕНОГО", items: [
+        {icon: "С", status: "soon", title: "Словотвір", href: "urok7-slovotvir.html",
+          test: {status: "soon", href: "slovotvir7.html"},
+          tasks: {status: "soon", href: "zavdannya7-slovotvir.html"}},
+        {icon: "Л", status: "soon", title: "Лексикологія. Фразеологія", href: "urok7-leksykolohiya-frazeolohiya.html",
+          test: {status: "soon", href: "leksykolohiya-frazeolohiya7.html"},
+          tasks: {status: "soon", href: "zavdannya7-leksykolohiya-frazeolohiya.html"}},
+        {icon: "П", status: "soon", title: "Правильне вживання слів і фразеологізмів", href: "urok7-pravylne-vzhyvannya-sliv-i-frazeolohizmiv.html",
+          test: {status: "soon", href: "pravylne-vzhyvannya-sliv-i-frazeolohizmiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-pravylne-vzhyvannya-sliv-i-frazeolohizmiv.html"}},
+        {icon: "М", status: "soon", title: "Морфологія (іменник, прикметник)", href: "urok7-morfolohiya-imennyk-prykmetnyk.html",
+          test: {status: "soon", href: "morfolohiya-imennyk-prykmetnyk7.html"},
+          tasks: {status: "soon", href: "zavdannya7-morfolohiya-imennyk-prykmetnyk.html"}},
+        {icon: "М", status: "soon", title: "Морфологія (числівник, займенник)", href: "urok7-morfolohiya-chyslivnyk-zaymennyk.html",
+          test: {status: "soon", href: "morfolohiya-chyslivnyk-zaymennyk7.html"},
+          tasks: {status: "soon", href: "zavdannya7-morfolohiya-chyslivnyk-zaymennyk.html"}},
+        {icon: "З", status: "soon", title: "Засоби масової інформації (медіа). Джерела інформації. Неправдива інформація", href: "urok7-zasoby-masovoyi-informatsiyi-media-dzherela-informatsiyi-nepravdyva-informatsiya.html",
+          test: {status: "soon", href: "zasoby-masovoyi-informatsiyi-media-dzherela-informatsiyi-nepravdyva-informatsiya7.html"},
+          tasks: {status: "soon", href: "zavdannya7-zasoby-masovoyi-informatsiyi-media-dzherela-informatsiyi-nepravdyva-informatsiya.html"}},
+        {icon: "М", status: "soon", title: "Медіатекст. Новини", href: "urok7-mediatekst-novyny.html",
+          test: {status: "soon", href: "mediatekst-novyny7.html"},
+          tasks: {status: "soon", href: "zavdannya7-mediatekst-novyny.html"}}
+      ]},
+      { title: "ОРФОГРАФІЧНИЙ ПРАКТИКУМ", items: [
+        {icon: "Б", status: "soon", title: "Букви е, и на позначення ненаголошених голосних у корені слова. Букви и, і в словах іншомовного походження. Правопис префіксів", href: "urok7-bukvy-e-y-na-poznachennya-nenaholoshenykh-holosnykh-u-koreni-slova-bukvy-y-i-v-slovakh-inshomovnoho-pokhodzhennya-pravopys-prefiksiv.html",
+          test: {status: "soon", href: "bukvy-e-y-na-poznachennya-nenaholoshenykh-holosnykh-u-koreni-slova-bukvy-y-i-v-slovakh-inshomovnoho-pokhodzhennya-pravopys-prefiksiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-bukvy-e-y-na-poznachennya-nenaholoshenykh-holosnykh-u-koreni-slova-bukvy-y-i-v-slovakh-inshomovnoho-pokhodzhennya-pravopys-prefiksiv.html"}},
+        {icon: "В", status: "soon", title: "Велика буква та лапки у власних назвах", href: "urok7-velyka-bukva-ta-lapky-u-vlasnykh-nazvakh.html",
+          test: {status: "soon", href: "velyka-bukva-ta-lapky-u-vlasnykh-nazvakh7.html"},
+          tasks: {status: "soon", href: "zavdannya7-velyka-bukva-ta-lapky-u-vlasnykh-nazvakh.html"}},
+        {icon: "П", status: "soon", title: "Подвоєні букви", href: "urok7-podvoyeni-bukvy.html",
+          test: {status: "soon", href: "podvoyeni-bukvy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-podvoyeni-bukvy.html"}},
+        {icon: "П", status: "soon", title: "Правопис складних слів разом і з дефісом. Зміни приголосних під час творення слів за допомогою суфіксів -ськ-, -ств-", href: "urok7-pravopys-skladnykh-sliv-razom-i-z-defisom-zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv.html",
+          test: {status: "soon", href: "pravopys-skladnykh-sliv-razom-i-z-defisom-zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-pravopys-skladnykh-sliv-razom-i-z-defisom-zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv.html"}},
+        {icon: "А", status: "soon", title: "Апостроф. М'який знак", href: "urok7-apostrof-myakyy-znak.html",
+          test: {status: "soon", href: "apostrof-myakyy-znak7.html"},
+          tasks: {status: "soon", href: "zavdannya7-apostrof-myakyy-znak.html"}}
+      ]},
+      { title: "ДІЄСЛОВО", items: [
+        {icon: "Д", status: "soon", title: "Дієслово як частина мови. Форми дієслова", href: "urok7-diyeslovo-yak-chastyna-movy-formy-diyeslova.html",
+          test: {status: "soon", href: "diyeslovo-yak-chastyna-movy-formy-diyeslova7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyeslovo-yak-chastyna-movy-formy-diyeslova.html"}},
+        {icon: "Н", status: "soon", title: "Неозначена форма дієслова. Особова форма дієслова", href: "urok7-neoznachena-forma-diyeslova-osobova-forma-diyeslova.html",
+          test: {status: "soon", href: "neoznachena-forma-diyeslova-osobova-forma-diyeslova7.html"},
+          tasks: {status: "soon", href: "zavdannya7-neoznachena-forma-diyeslova-osobova-forma-diyeslova.html"}},
+        {icon: "В", status: "soon", title: "Вид дієслова", href: "urok7-vyd-diyeslova.html",
+          test: {status: "soon", href: "vyd-diyeslova7.html"},
+          tasks: {status: "soon", href: "zavdannya7-vyd-diyeslova.html"}},
+        {icon: "Ч", status: "soon", title: "Часи дієслова. Теперішній час дієслів", href: "urok7-chasy-diyeslova-teperishniy-chas-diyesliv.html",
+          test: {status: "soon", href: "chasy-diyeslova-teperishniy-chas-diyesliv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-chasy-diyeslova-teperishniy-chas-diyesliv.html"}},
+        {icon: "М", status: "soon", title: "Минулий час дієслів", href: "urok7-mynulyy-chas-diyesliv.html",
+          test: {status: "soon", href: "mynulyy-chas-diyesliv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-mynulyy-chas-diyesliv.html"}},
+        {icon: "М", status: "soon", title: "Майбутній час дієслів", href: "urok7-maybutniy-chas-diyesliv.html",
+          test: {status: "soon", href: "maybutniy-chas-diyesliv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-maybutniy-chas-diyesliv.html"}},
+        {icon: "Д", status: "soon", title: "Дієслова I та II дієвідмін", href: "urok7-diyeslova-i-ta-ii-diyevidmin.html",
+          test: {status: "soon", href: "diyeslova-i-ta-ii-diyevidmin7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyeslova-i-ta-ii-diyevidmin.html"}},
+        {icon: "С", status: "soon", title: "Способи дієслів", href: "urok7-sposoby-diyesliv.html",
+          test: {status: "soon", href: "sposoby-diyesliv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-sposoby-diyesliv.html"}},
+        {icon: "Б", status: "soon", title: "Безособові дієслова", href: "urok7-bezosobovi-diyeslova.html",
+          test: {status: "soon", href: "bezosobovi-diyeslova7.html"},
+          tasks: {status: "soon", href: "zavdannya7-bezosobovi-diyeslova.html"}},
+        {icon: "Н", status: "soon", title: "Не з дієсловами", href: "urok7-ne-z-diyeslovamy.html",
+          test: {status: "soon", href: "ne-z-diyeslovamy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-ne-z-diyeslovamy.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Дієслово»", href: "urok7-uzahalnennya-vyvchenoho-z-temy-diyeslovo.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-diyeslovo7.html"},
+          tasks: {status: "soon", href: "zavdannya7-uzahalnennya-vyvchenoho-z-temy-diyeslovo.html"}}
+      ]},
+      { title: "ДІЄПРИКМЕТНИК. ДІЄСЛІВНІ ФОРМИ НА -НО, -ТО", items: [
+        {icon: "Д", status: "soon", title: "Дієприкметник як форма дієслова", href: "urok7-diyeprykmetnyk-yak-forma-diyeslova.html",
+          test: {status: "soon", href: "diyeprykmetnyk-yak-forma-diyeslova7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyeprykmetnyk-yak-forma-diyeslova.html"}},
+        {icon: "Т", status: "soon", title: "Творення та відмінювання активних дієприкметників", href: "urok7-tvorennya-ta-vidminyuvannya-aktyvnykh-diyeprykmetnykiv.html",
+          test: {status: "soon", href: "tvorennya-ta-vidminyuvannya-aktyvnykh-diyeprykmetnykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-tvorennya-ta-vidminyuvannya-aktyvnykh-diyeprykmetnykiv.html"}},
+        {icon: "Т", status: "soon", title: "Творення та відмінювання пасивних дієприкметників", href: "urok7-tvorennya-ta-vidminyuvannya-pasyvnykh-diyeprykmetnykiv.html",
+          test: {status: "soon", href: "tvorennya-ta-vidminyuvannya-pasyvnykh-diyeprykmetnykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-tvorennya-ta-vidminyuvannya-pasyvnykh-diyeprykmetnykiv.html"}},
+        {icon: "Д", status: "soon", title: "Дієприкметниковий зворот", href: "urok7-diyeprykmetnykovyy-zvorot.html",
+          test: {status: "soon", href: "diyeprykmetnykovyy-zvorot7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyeprykmetnykovyy-zvorot.html"}},
+        {icon: "Н", status: "soon", title: "Н та нн у дієприкметниках і прикметниках дієприкметникового походження", href: "urok7-n-ta-nn-u-diyeprykmetnykakh-i-prykmetnykakh-diyeprykmetnykovoho-pokhodzhennya.html",
+          test: {status: "soon", href: "n-ta-nn-u-diyeprykmetnykakh-i-prykmetnykakh-diyeprykmetnykovoho-pokhodzhennya7.html"},
+          tasks: {status: "soon", href: "zavdannya7-n-ta-nn-u-diyeprykmetnykakh-i-prykmetnykakh-diyeprykmetnykovoho-pokhodzhennya.html"}},
+        {icon: "Н", status: "soon", title: "Написання не з дієприкметниками", href: "urok7-napysannya-ne-z-diyeprykmetnykamy.html",
+          test: {status: "soon", href: "napysannya-ne-z-diyeprykmetnykamy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-ne-z-diyeprykmetnykamy.html"}},
+        {icon: "Д", status: "soon", title: "Дієслівні форми на -но, -то", href: "urok7-diyeslivni-formy-na-no-to.html",
+          test: {status: "soon", href: "diyeslivni-formy-na-no-to7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyeslivni-formy-na-no-to.html"}}
+      ]},
+      { title: "ДІЄПРИСЛІВНИК", items: [
+        {icon: "Д", status: "soon", title: "Дієприслівник як форма дієслова", href: "urok7-diyepryslivnyk-yak-forma-diyeslova.html",
+          test: {status: "soon", href: "diyepryslivnyk-yak-forma-diyeslova7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyepryslivnyk-yak-forma-diyeslova.html"}},
+        {icon: "Д", status: "soon", title: "Дієприслівниковий зворот", href: "urok7-diyepryslivnykovyy-zvorot.html",
+          test: {status: "soon", href: "diyepryslivnykovyy-zvorot7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyepryslivnykovyy-zvorot.html"}},
+        {icon: "Д", status: "soon", title: "Дієприслівники недоконаного й доконаного виду. Час дієприслівників", href: "urok7-diyepryslivnyky-nedokonanoho-y-dokonanoho-vydu-chas-diyepryslivnykiv.html",
+          test: {status: "soon", href: "diyepryslivnyky-nedokonanoho-y-dokonanoho-vydu-chas-diyepryslivnykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-diyepryslivnyky-nedokonanoho-y-dokonanoho-vydu-chas-diyepryslivnykiv.html"}},
+        {icon: "Н", status: "soon", title: "Не з дієприслівниками", href: "urok7-ne-z-diyepryslivnykamy.html",
+          test: {status: "soon", href: "ne-z-diyepryslivnykamy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-ne-z-diyepryslivnykamy.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з тем «Дієприкметник. Дієслівні форми на -но, -то» та «Дієприслівник»", href: "urok7-uzahalnennya-vyvchenoho-z-tem-diyeprykmetnyk-diyeslivni-formy-na-no-to-ta-diyepryslivnyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-tem-diyeprykmetnyk-diyeslivni-formy-na-no-to-ta-diyepryslivnyk7.html"},
+          tasks: {status: "soon", href: "zavdannya7-uzahalnennya-vyvchenoho-z-tem-diyeprykmetnyk-diyeslivni-formy-na-no-to-ta-diyepryslivnyk.html"}}
+      ]},
+      { title: "ПРИСЛІВНИК", items: [
+        {icon: "П", status: "soon", title: "Прислівник як частина мови", href: "urok7-pryslivnyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "pryslivnyk-yak-chastyna-movy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-pryslivnyk-yak-chastyna-movy.html"}},
+        {icon: "Т", status: "soon", title: "Творення прислівників", href: "urok7-tvorennya-pryslivnykiv.html",
+          test: {status: "soon", href: "tvorennya-pryslivnykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-tvorennya-pryslivnykiv.html"}},
+        {icon: "С", status: "soon", title: "Ступені порівняння прислівників", href: "urok7-stupeni-porivnyannya-pryslivnykiv.html",
+          test: {status: "soon", href: "stupeni-porivnyannya-pryslivnykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-stupeni-porivnyannya-pryslivnykiv.html"}},
+        {icon: "Б", status: "soon", title: "Букви н та нн у прислівниках", href: "urok7-bukvy-n-ta-nn-u-pryslivnykakh.html",
+          test: {status: "soon", href: "bukvy-n-ta-nn-u-pryslivnykakh7.html"},
+          tasks: {status: "soon", href: "zavdannya7-bukvy-n-ta-nn-u-pryslivnykakh.html"}},
+        {icon: "Б", status: "soon", title: "Букви и та і в кінці прислівників", href: "urok7-bukvy-y-ta-i-v-kintsi-pryslivnykiv.html",
+          test: {status: "soon", href: "bukvy-y-ta-i-v-kintsi-pryslivnykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-bukvy-y-ta-i-v-kintsi-pryslivnykiv.html"}},
+        {icon: "Н", status: "soon", title: "Написання прислівників разом і з дефісом", href: "urok7-napysannya-pryslivnykiv-razom-i-z-defisom.html",
+          test: {status: "soon", href: "napysannya-pryslivnykiv-razom-i-z-defisom7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-pryslivnykiv-razom-i-z-defisom.html"}},
+        {icon: "Н", status: "soon", title: "Написання прислівникових сполук", href: "urok7-napysannya-pryslivnykovykh-spoluk.html",
+          test: {status: "soon", href: "napysannya-pryslivnykovykh-spoluk7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-pryslivnykovykh-spoluk.html"}},
+        {icon: "Н", status: "soon", title: "Написання не та ні з прислівниками", href: "urok7-napysannya-ne-ta-ni-z-pryslivnykamy.html",
+          test: {status: "soon", href: "napysannya-ne-ta-ni-z-pryslivnykamy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-ne-ta-ni-z-pryslivnykamy.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Прислівник»", href: "urok7-uzahalnennya-vyvchenoho-z-temy-pryslivnyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-pryslivnyk7.html"},
+          tasks: {status: "soon", href: "zavdannya7-uzahalnennya-vyvchenoho-z-temy-pryslivnyk.html"}}
+      ]},
+      { title: "СЛУЖБОВІ ЧАСТИНИ МОВИ. ВИГУК", items: [
+        {icon: "П", status: "soon", title: "Прийменник як службова частина мови", href: "urok7-pryymennyk-yak-sluzhbova-chastyna-movy.html",
+          test: {status: "soon", href: "pryymennyk-yak-sluzhbova-chastyna-movy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-pryymennyk-yak-sluzhbova-chastyna-movy.html"}},
+        {icon: "Н", status: "soon", title: "Написання прийменників", href: "urok7-napysannya-pryymennykiv.html",
+          test: {status: "soon", href: "napysannya-pryymennykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-pryymennykiv.html"}},
+        {icon: "О", status: "soon", title: "Особливості вживання прийменників", href: "urok7-osoblyvosti-vzhyvannya-pryymennykiv.html",
+          test: {status: "soon", href: "osoblyvosti-vzhyvannya-pryymennykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-osoblyvosti-vzhyvannya-pryymennykiv.html"}},
+        {icon: "С", status: "soon", title: "Сполучник як службова частина мови", href: "urok7-spoluchnyk-yak-sluzhbova-chastyna-movy.html",
+          test: {status: "soon", href: "spoluchnyk-yak-sluzhbova-chastyna-movy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-spoluchnyk-yak-sluzhbova-chastyna-movy.html"}},
+        {icon: "С", status: "soon", title: "Сполучники сурядності та підрядності", href: "urok7-spoluchnyky-suryadnosti-ta-pidryadnosti.html",
+          test: {status: "soon", href: "spoluchnyky-suryadnosti-ta-pidryadnosti7.html"},
+          tasks: {status: "soon", href: "zavdannya7-spoluchnyky-suryadnosti-ta-pidryadnosti.html"}},
+        {icon: "Н", status: "soon", title: "Написання сполучників", href: "urok7-napysannya-spoluchnykiv.html",
+          test: {status: "soon", href: "napysannya-spoluchnykiv7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-spoluchnykiv.html"}},
+        {icon: "Ч", status: "soon", title: "Частка як службова частина мови", href: "urok7-chastka-yak-sluzhbova-chastyna-movy.html",
+          test: {status: "soon", href: "chastka-yak-sluzhbova-chastyna-movy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-chastka-yak-sluzhbova-chastyna-movy.html"}},
+        {icon: "Н", status: "soon", title: "Написання часток", href: "urok7-napysannya-chastok.html",
+          test: {status: "soon", href: "napysannya-chastok7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-chastok.html"}},
+        {icon: "Н", status: "soon", title: "Написання не з різними частинами мови", href: "urok7-napysannya-ne-z-riznymy-chastynamy-movy.html",
+          test: {status: "soon", href: "napysannya-ne-z-riznymy-chastynamy-movy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-napysannya-ne-z-riznymy-chastynamy-movy.html"}},
+        {icon: "В", status: "soon", title: "Вигук як особлива частина мови", href: "urok7-vyhuk-yak-osoblyva-chastyna-movy.html",
+          test: {status: "soon", href: "vyhuk-yak-osoblyva-chastyna-movy7.html"},
+          tasks: {status: "soon", href: "zavdannya7-vyhuk-yak-osoblyva-chastyna-movy.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Службові частини мови. Вигук»", href: "urok7-uzahalnennya-vyvchenoho-z-temy-sluzhbovi-chastyny-movy-vyhuk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-sluzhbovi-chastyny-movy-vyhuk7.html"},
+          tasks: {status: "soon", href: "zavdannya7-uzahalnennya-vyvchenoho-z-temy-sluzhbovi-chastyny-movy-vyhuk.html"}}
+      ]},
+      { title: "УЗАГАЛЬНЕННЯ ТА СИСТЕМАТИЗАЦІЯ ВИВЧЕНОГО", items: [
+        {icon: "У", status: "soon", title: "Узагальнення та систематизація вивченого", href: "urok7-uzahalnennya-ta-systematyzatsiya-vyvchenoho.html",
+          test: {status: "soon", href: "uzahalnennya-ta-systematyzatsiya-vyvchenoho7.html"},
+          tasks: {status: "soon", href: "zavdannya7-uzahalnennya-ta-systematyzatsiya-vyvchenoho.html"}}
+      ]}
+    ]
+  },
   {
     name: "8 клас",
     subgroups: [
@@ -674,9 +1311,14 @@ function subgroupTestPillHtml(test){
   return `<a class="subgroup-test-pill ${test.status}" href="${clickable ? test.href : '#'}" data-testkey="${test.href}">${label}</a>`;
 }
 
+function blockAnchorId_(name){
+  const m = name.match(/\d+/);
+  return m ? ('klas-' + m[0]) : '';
+}
+
 function renderBlocks_(){
   blocksEl.innerHTML = BLOCKS.map(block => `
-    <div class="block">
+    <div class="block" id="${blockAnchorId_(block.name)}">
       <div class="block-header">
         <h2 class="block-title">${block.name}</h2>
         ${generalTestPillHtml(block.generalTest)}
@@ -710,10 +1352,9 @@ function renderBlocks_(){
 renderBlocks_();
 
 // ============================================================
-// ДЗ — те саме, що й у 11-класному порталі. Встав сюди /exec-посилання
-// НОВОГО Apps Script проєкту, розгорнутого для бота @resultat89_bot
-// (той, що з Code89.gs) — НЕ те саме посилання, що для 11 класу,
-// інакше учні 8-9 класів побачать чужі позначки ДЗ.
+// ДЗ — /exec-посилання того самого бота (Code89.gs / @resultat89_bot),
+// у якому CLASSES/TOPICS/LESSON_ACCESS_TOPICS вже мають записи
+// "5 клас".."9 клас".
 // ============================================================
 const HOMEWORK_API_URL = "https://script.google.com/macros/s/AKfycbxWkeJYw7gUdEjM9H2oeMVTMhBLEq1dDa2DcqNS5vSQjJb19aXyR7p7kDz_otyK3sTggw/exec";
 
@@ -748,9 +1389,9 @@ function loadHomework(studentCode){
 }
 
 // ============================================================
-// ХТО ЩО БАЧИТЬ — заповни так само, як STUDENT_ACCESS в 11-класному
-// index.html: код учня → масив href уроків, які йому відкрито.
-// Посилання для учня: .../index89.html?u=Ім'я
+// ХТО ЩО БАЧИТЬ — код учня → масив href уроків, які йому відкрито.
+// Посилання для учня: .../index.html?u=Ім'я
+// (hrefs теж однозначні для всіх класів, бо кожен містить номер класу)
 // ============================================================
 const STUDENT_ACCESS = {
   // "код-учня": ["href-теми-1", "href-теми-2"]
@@ -763,10 +1404,11 @@ const STUDENT_ACCESS = {
   "Діма": [],
   "Оля": [],
   "Кіра": []
+  // 5, 6, 7 клас — додай своїх учнів сюди так само
 };
 
 // ============================================================
-// ГРУПОВІ КОДИ (одне посилання — двоє учнів), як і в 11 класі.
+// ГРУПОВІ КОДИ (одне посилання — двоє учнів).
 // ============================================================
 const GROUP_MEMBERS = {
   // "код групи в нижньому регістрі": ["Ім'я1", "Ім'я2"]
@@ -789,6 +1431,8 @@ function appendStudentParam_(href, name){
 function applyAccessAndRender_(studentCode, allowed, displayName){
   const desc = document.getElementById('subDesc');
   if (desc) desc.remove();
+  const nav = document.getElementById('classNav');
+  if (nav) nav.remove();
 
   document.querySelectorAll('.card-wrap').forEach(function(wrap){
     const card = wrap.querySelector('.card');
@@ -949,7 +1593,6 @@ function showNamePicker_(studentCode, allowed, members){
     return;
   }
 
-  // Учням службові підписи не потрібні: верхній рядок «Навігація · 8-9 клас» (заголовок «Усі теми» лишається)
   document.querySelectorAll('.topbar, .teacher-banner').forEach(function(el){ el.remove(); });
 
   if (studentCode && allowed) {
