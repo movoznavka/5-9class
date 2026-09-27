@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Уроки й тести · 6 клас</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFEEC;
+    --bg-soft:#FBF7DA;
+    --card:#FFFFFF;
+    --ink:#2D2350;
+    --ink-soft:#8C7FA8;
+    --line: rgba(45,35,80,0.10);
+
+    --c1-a:#C9B8F5; --c1-b:#A88AED; --c1-sh: rgba(168,138,237,0.45);
+    --c3-a:#E2ECA0; --c3-b:#8C9425; --c3-sh: rgba(203,216,59,0.4);
+    --c2-b:#4B3480;
+
+    --correct-bg:#F3F6D9;
+    --correct-ink:#7C8A16;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding:28px 16px 64px;
+  }
+  .wrap{max-width:960px;margin:0 auto;}
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:16px;
+    margin-bottom:22px;
+    border-bottom:1.5px solid rgba(19,33,59,0.14);
+  }
+  .kicker{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:.55;
+  }
+  .kicker.tag{opacity:.4;}
+
+  h1{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:clamp(26px,6vw,38px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin:0 0 8px;
+    text-transform:uppercase;
+  }
+  h1 .hl{color:var(--c1-b);}
+  .sub{color:var(--ink-soft);font-size:15px;max-width:60ch;margin:0 0 30px;font-weight:500;}
+
+  .block{
+    margin-bottom:46px;
+  }
+  .block-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:0 0 4px;
+    padding-bottom:12px;
+    border-bottom:2px solid rgba(19,33,59,0.14);
+  }
+  .block-title{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:24px;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .block-test-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    text-decoration:none;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:.01em;
+    padding:9px 16px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .block-test-pill.ready{
+    color:var(--c3-b);
+    background:var(--correct-bg);
+    cursor:pointer;
+  }
+  .block-test-pill.ready:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 10px 20px -14px var(--c3-sh);
+  }
+  .block-test-pill.soon{
+    color:var(--ink-soft);
+    background:var(--bg-soft);
+    opacity:.7;
+    cursor:default;
+    pointer-events:none;
+  }
+
+  .subgroup{ margin-bottom:26px; margin-top:24px; }
+  .subgroup:first-of-type{ margin-top:22px; }
+  .subgroup-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:0 0 14px 2px;
+  }
+  .subgroup-title{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:14px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--c1-b);
+    margin:0;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:5px 14px 5px 12px;
+    border-radius:999px;
+    background: rgba(168,138,237,0.15);
+  }
+  .subgroup-title::before{
+    content:'';
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--c1-b);
+  }
+  .subgroup-test-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    text-decoration:none;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:11.5px;
+    letter-spacing:.01em;
+    padding:7px 13px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .subgroup-test-pill.ready{
+    color:var(--c3-b);
+    background:var(--correct-bg);
+    cursor:pointer;
+  }
+  .subgroup-test-pill.ready:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 10px 20px -14px var(--c3-sh);
+  }
+  .subgroup-test-pill.soon{
+    color:var(--ink-soft);
+    background:var(--bg-soft);
+    opacity:.7;
+    cursor:default;
+    pointer-events:none;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
+    gap:14px;
+  }
+
+  .card-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .card{
+    background:var(--card);
+    border-radius:22px;
+    padding:22px 22px 20px;
+    box-shadow: 0 14px 30px -24px rgba(19,33,59,0.35);
+    text-decoration:none;
+    color:var(--ink);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    position:relative;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card.ready:hover{
+    transform:translateY(-3px);
+    box-shadow: 0 18px 34px -18px rgba(19,33,59,0.4);
+  }
+  .card.soon{
+    opacity:.5;
+    cursor:default;
+    pointer-events:none;
+  }
+
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:8px;
+  }
+
+  .tile{
+    width:40px;height:40px;min-width:40px;
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:15px;
+    color:var(--c1-b);
+    background: linear-gradient(150deg, rgba(255,255,255,0.75), rgba(108,140,255,0.22));
+    backdrop-filter: blur(6px) saturate(160%);
+    -webkit-backdrop-filter: blur(6px) saturate(160%);
+    border:1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 4px 12px -7px var(--c1-sh), inset 0 1px 1px rgba(255,255,255,0.8);
+  }
+
+  .status{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:10.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status.ready{background:var(--correct-bg);color:var(--correct-ink);}
+  .status.soon{background:var(--bg-soft);color:var(--ink-soft);}
+
+  .card-title{
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:16.5px;
+    line-height:1.32;
+    margin:0;
+  }
+  .card-sub{
+    font-size:13px;
+    color:var(--ink-soft);
+    font-weight:500;
+    margin:0;
+  }
+
+  .pills{
+    display:flex;
+    gap:8px;
+  }
+  .pills .test-pill{ flex:1; }
+
+  .test-pill{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    text-decoration:none;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:.01em;
+    padding:9px 14px;
+    border-radius:14px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .test-pill.ready{
+    color:var(--c3-b);
+    background:var(--correct-bg);
+    cursor:pointer;
+  }
+  .test-pill.ready:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 10px 20px -14px var(--c3-sh);
+  }
+  .test-pill.soon{
+    color:var(--ink-soft);
+    background:var(--bg-soft);
+    opacity:.6;
+    cursor:default;
+    pointer-events:none;
+  }
+  .test-pill.tasks.ready{
+    color:var(--c1-b);
+    background:rgba(168,138,237,0.15);
+  }
+  .test-pill.tasks.ready:hover{
+    box-shadow: 0 10px 20px -14px var(--c1-sh);
+  }
+
+  .test-pill.homework, .block-test-pill.homework, .subgroup-test-pill.homework{
+    color:#7A3B00 !important;
+    background: linear-gradient(135deg, #FFE27A, #FF9A3D) !important;
+    animation: hwGlow 1.6s ease-in-out infinite;
+  }
+  @keyframes hwGlow{
+    0%,100%{ box-shadow: 0 0 6px 0 rgba(255,140,40,0.55); }
+    50%{ box-shadow: 0 0 18px 6px rgba(255,140,40,0.85); }
+  }
+  .hw-badge{
+    margin-left:6px;
+    font-weight:800;
+  }
+
+  footer{
+    text-align:center;
+    margin-top:36px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+
+  .teacher-banner{
+    display:none;
+    background: var(--c2-b);
+    color:#fff;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    text-align:center;
+    padding:9px 14px;
+    border-radius:12px;
+    margin-bottom:20px;
+  }
+  body.teacher-mode .teacher-banner{ display:block; }
+
+  .open-badge{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:10.5px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:999px;
+    align-self:flex-start;
+    margin-top:-2px;
+  }
+  .open-badge.open{ background:var(--correct-bg); color:var(--correct-ink); }
+  .open-badge.closed{ background:rgba(229,72,77,0.12); color:var(--c2-b); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="kicker">Навігація · 6 клас</div>
+    <div class="kicker tag">для вчителя</div>
+  </div>
+
+  <div class="teacher-banner">Режим вчителя — учні цього не бачать</div>
+
+  <h1>Усі <span class="hl">теми</span></h1>
+  <p class="sub" id="subDesc">Кожному учню — своє посилання з кодом (…/index6.html?u=Ім'я). Він бачить лише ті теми, які ви йому відкрили — і урок, і тест до нього. Собі додайте в кінець ?vchytel=1 — побачите все і хто що має відкритим.</p>
+
+  <div id="blocks"></div>
+
+  <footer>@movoznavka</footer>
+</div>
+
+<script>
+/* ============================================================
+   Автоматично згенеровано за програмою 6 класу.
+   Усі теми стоять як "soon" (заглушки). Коли зробиш урок, тест
+   чи завдання — заміни status на "ready" і встав ПОВНЕ посилання
+   (https://movoznavka.github.io/...).
+   ============================================================ */
+
+const BLOCKS = [
+  {
+    name: "6 клас",
+    subgroups: [
+      { title: "ПОВТОРЕННЯ, УЗАГАЛЬНЕННЯ ТА ПОГЛИБЛЕННЯ ВИВЧЕНОГО", items: [
+        {icon: "С", status: "soon", title: "Словосполучення і речення. Головні й другорядні члени речення", href: "urok6-slovospoluchennya-i-rechennya-holovni-y-druhoryadni-chleny-rechennya.html",
+          test: {status: "soon", href: "slovospoluchennya-i-rechennya-holovni-y-druhoryadni-chleny-rechennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-slovospoluchennya-i-rechennya-holovni-y-druhoryadni-chleny-rechennya.html"}},
+        {icon: "О", status: "soon", title: "Однорідні члени речення. Звертання. Вставні слова", href: "urok6-odnoridni-chleny-rechennya-zvertannya-vstavni-slova.html",
+          test: {status: "soon", href: "odnoridni-chleny-rechennya-zvertannya-vstavni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-odnoridni-chleny-rechennya-zvertannya-vstavni-slova.html"}},
+        {icon: "С", status: "soon", title: "Складне речення. Пряма мова. Діалог", href: "urok6-skladne-rechennya-pryama-mova-dialoh.html",
+          test: {status: "soon", href: "skladne-rechennya-pryama-mova-dialoh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-skladne-rechennya-pryama-mova-dialoh.html"}},
+        {icon: "О", status: "soon", title: "Основні орфограми", href: "urok6-osnovni-orfohramy.html",
+          test: {status: "soon", href: "osnovni-orfohramy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-osnovni-orfohramy.html"}}
+      ]},
+      { title: "ЛЕКСИКОЛОГІЯ. ОРФОГРАФІЯ", items: [
+        {icon: "В", status: "soon", title: "Власне українські слова та слова іншомовного походження", href: "urok6-vlasne-ukrayinski-slova-ta-slova-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "vlasne-ukrayinski-slova-ta-slova-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vlasne-ukrayinski-slova-ta-slova-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "И", status: "soon", title: "И та і в словах іншомовного походження", href: "urok6-y-ta-i-v-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "y-ta-i-v-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-y-ta-i-v-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "П", status: "soon", title: "Подвоєні букви в словах іншомовного походження", href: "urok6-podvoyeni-bukvy-v-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "podvoyeni-bukvy-v-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-podvoyeni-bukvy-v-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "А", status: "soon", title: "Апостроф у словах іншомовного походження", href: "urok6-apostrof-u-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "apostrof-u-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-apostrof-u-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "М", status: "soon", title: "М'який знак у словах іншомовного походження", href: "urok6-myakyy-znak-u-slovakh-inshomovnoho-pokhodzhennya.html",
+          test: {status: "soon", href: "myakyy-znak-u-slovakh-inshomovnoho-pokhodzhennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-myakyy-znak-u-slovakh-inshomovnoho-pokhodzhennya.html"}},
+        {icon: "А", status: "soon", title: "Активна та пасивна лексика", href: "urok6-aktyvna-ta-pasyvna-leksyka.html",
+          test: {status: "soon", href: "aktyvna-ta-pasyvna-leksyka6.html"},
+          tasks: {status: "soon", href: "zavdannya6-aktyvna-ta-pasyvna-leksyka.html"}},
+        {icon: "З", status: "soon", title: "Загальновживані слова. Професійні слова й терміни", href: "urok6-zahalnovzhyvani-slova-profesiyni-slova-y-terminy.html",
+          test: {status: "soon", href: "zahalnovzhyvani-slova-profesiyni-slova-y-terminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zahalnovzhyvani-slova-profesiyni-slova-y-terminy.html"}},
+        {icon: "Д", status: "soon", title: "Діалектні та просторічні слова", href: "urok6-dialektni-ta-prostorichni-slova.html",
+          test: {status: "soon", href: "dialektni-ta-prostorichni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-dialektni-ta-prostorichni-slova.html"}},
+        {icon: "С", status: "soon", title: "Стилістично забарвлені слова", href: "urok6-stylistychno-zabarvleni-slova.html",
+          test: {status: "soon", href: "stylistychno-zabarvleni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-stylistychno-zabarvleni-slova.html"}},
+        {icon: "П", status: "soon", title: "Правильне вживання слів", href: "urok6-pravylne-vzhyvannya-sliv.html",
+          test: {status: "soon", href: "pravylne-vzhyvannya-sliv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravylne-vzhyvannya-sliv.html"}}
+      ]},
+      { title: "ФРАЗЕОЛОГІЯ", items: [
+        {icon: "Ф", status: "soon", title: "Фразеологізми", href: "urok6-frazeolohizmy.html",
+          test: {status: "soon", href: "frazeolohizmy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-frazeolohizmy.html"}},
+        {icon: "Д", status: "soon", title: "Джерела фразеологізмів", href: "urok6-dzherela-frazeolohizmiv.html",
+          test: {status: "soon", href: "dzherela-frazeolohizmiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-dzherela-frazeolohizmiv.html"}},
+        {icon: "П", status: "soon", title: "Прислів'я, приказки, крилаті вислови, афоризми", href: "urok6-pryslivya-prykazky-krylati-vyslovy-aforyzmy.html",
+          test: {status: "soon", href: "pryslivya-prykazky-krylati-vyslovy-aforyzmy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pryslivya-prykazky-krylati-vyslovy-aforyzmy.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділів «Лексикологія. Орфографія» і «Фразеологія»", href: "urok6-uzahalnennya-vyvchenoho-z-rozdiliv-leksykolohiya-orfohrafiya-i-frazeolohiya.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdiliv-leksykolohiya-orfohrafiya-i-frazeolohiya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-rozdiliv-leksykolohiya-orfohrafiya-i-frazeolohiya.html"}}
+      ]},
+      { title: "СЛОВОТВІР. ОРФОГРАФІЯ", items: [
+        {icon: "З", status: "soon", title: "Змінювання і творення слів. Похідні й непохідні слова", href: "urok6-zminyuvannya-i-tvorennya-sliv-pokhidni-y-nepokhidni-slova.html",
+          test: {status: "soon", href: "zminyuvannya-i-tvorennya-sliv-pokhidni-y-nepokhidni-slova6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zminyuvannya-i-tvorennya-sliv-pokhidni-y-nepokhidni-slova.html"}},
+        {icon: "О", status: "soon", title: "Основні способи словотворення", href: "urok6-osnovni-sposoby-slovotvorennya.html",
+          test: {status: "soon", href: "osnovni-sposoby-slovotvorennya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-osnovni-sposoby-slovotvorennya.html"}},
+        {icon: "З", status: "soon", title: "Зміни приголосних під час творення слів за допомогою суфіксів -ськ-, -ств-", href: "urok6-zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv.html",
+          test: {status: "soon", href: "zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zminy-pryholosnykh-pid-chas-tvorennya-sliv-za-dopomohoyu-sufiksiv-sk-stv.html"}},
+        {icon: "З", status: "soon", title: "Зміни приголосних під час творення іменників із суфіксом -ин-", href: "urok6-zminy-pryholosnykh-pid-chas-tvorennya-imennykiv-iz-sufiksom-yn.html",
+          test: {status: "soon", href: "zminy-pryholosnykh-pid-chas-tvorennya-imennykiv-iz-sufiksom-yn6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zminy-pryholosnykh-pid-chas-tvorennya-imennykiv-iz-sufiksom-yn.html"}},
+        {icon: "С", status: "soon", title: "Складні слова. Сполучні голосні звуки в складних словах", href: "urok6-skladni-slova-spoluchni-holosni-zvuky-v-skladnykh-slovakh.html",
+          test: {status: "soon", href: "skladni-slova-spoluchni-holosni-zvuky-v-skladnykh-slovakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-skladni-slova-spoluchni-holosni-zvuky-v-skladnykh-slovakh.html"}},
+        {icon: "П", status: "soon", title: "Правопис складних слів разом і з дефісом (загальні правила)", href: "urok6-pravopys-skladnykh-sliv-razom-i-z-defisom-zahalni-pravyla.html",
+          test: {status: "soon", href: "pravopys-skladnykh-sliv-razom-i-z-defisom-zahalni-pravyla6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravopys-skladnykh-sliv-razom-i-z-defisom-zahalni-pravyla.html"}},
+        {icon: "Т", status: "soon", title: "Творення і правопис складноскорочених слів", href: "urok6-tvorennya-i-pravopys-skladnoskorochenykh-sliv.html",
+          test: {status: "soon", href: "tvorennya-i-pravopys-skladnoskorochenykh-sliv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-tvorennya-i-pravopys-skladnoskorochenykh-sliv.html"}},
+        {icon: "Н", status: "soon", title: "Написання слів з пів-, напів-, полу-", href: "urok6-napysannya-sliv-z-piv-napiv-polu.html",
+          test: {status: "soon", href: "napysannya-sliv-z-piv-napiv-polu6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-sliv-z-piv-napiv-polu.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з розділу «Словотвір. Орфографія»", href: "urok6-uzahalnennya-vyvchenoho-z-rozdilu-slovotvir-orfohrafiya.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-rozdilu-slovotvir-orfohrafiya6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-rozdilu-slovotvir-orfohrafiya.html"}}
+      ]},
+      { title: "ІМЕННИК", items: [
+        {icon: "З", status: "soon", title: "Загальна характеристика частин мови", href: "urok6-zahalna-kharakterystyka-chastyn-movy.html",
+          test: {status: "soon", href: "zahalna-kharakterystyka-chastyn-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zahalna-kharakterystyka-chastyn-movy.html"}},
+        {icon: "І", status: "soon", title: "Іменник як частина мови", href: "urok6-imennyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "imennyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-imennyk-yak-chastyna-movy.html"}},
+        {icon: "З", status: "soon", title: "Загальні та власні назви. Велика буква у власних назвах", href: "urok6-zahalni-ta-vlasni-nazvy-velyka-bukva-u-vlasnykh-nazvakh.html",
+          test: {status: "soon", href: "zahalni-ta-vlasni-nazvy-velyka-bukva-u-vlasnykh-nazvakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zahalni-ta-vlasni-nazvy-velyka-bukva-u-vlasnykh-nazvakh.html"}},
+        {icon: "Л", status: "soon", title: "Лапки у власних назвах", href: "urok6-lapky-u-vlasnykh-nazvakh.html",
+          test: {status: "soon", href: "lapky-u-vlasnykh-nazvakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-lapky-u-vlasnykh-nazvakh.html"}},
+        {icon: "Р", status: "soon", title: "Рід іменників", href: "urok6-rid-imennykiv.html",
+          test: {status: "soon", href: "rid-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-rid-imennykiv.html"}},
+        {icon: "Р", status: "soon", title: "Рід незмінюваних іменників", href: "urok6-rid-nezminyuvanykh-imennykiv.html",
+          test: {status: "soon", href: "rid-nezminyuvanykh-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-rid-nezminyuvanykh-imennykiv.html"}},
+        {icon: "Ч", status: "soon", title: "Число іменників", href: "urok6-chyslo-imennykiv.html",
+          test: {status: "soon", href: "chyslo-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-chyslo-imennykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінки іменників. Відмінювання іменників", href: "urok6-vidminky-imennykiv-vidminyuvannya-imennykiv.html",
+          test: {status: "soon", href: "vidminky-imennykiv-vidminyuvannya-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminky-imennykiv-vidminyuvannya-imennykiv.html"}},
+        {icon: "В", status: "soon", title: "Відміни й групи іменників", href: "urok6-vidminy-y-hrupy-imennykiv.html",
+          test: {status: "soon", href: "vidminy-y-hrupy-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminy-y-hrupy-imennykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників I відміни", href: "urok6-vidminyuvannya-imennykiv-i-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-i-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-i-vidminy.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників II відміни", href: "urok6-vidminyuvannya-imennykiv-ii-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-ii-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-ii-vidminy.html"}},
+        {icon: "З", status: "soon", title: "Закінчення іменників чоловічого роду в родовому відмінку однини", href: "urok6-zakinchennya-imennykiv-cholovichoho-rodu-v-rodovomu-vidminku-odnyny.html",
+          test: {status: "soon", href: "zakinchennya-imennykiv-cholovichoho-rodu-v-rodovomu-vidminku-odnyny6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zakinchennya-imennykiv-cholovichoho-rodu-v-rodovomu-vidminku-odnyny.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників III відміни", href: "urok6-vidminyuvannya-imennykiv-iii-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-iii-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-iii-vidminy.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників IV відміни", href: "urok6-vidminyuvannya-imennykiv-iv-vidminy.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-iv-vidminy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-iv-vidminy.html"}},
+        {icon: "У", status: "soon", title: "Уживання іменників у кличному відмінку однини (узагальнення вивченого)", href: "urok6-uzhyvannya-imennykiv-u-klychnomu-vidminku-odnyny-uzahalnennya-vyvchenoho.html",
+          test: {status: "soon", href: "uzhyvannya-imennykiv-u-klychnomu-vidminku-odnyny-uzahalnennya-vyvchenoho6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzhyvannya-imennykiv-u-klychnomu-vidminku-odnyny-uzahalnennya-vyvchenoho.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання іменників, що мають форму тільки множини", href: "urok6-vidminyuvannya-imennykiv-shcho-mayut-formu-tilky-mnozhyny.html",
+          test: {status: "soon", href: "vidminyuvannya-imennykiv-shcho-mayut-formu-tilky-mnozhyny6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-imennykiv-shcho-mayut-formu-tilky-mnozhyny.html"}},
+        {icon: "Н", status: "soon", title: "Написання та відмінювання імен по батькові й прізвищ", href: "urok6-napysannya-ta-vidminyuvannya-imen-po-batkovi-y-prizvyshch.html",
+          test: {status: "soon", href: "napysannya-ta-vidminyuvannya-imen-po-batkovi-y-prizvyshch6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-ta-vidminyuvannya-imen-po-batkovi-y-prizvyshch.html"}},
+        {icon: "Б", status: "soon", title: "Букви е, и, і в суфіксах іменників", href: "urok6-bukvy-e-y-i-v-sufiksakh-imennykiv.html",
+          test: {status: "soon", href: "bukvy-e-y-i-v-sufiksakh-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-bukvy-e-y-i-v-sufiksakh-imennykiv.html"}},
+        {icon: "Н", status: "soon", title: "Написання не з іменниками", href: "urok6-napysannya-ne-z-imennykamy.html",
+          test: {status: "soon", href: "napysannya-ne-z-imennykamy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-ne-z-imennykamy.html"}},
+        {icon: "П", status: "soon", title: "Правопис складних іменників", href: "urok6-pravopys-skladnykh-imennykiv.html",
+          test: {status: "soon", href: "pravopys-skladnykh-imennykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravopys-skladnykh-imennykiv.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Іменник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-imennyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-imennyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-imennyk.html"}}
+      ]},
+      { title: "ПРИКМЕТНИК", items: [
+        {icon: "П", status: "soon", title: "Прикметник як частина мови", href: "urok6-prykmetnyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "prykmetnyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-prykmetnyk-yak-chastyna-movy.html"}},
+        {icon: "Г", status: "soon", title: "Групи прикметників за значенням", href: "urok6-hrupy-prykmetnykiv-za-znachennyam.html",
+          test: {status: "soon", href: "hrupy-prykmetnykiv-za-znachennyam6.html"},
+          tasks: {status: "soon", href: "zavdannya6-hrupy-prykmetnykiv-za-znachennyam.html"}},
+        {icon: "С", status: "soon", title: "Ступені порівняння якісних прикметників", href: "urok6-stupeni-porivnyannya-yakisnykh-prykmetnykiv.html",
+          test: {status: "soon", href: "stupeni-porivnyannya-yakisnykh-prykmetnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-stupeni-porivnyannya-yakisnykh-prykmetnykiv.html"}},
+        {icon: "П", status: "soon", title: "Повні й короткі форми прикметників", href: "urok6-povni-y-korotki-formy-prykmetnykiv.html",
+          test: {status: "soon", href: "povni-y-korotki-formy-prykmetnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-povni-y-korotki-formy-prykmetnykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання прикметників", href: "urok6-vidminyuvannya-prykmetnykiv.html",
+          test: {status: "soon", href: "vidminyuvannya-prykmetnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-prykmetnykiv.html"}},
+        {icon: "Т", status: "soon", title: "Творення прикметників. Написання прикметникових суфіксів", href: "urok6-tvorennya-prykmetnykiv-napysannya-prykmetnykovykh-sufiksiv.html",
+          test: {status: "soon", href: "tvorennya-prykmetnykiv-napysannya-prykmetnykovykh-sufiksiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-tvorennya-prykmetnykiv-napysannya-prykmetnykovykh-sufiksiv.html"}},
+        {icon: "Н", status: "soon", title: "Написання не з прикметниками", href: "urok6-napysannya-ne-z-prykmetnykamy.html",
+          test: {status: "soon", href: "napysannya-ne-z-prykmetnykamy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-ne-z-prykmetnykamy.html"}},
+        {icon: "Н", status: "soon", title: "Написання н і нн у прикметниках", href: "urok6-napysannya-n-i-nn-u-prykmetnykakh.html",
+          test: {status: "soon", href: "napysannya-n-i-nn-u-prykmetnykakh6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-n-i-nn-u-prykmetnykakh.html"}},
+        {icon: "Н", status: "soon", title: "Написання складних прикметників разом і з дефісом", href: "urok6-napysannya-skladnykh-prykmetnykiv-razom-i-z-defisom.html",
+          test: {status: "soon", href: "napysannya-skladnykh-prykmetnykiv-razom-i-z-defisom6.html"},
+          tasks: {status: "soon", href: "zavdannya6-napysannya-skladnykh-prykmetnykiv-razom-i-z-defisom.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Прикметник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-prykmetnyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-prykmetnyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-prykmetnyk.html"}}
+      ]},
+      { title: "ЧИСЛІВНИК", items: [
+        {icon: "Ч", status: "soon", title: "Числівник як частина мови", href: "urok6-chyslivnyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "chyslivnyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-chyslivnyk-yak-chastyna-movy.html"}},
+        {icon: "Г", status: "soon", title: "Групи числівників", href: "urok6-hrupy-chyslivnykiv.html",
+          test: {status: "soon", href: "hrupy-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-hrupy-chyslivnykiv.html"}},
+        {icon: "Р", status: "soon", title: "Розряди кількісних числівників", href: "urok6-rozryady-kilkisnykh-chyslivnykiv.html",
+          test: {status: "soon", href: "rozryady-kilkisnykh-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-rozryady-kilkisnykh-chyslivnykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання кількісних числівників, що означають цілі числа", href: "urok6-vidminyuvannya-kilkisnykh-chyslivnykiv-shcho-oznachayut-tsili-chysla.html",
+          test: {status: "soon", href: "vidminyuvannya-kilkisnykh-chyslivnykiv-shcho-oznachayut-tsili-chysla6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-kilkisnykh-chyslivnykiv-shcho-oznachayut-tsili-chysla.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання дробових і збірних числівників", href: "urok6-vidminyuvannya-drobovykh-i-zbirnykh-chyslivnykiv.html",
+          test: {status: "soon", href: "vidminyuvannya-drobovykh-i-zbirnykh-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-drobovykh-i-zbirnykh-chyslivnykiv.html"}},
+        {icon: "В", status: "soon", title: "Відмінювання та написання порядкових числівників", href: "urok6-vidminyuvannya-ta-napysannya-poryadkovykh-chyslivnykiv.html",
+          test: {status: "soon", href: "vidminyuvannya-ta-napysannya-poryadkovykh-chyslivnykiv6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vidminyuvannya-ta-napysannya-poryadkovykh-chyslivnykiv.html"}},
+        {icon: "У", status: "soon", title: "Узгодження кількісних числівників з іменниками", href: "urok6-uzhodzhennya-kilkisnykh-chyslivnykiv-z-imennykamy.html",
+          test: {status: "soon", href: "uzhodzhennya-kilkisnykh-chyslivnykiv-z-imennykamy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzhodzhennya-kilkisnykh-chyslivnykiv-z-imennykamy.html"}},
+        {icon: "П", status: "soon", title: "Правильне вживання числівників на позначення часу й дат", href: "urok6-pravylne-vzhyvannya-chyslivnykiv-na-poznachennya-chasu-y-dat.html",
+          test: {status: "soon", href: "pravylne-vzhyvannya-chyslivnykiv-na-poznachennya-chasu-y-dat6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pravylne-vzhyvannya-chyslivnykiv-na-poznachennya-chasu-y-dat.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Числівник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-chyslivnyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-chyslivnyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-chyslivnyk.html"}}
+      ]},
+      { title: "ЗАЙМЕННИК", items: [
+        {icon: "З", status: "soon", title: "Займенник як частина мови", href: "urok6-zaymennyk-yak-chastyna-movy.html",
+          test: {status: "soon", href: "zaymennyk-yak-chastyna-movy6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zaymennyk-yak-chastyna-movy.html"}},
+        {icon: "О", status: "soon", title: "Особові та зворотний займенники", href: "urok6-osobovi-ta-zvorotnyy-zaymennyky.html",
+          test: {status: "soon", href: "osobovi-ta-zvorotnyy-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-osobovi-ta-zvorotnyy-zaymennyky.html"}},
+        {icon: "П", status: "soon", title: "Питальні й відносні займенники", href: "urok6-pytalni-y-vidnosni-zaymennyky.html",
+          test: {status: "soon", href: "pytalni-y-vidnosni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-pytalni-y-vidnosni-zaymennyky.html"}},
+        {icon: "З", status: "soon", title: "Заперечні й неозначені займенники", href: "urok6-zaperechni-y-neoznacheni-zaymennyky.html",
+          test: {status: "soon", href: "zaperechni-y-neoznacheni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-zaperechni-y-neoznacheni-zaymennyky.html"}},
+        {icon: "П", status: "soon", title: "Присвійні займенники", href: "urok6-prysviyni-zaymennyky.html",
+          test: {status: "soon", href: "prysviyni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-prysviyni-zaymennyky.html"}},
+        {icon: "В", status: "soon", title: "Вказівні й означальні займенники", href: "urok6-vkazivni-y-oznachalni-zaymennyky.html",
+          test: {status: "soon", href: "vkazivni-y-oznachalni-zaymennyky6.html"},
+          tasks: {status: "soon", href: "zavdannya6-vkazivni-y-oznachalni-zaymennyky.html"}},
+        {icon: "У", status: "soon", title: "Узагальнення вивченого з теми «Займенник»", href: "urok6-uzahalnennya-vyvchenoho-z-temy-zaymennyk.html",
+          test: {status: "soon", href: "uzahalnennya-vyvchenoho-z-temy-zaymennyk6.html"},
+          tasks: {status: "soon", href: "zavdannya6-uzahalnennya-vyvchenoho-z-temy-zaymennyk.html"}}
+      ]},
+      { title: "ПОВТОРЕННЯ ТА УЗАГАЛЬНЕННЯ ВИВЧЕНОГО В КІНЦІ РОКУ", items: [
+        {icon: "П", status: "soon", title: "Повторення та узагальнення вивченого в кінці року", href: "urok6-povtorennya-ta-uzahalnennya-vyvchenoho-v-kintsi-roku.html",
+          test: {status: "soon", href: "povtorennya-ta-uzahalnennya-vyvchenoho-v-kintsi-roku6.html"},
+          tasks: {status: "soon", href: "zavdannya6-povtorennya-ta-uzahalnennya-vyvchenoho-v-kintsi-roku.html"}}
+      ]}
+    ]
+  }
+];
+
+const blocksEl = document.getElementById('blocks');
+
+function pillHtml(test){
+  if(!test) return '';
+  const clickable = test.status === 'ready';
+  const label = "📝 Тест до теми";
+  return `<a class="test-pill ${test.status}" href="${clickable ? test.href : '#'}" data-testkey="${test.href}">${label}</a>`;
+}
+
+function tasksPillHtml(tasks){
+  if(!tasks) return '';
+  const clickable = tasks.status === 'ready';
+  const label = "✏️ Завдання";
+  return `<a class="test-pill tasks ${tasks.status}" href="${clickable ? tasks.href : '#'}" data-testkey="${tasks.href}">${label}</a>`;
+}
+
+function generalTestPillHtml(test){
+  if(!test) return '';
+  const clickable = test.status === 'ready';
+  const label = "📝 Загальний тест";
+  return `<a class="block-test-pill ${test.status}" href="${clickable ? test.href : '#'}" data-testkey="${test.href}">${label}</a>`;
+}
+
+function subgroupTestPillHtml(test){
+  if(!test) return '';
+  const clickable = test.status === 'ready';
+  const label = "📝 Загальний тест";
+  return `<a class="subgroup-test-pill ${test.status}" href="${clickable ? test.href : '#'}" data-testkey="${test.href}">${label}</a>`;
+}
+
+function renderBlocks_(){
+  blocksEl.innerHTML = BLOCKS.map(block => `
+    <div class="block">
+      <div class="block-header">
+        <h2 class="block-title">${block.name}</h2>
+        ${generalTestPillHtml(block.generalTest)}
+      </div>
+      ${block.subgroups.map(sg => `
+        <div class="subgroup">
+          ${(sg.title || sg.generalTest) ? `
+            <div class="subgroup-header">
+              ${sg.title ? `<div class="subgroup-title">${sg.title}</div>` : '<span></span>'}
+              ${subgroupTestPillHtml(sg.generalTest)}
+            </div>` : ''}
+          <div class="grid">
+            ${sg.items.map(it => `
+              <div class="card-wrap">
+                <a class="card ${it.status}" href="${it.status==='soon'?'#':it.href}" data-key="${it.href}">
+                  <div class="card-top">
+                    <span class="tile">${it.icon}</span>
+                    <span class="status ${it.status}">${it.status==='soon'?'Скоро':'Готово'}</span>
+                  </div>
+                  <p class="card-title">${it.title}</p>
+                  ${it.desc?`<p class="card-sub">${it.desc}</p>`:''}
+                </a>
+                <div class="pills">${pillHtml(it.test)}${tasksPillHtml(it.tasks)}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+renderBlocks_();
+
+// ============================================================
+// ДЗ — так само, як у 8-9-класному порталі. Встав сюди /exec-посилання
+// того ж бота (Code89.gs / @resultat89_bot), якщо клас додано в CLASSES
+// того ж проєкту — тоді позначки ДЗ і доступ до тем працюють однаково.
+// ============================================================
+const HOMEWORK_API_URL = "ВСТАВТЕ_/exec-ПОСИЛАННЯ_ТУТ";
+
+let _lastHomeworkMap = null;
+function applyHomework(map){
+  map = map || {};
+  _lastHomeworkMap = map;
+  document.querySelectorAll('[data-testkey]').forEach(function(el){
+    const hw = map[el.getAttribute('data-testkey')];
+    if(!hw) return;
+    el.classList.add('homework');
+    if(!el.querySelector('.hw-badge')){
+      const span = document.createElement('span');
+      span.className = 'hw-badge';
+      span.textContent = ' · ДЗ ' + hw.number;
+      el.appendChild(span);
+    }
+    if (hw.number && el.getAttribute('href') !== '#') {
+      const sep = el.getAttribute('href').indexOf('?') > -1 ? '&' : '?';
+      el.setAttribute('href', el.getAttribute('href') + sep + 'hw=' + encodeURIComponent(hw.number));
+    }
+  });
+}
+
+function loadHomework(studentCode){
+  if(!HOMEWORK_API_URL || HOMEWORK_API_URL.indexOf('ВСТАВТЕ') === 0) return;
+  if(!studentCode) return;
+  const sep = HOMEWORK_API_URL.indexOf('?') > -1 ? '&' : '?';
+  const s = document.createElement('script');
+  s.src = HOMEWORK_API_URL + sep + 'callback=applyHomework&student=' + encodeURIComponent(studentCode);
+  document.body.appendChild(s);
+}
+
+// ============================================================
+// ХТО ЩО БАЧИТЬ — заповни, як STUDENT_ACCESS у 8-9-класному index89.html:
+// код учня → масив href уроків, які йому відкрито.
+// Посилання для учня: .../index6.html?u=Ім'я
+// ============================================================
+const STUDENT_ACCESS = {
+  // "код-учня": ["href-теми-1", "href-теми-2"]
+  // Порожній масив = учень має дійсне посилання, теми відкриває бот (кнопка "🔓 Теми").
+};
+
+// ============================================================
+// ГРУПОВІ КОДИ (одне посилання — двоє учнів), як і в інших класах.
+// ============================================================
+const GROUP_MEMBERS = {
+  // "код групи в нижньому регістрі": ["Ім'я1", "Ім'я2"]
+};
+
+function normalizeCode(s){
+  return (s || '').trim().replace(/\s+/g, ' ').toLowerCase();
+}
+
+const NORMALIZED_ACCESS = {};
+Object.keys(STUDENT_ACCESS).forEach(function(code){
+  NORMALIZED_ACCESS[normalizeCode(code)] = STUDENT_ACCESS[code];
+});
+
+function appendStudentParam_(href, name){
+  const sep = href.indexOf('?') > -1 ? '&' : '?';
+  return href + sep + 'student=' + encodeURIComponent(name);
+}
+
+function applyAccessAndRender_(studentCode, allowed, displayName){
+  const desc = document.getElementById('subDesc');
+  if (desc) desc.remove();
+
+  document.querySelectorAll('.card-wrap').forEach(function(wrap){
+    const card = wrap.querySelector('.card');
+    const key = card.getAttribute('data-key');
+    if (allowed.indexOf(key) === -1) { wrap.remove(); return; }
+    if (card.getAttribute('href') !== '#') {
+      card.setAttribute('href', appendStudentParam_(card.getAttribute('href'), displayName));
+    }
+    wrap.querySelectorAll('.test-pill').forEach(function(pill){
+      if (pill.getAttribute('href') !== '#') {
+        pill.setAttribute('href', appendStudentParam_(pill.getAttribute('href'), displayName));
+      }
+    });
+  });
+  document.querySelectorAll('.subgroup').forEach(function(sg){
+    if (!sg.querySelector('.card')) sg.remove();
+  });
+  document.querySelectorAll('.block').forEach(function(b){
+    if (!b.querySelector('.card')) b.remove();
+  });
+
+  document.querySelectorAll('#switchWho').forEach(function(el){ el.closest('p').remove(); });
+  if (GROUP_MEMBERS[studentCode]) {
+    const who = document.createElement('p');
+    who.className = 'sub';
+    who.style.cssText = 'margin-top:28px;font-size:13px;';
+    who.innerHTML = 'Ви зайшли як <b>' + displayName + '</b>. <a href="#" id="switchWho" style="color:var(--c1-b);">Це не я</a>';
+    document.querySelector('.wrap').appendChild(who);
+    document.getElementById('switchWho').addEventListener('click', function(e){
+      e.preventDefault();
+      sessionStorage.removeItem('chosenName_' + studentCode);
+      location.reload();
+    });
+  }
+}
+
+function finishStudentView_(studentCode, allowedStatic, displayName){
+  loadHomework(studentCode);
+  applyAccessAndRender_(studentCode, allowedStatic, displayName);
+
+  const stillWaiting = HOMEWORK_API_URL && HOMEWORK_API_URL.indexOf('ВСТАВТЕ') !== 0;
+  const blocksEl = document.getElementById('blocks');
+
+  let loadingEl = null;
+  if (stillWaiting && !document.querySelector('.card-wrap')) {
+    loadingEl = document.createElement('p');
+    loadingEl.className = 'sub';
+    loadingEl.id = 'accessLoading';
+    loadingEl.textContent = 'Завантажуємо ваші теми…';
+    document.querySelector('.wrap').insertBefore(loadingEl, blocksEl);
+  }
+
+  if (!stillWaiting) return;
+
+  let resolved = false;
+  window.applyAccess = function(dynamicList){
+    if (resolved) return;
+    resolved = true;
+    dynamicList = dynamicList || [];
+    const extra = dynamicList.filter(function(h){ return allowedStatic.indexOf(h) === -1; });
+    if (extra.length > 0) {
+      renderBlocks_();
+      applyAccessAndRender_(studentCode, allowedStatic.concat(extra), displayName);
+      if (_lastHomeworkMap) applyHomework(_lastHomeworkMap);
+    }
+
+    const loader = document.getElementById('accessLoading');
+    if (loader) loader.remove();
+
+    if (!document.querySelector('.card-wrap')) {
+      const msg = document.createElement('p');
+      msg.className = 'sub';
+      msg.textContent = 'Поки для вас не відкрито жодної теми. Зверніться до вчительки.';
+      document.querySelector('.wrap').insertBefore(msg, blocksEl);
+    }
+  };
+
+  const sep = HOMEWORK_API_URL.indexOf('?') > -1 ? '&' : '?';
+  const s = document.createElement('script');
+  s.src = HOMEWORK_API_URL + sep + 'mode=access&callback=applyAccess&student=' + encodeURIComponent(studentCode);
+  document.body.appendChild(s);
+}
+
+function showNamePicker_(studentCode, allowed, members){
+  const blocksEl = document.getElementById('blocks');
+  blocksEl.style.display = 'none';
+  const desc = document.getElementById('subDesc');
+  if (desc) desc.remove();
+
+  const box = document.createElement('div');
+  box.id = 'namePicker';
+  box.innerHTML = '<p class="sub" style="margin-bottom:18px;">Це спільне посилання. Оберіть, хто зараз проходить тести:</p>';
+
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;gap:12px;flex-wrap:wrap;';
+
+  members.forEach(function(name){
+    const btn = document.createElement('button');
+    btn.textContent = name;
+    btn.style.cssText = 'font-family:Manrope,sans-serif;font-weight:800;font-size:16px;padding:18px 30px;border:none;border-radius:16px;cursor:pointer;background:var(--card);color:var(--ink);box-shadow:0 14px 30px -24px rgba(19,33,59,0.35);';
+    btn.addEventListener('click', function(){
+      sessionStorage.setItem('chosenName_' + studentCode, name);
+      box.remove();
+      blocksEl.style.display = '';
+      finishStudentView_(studentCode, allowed, name);
+    });
+    row.appendChild(btn);
+  });
+
+  box.appendChild(row);
+  document.querySelector('.wrap').insertBefore(box, blocksEl);
+}
+
+(function(){
+  const params = new URLSearchParams(location.search);
+  const isTeacher = params.get('vchytel') === '1';
+  const studentCode = normalizeCode(params.get('u'));
+  const allowed = studentCode ? NORMALIZED_ACCESS[studentCode] : null;
+
+  if (isTeacher) {
+    document.body.classList.add('teacher-mode');
+
+    function renderOpenBadges_(dynamicMap){
+      dynamicMap = dynamicMap || {};
+      document.querySelectorAll('.card').forEach(function(card){
+        const key = card.getAttribute('data-key');
+        const openFor = Object.keys(STUDENT_ACCESS).filter(function(code){
+          const staticOpen = STUDENT_ACCESS[code].indexOf(key) !== -1;
+          const dynOpen = (dynamicMap[normalizeCode(code)] || []).indexOf(key) !== -1;
+          return staticOpen || dynOpen;
+        });
+        let badge = card.querySelector('.open-badge');
+        if (!badge) {
+          badge = document.createElement('span');
+          card.appendChild(badge);
+        }
+        if (openFor.length) {
+          badge.className = 'open-badge open';
+          badge.textContent = '🔓 Відкрито · ' + openFor.length;
+          badge.title = openFor.join(', ');
+        } else {
+          badge.className = 'open-badge closed';
+          badge.textContent = '🔒 нікому не відкрито';
+          badge.title = '';
+        }
+      });
+    }
+
+    renderOpenBadges_({});
+
+    if (HOMEWORK_API_URL && HOMEWORK_API_URL.indexOf('ВСТАВТЕ') !== 0) {
+      window.applyAllAccess = renderOpenBadges_;
+      const sep = HOMEWORK_API_URL.indexOf('?') > -1 ? '&' : '?';
+      const s = document.createElement('script');
+      s.src = HOMEWORK_API_URL + sep + 'mode=access_all&callback=applyAllAccess';
+      document.body.appendChild(s);
+    }
+    return;
+  }
+
+  document.querySelectorAll('.topbar, .teacher-banner').forEach(function(el){ el.remove(); });
+
+  if (studentCode && allowed) {
+    const tag = document.querySelector('.kicker.tag');
+    if (tag) tag.remove();
+
+    const members = GROUP_MEMBERS[studentCode];
+    if (members) {
+      const chosen = sessionStorage.getItem('chosenName_' + studentCode);
+      if (chosen && members.indexOf(chosen) !== -1) {
+        finishStudentView_(studentCode, allowed, chosen);
+      } else {
+        showNamePicker_(studentCode, allowed, members);
+      }
+    } else {
+      finishStudentView_(studentCode, allowed, params.get('u').trim());
+    }
+  } else {
+    const desc = document.getElementById('subDesc');
+    if (desc) desc.remove();
+    document.querySelectorAll('.block').forEach(function(b){ b.remove(); });
+    const msg = document.createElement('p');
+    msg.className = 'sub';
+    msg.textContent = 'Це посилання недійсне. Зверніться до вчительки за новим.';
+    document.querySelector('.wrap').appendChild(msg);
+  }
+})();
+</script>
+</body>
+</html>

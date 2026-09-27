@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оберіть клас</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFEEC; --card:#FFFFFF; --ink:#2D2350; --ink-soft:#8C7FA8;
+    --c1-b:#A88AED; --c1-sh: rgba(168,138,237,0.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif;
+    min-height:100vh; padding:40px 16px 64px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .wrap{max-width:720px;width:100%;text-align:center;}
+  h1{
+    font-family:'Manrope',sans-serif; font-weight:800;
+    font-size:clamp(26px,6vw,38px); text-transform:uppercase;
+    letter-spacing:-0.01em; margin:0 0 10px;
+  }
+  h1 .hl{color:var(--c1-b);}
+  .sub{color:var(--ink-soft); font-size:15px; margin:0 0 36px; font-weight:500;}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+    gap:16px;
+  }
+  .tile{
+    background:var(--card); border-radius:22px; padding:28px 12px;
+    text-decoration:none; color:var(--ink);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    box-shadow: 0 14px 30px -24px rgba(19,33,59,0.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .tile:hover{
+    transform:translateY(-3px);
+    box-shadow: 0 18px 34px -18px rgba(19,33,59,0.4);
+  }
+  .tile .num{
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:34px;
+    color:var(--c1-b);
+  }
+  .tile .lbl{
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:13px;
+    text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft);
+  }
+  footer{ text-align:center; margin-top:40px; font-size:12.5px; color:var(--ink-soft); font-weight:500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Оберіть <span class="hl">клас</span></h1>
+  <p class="sub">Кожен клас — своя програма, уроки й тести.</p>
+  <div class="grid">
+    <a class="tile" href="index5.html"><span class="num">5</span><span class="lbl">клас</span></a>
+    <a class="tile" href="index6.html"><span class="num">6</span><span class="lbl">клас</span></a>
+    <a class="tile" href="index7.html"><span class="num">7</span><span class="lbl">клас</span></a>
+    <a class="tile" href="index.html?vchytel=1"><span class="num">8</span><span class="lbl">клас</span></a>
+    <a class="tile" href="index.html?vchytel=1"><span class="num">9</span><span class="lbl">клас</span></a>
+  </div>
+</div>
+<footer>@movoznavka</footer>
+</body>
+</html>
