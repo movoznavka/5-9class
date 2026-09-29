@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Види складнопідрядних речень · Завдання</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#D6F1EA;--soft:#EAF8F4;--card:#FFFBEA;--ink:#12302B;--mute:#5C8A82;--a:#7FE0C8;--b:#0F9D8A;--sh:rgba(15,157,138,.45);--ok:#17A863;--no:#D8393E;--terra:#B5442B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px}
+.wrap{max-width:760px;margin:0 auto}
+.kicker{font:800 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.55;padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid rgba(18,48,43,.14)}
+h1{font:800 clamp(24px,5.6vw,36px)/1.08 'Manrope',sans-serif;text-transform:uppercase;margin:0 0 18px}
+h1 span{color:var(--b)}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 15px 10px 10px;border-radius:999px;border:1px solid #fff;background:#fff;color:var(--mute);font:800 12.5px 'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 10px 20px -12px rgba(18,48,43,.45)}
+.tab i{font-style:normal;width:22px;height:22px;border-radius:8px;background:rgba(15,157,138,.16);color:var(--b);display:flex;align-items:center;justify-content:center;font-size:11px}
+.tab.active,.btn.primary{background:linear-gradient(155deg,var(--a),var(--b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--sh)}
+.tab.active i{background:rgba(255,255,255,.28);color:#fff}
+.card{background:var(--card);border-radius:28px;padding:28px 24px;box-shadow:0 20px 44px -28px rgba(18,48,43,.35)}
+.st{font:800 20px 'Manrope',sans-serif;margin:0 0 8px}
+.si{color:var(--mute);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+.m{background:var(--terra);color:#fff;border-radius:6px;padding:1px 8px;font-weight:700}
+.qp{font:700 13px 'Manrope',sans-serif;color:var(--mute);margin-bottom:14px}
+.qt{font:700 19px/1.5 'Manrope',sans-serif;margin:0 0 20px}
+.step{font:800 13px 'Manrope',sans-serif;color:var(--b);margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.step i{font-style:normal;width:22px;height:22px;border-radius:50%;background:var(--b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:13px;text-align:left;width:100%;padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--soft);cursor:pointer;font:500 14.5px 'Inter',sans-serif;color:var(--ink)}
+.tile{width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:800 13px 'Manrope',sans-serif;color:var(--b);background:linear-gradient(150deg,rgba(255,255,255,.75),rgba(15,157,138,.22))}
+.opt.correct{background:#E6F8EE}.opt.wrong{background:#FDECEC}.opt.dim{opacity:.5}
+.fb{margin-top:14px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600}
+.fb.ok{background:#E6F8EE;color:#128A54}.fb.bad{background:#FDECEC;color:var(--no)}
+.note{margin-top:6px;font-weight:500;font-size:13px;opacity:.85}
+.nav{display:flex;justify-content:space-between;margin-top:22px}
+.btn{font:800 13px 'Manrope',sans-serif;padding:12px 22px;border-radius:999px;border:none;cursor:pointer;background:transparent;color:var(--mute)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn.sm{padding:8px 14px;font-size:12px}
+.done{text-align:center}
+.ring{width:110px;height:110px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(155deg,var(--a),var(--b));display:flex;align-items:center;justify-content:center;font:800 28px 'Manrope',sans-serif;color:#fff}
+.ss{font-size:13px;font-weight:600;color:var(--mute);margin-top:10px;min-height:18px}.ss.ok{color:#128A54}.ss.bad{color:var(--no)}
+footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--mute);font-weight:500}
+#cv{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;touch-action:none}
+#cv.on{pointer-events:auto}
+#pen{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:none;background:linear-gradient(155deg,var(--a),var(--b));box-shadow:0 14px 28px -10px var(--sh);color:#fff;font-size:22px;cursor:pointer;z-index:9999}
+#pen.on{background:linear-gradient(155deg,#FF8A65,var(--no))}
+#tb{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:none;gap:10px;align-items:center;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);padding:9px 16px;border-radius:999px;box-shadow:0 24px 48px -20px rgba(18,48,43,.45);z-index:9999}
+#tb.show{display:flex}
+.sw{width:25px;height:25px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.sw.sel{border-color:var(--ink)}
+.tb2{border:none;background:var(--soft);border-radius:999px;padding:7px 12px;font:800 12px 'Manrope',sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Види складнопідрядних речень · 9 клас · Завдання</div>
+  <h1>Завдання: <span>вид підрядної</span></h1>
+  <div class="tabbar" id="tabs"></div>
+  <div class="card" id="area"></div>
+  <footer>@movoznavka</footer>
+</div>
+<canvas id="cv"></canvas>
+<button id="pen" title="Малювати">✎</button>
+<div id="tb">
+  <button class="sw sel" style="background:#F5304A" data-c="#F5304A"></button>
+  <button class="sw" style="background:#3355EE" data-c="#3355EE"></button>
+  <button class="sw" style="background:#17A863" data-c="#17A863"></button>
+  <button class="sw" style="background:#12302B" data-c="#12302B"></button>
+  <button class="tb2" id="th">Товщ.</button>
+  <button class="tb2" id="er">Ластик</button>
+  <button class="tb2" id="cl">Очистити</button>
+</div>
+
+<script>
+/* Рядок: [до, ПІДРЯДНА ЧАСТИНА, після, вид, підказка]. Підрядну дитина знаходить сама (крок 1). */
+const API_URL="https://script.google.com/macros/s/AKfycbxWkeJYw7gUdEjM9H2oeMVTMhBLEq1dDa2DcqNS5vSQjJb19aXyR7p7kDz_otyK3sTggw/exec";
+const M=t=>`<span class="m">${t}</span>`;
+const TY=["Означальна","З’ясувальна","місця","часу","способу дії","міри і ступеня","порівняльна","мети","причини","умови","допустова","наслідкова"];
+const lab=n=>TY.indexOf(n)<2?n:"Обставинна "+n;
+const L=["А","Б","В","Г"];
+const GR=[
+{tab:"Завдання 1",name:"Види складнопідрядних речень: вправа 170",title:"Завдання 1",intro:"Поставте питання від головної частини до підрядної й визначте вид підрядної.",it:[
+["У цей час краще було кудись подітись, ","бо процес прибирання бабу дуже нервував",".","причини","Питання: чому?"],
+["В тобі любов ходила, ","як гроза над молодим і обімлілим садом",".","порівняльна","Питання: як саме?"],
+["І чекаю, і не знаю, ","чи ж то правда в твоїх очах",".","З’ясувальна","Питання: що?"],
+["Я буду на світі, ","допоки незнане світло в обличчі твоєму світить",".","часу","Питання: доки?"],
+["І чомусь прийшло до пам’яті, ","як мій предок в давнину сам на сам ходив на мамонтів і дубчак для лука гнув",".","З’ясувальна","Питання: про що?"]]},
+{tab:"Завдання 2",name:"Види складнопідрядних речень: вправа 171",title:"Завдання 2",intro:"Речення подано з розділовими знаками. Визначте вид підрядної частини.",it:[
+["Місяць-молодик показав несміло свої ріжки, ","наче боявся вломити їх на рівному плесі темної небесної води",".","порівняльна","Питання: як саме?"],
+["Пишіть листи і надсилайте вчасно, ","коли їх ждуть далекі адресати",", коли є час, коли немає часу і коли навіть ні про що писати.","часу","Питання: коли?"],
+["","Якщо ти станеш іншим і навколо тебе мільйон людей стануть іншими",", то і країна почне змінюватися.","умови","Питання: за якої умови?"],
+["Так холодно, ","немов чужа зима кладе долоні на останні квіти",".","порівняльна","Питання: як саме?"],
+["І я не знаю, ","як світанок настає і як закінчився улюблений альбом",".","З’ясувальна","Питання: що?"],
+["Ви дуже сильні, ","якщо бажаєте добра",", якщо стараєтеся, якщо гуртуєтеся, якщо намагаєтеся спільно творити добро, жити чесно, жити творчо.","умови","Питання: за якої умови?"],
+["Я люблю, ","коли в листя зелене дерева одягає весна і під вітром хитаються клени і співає в квітках далина",".","З’ясувальна","Питання: що?"],
+["Йшла до нього, ","наче місячна царівна йшла до нього",", як до березня весна.","порівняльна","Питання: як саме?"],
+["Світ є таким, ","яким ти його бачиш",", а не таким, яким бачить сусід і показує телевізор.","Означальна","Питання: яким (таким)?"]]},
+{tab:"Завдання 3",name:"Види складнопідрядних речень: завдання 2",title:"Завдання 3",intro:"Розділові знаки вже поставлено. Визначте вид підрядної частини.",it:[
+["","Коли рвались нитки від болю і легені душила спека",", долітали з краю магнолії найдорожчі у світі треки.","часу","Питання: коли?"],
+["Стрілянина, ","якою прорвало враз береги",", шматувала повітря.","Означальна","Питання: яка (стрілянина)?"],
+["Коли людині є що сказати, вона виллє з глибини власної душі все те, ","що має на папір або полотно",".","Означальна","Питання: яке (все те)?"],
+["Все, ","що гарне у природі",", все, що чесне у народі, розцвітає в ці деньки.","Означальна","Питання: яке (все)?"],
+["","Допоки кожне плем’я було окремо",", всякий, хто дужчий або нахабніший, міг збиткуватися з нього.","часу","Питання: доки?"],
+["Я з друзями прийшов у ті місця, ","де ще стоять глибокі озерця",", що як дівчата заглядають в очі.","Означальна","Питання: які (місця)?"],
+["","Перед тим як відхилити ляду",", вона закриває ліхтар, прислухається.","часу","Питання: коли?"]]},
+{tab:"Завдання 4",name:"Види складнопідрядних речень: вправа 301",title:"Завдання 4",intro:"Визначте вид підрядної частини. Після відповіді побачите слово, яке вона пояснює, і засіб зв’язку.",it:[
+["Прийшов з вербово-степових країв, ","де все таке безмежне і зелене",".","Означальна","Пояснює слово «країв»; сполучне слово «де»."],
+["Я заздрю всім, ","у кого фарби є жагучі",".","Означальна","Пояснює слово «всім»; сполучне слово «кого»."],
+["Щастя — це діти, ","котрих вдається виховати добрими",".","Означальна","Пояснює слово «діти»; сполучне слово «котрих»."],
+["Не відкладай на завтра те, ","що можна зробити сьогодні",".","Означальна","Пояснює слово «те»; сполучне слово «що»."],
+["Будь непримиренним до того, ","хто прагне жити за рахунок інших людей",".","Означальна","Пояснює слово «того»; сполучне слово «хто»."],
+["На станції, ","де сходились три залізничні колії",", було багато пасажирів.","Означальна","Пояснює слово «станції»; сполучне слово «де»."]]}
+];
+const cut=s=>s.replace(/^[\s,.]+|[\s,.]+$/g,""),tail=s=>s.split(" ").slice(1).join(" ");
+GR.forEach(g=>{g.qs=g.it.map((x,i)=>{
+  const sub=cut(x[1]),main=cut(x[0]||x[2]);
+  const c=TY.indexOf(x[3]),d=[];let k=1+(i%5);
+  while(d.length<3){const j=(c+k)%12;if(j!==c&&!d.includes(j))d.push(j);k+=3;}
+  const o2=d.map(j=>TY[j]),a2=i%4;o2.splice(a2,0,TY[c]);
+  return {b:x[0],s:x[1],e:x[2],o2,a2,n:x[4]};});});
+let gi=0,qi=0,ans=GR.map(()=>({})),sent={};
+const P=new URLSearchParams(location.search),hw=P.get("hw");
+if(hw&&+hw>=1&&+hw<=GR.length)gi=+hw-1;
+const tabs=document.getElementById("tabs"),area=document.getElementById("area");
+function renderTabs(){
+  tabs.innerHTML=GR.map((g,i)=>`<button class="tab ${i===gi?"active":""}" data-i="${i}"><i>${i+1}</i>${g.tab}</button>`).join("");
+  tabs.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{gi=+b.dataset.i;qi=0;clearInk();renderTabs();render();});
+}
+async function send(g,c){
+  const st=document.getElementById("ss"),student=P.get("student");
+  if(!student||sent[gi]==="sending"||sent[gi]==="ok"){if(st&&sent[gi]==="ok"){st.textContent="Результат надіслано вчителю ✓";st.className="ss ok";}return;}
+  sent[gi]="sending";st.textContent="Надсилаємо результат...";
+  const A=ans[gi],wrong=[];g.qs.forEach((_,i)=>{if(A[i]&&!A[i].ok)wrong.push(i+1);});
+  try{
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"quiz_result",student,testName:g.name,correct:c,answered:Object.keys(A).length,total:g.qs.length,wrongList:wrong,reviewLink:"",flaggedList:[]})});
+    if(!r.ok)throw 0;sent[gi]="ok";st.textContent="Результат надіслано вчителю ✓";st.className="ss ok";
+  }catch(e){sent[gi]="";st.innerHTML='Не вдалося надіслати результат. <button class="btn sm" id="rt">Ще раз</button>';st.className="ss bad";document.getElementById("rt").onclick=()=>send(g,c);}
+}
+function opts(list,pick,right,step,fmt){
+  return `<div class="opts">${list.map((o,i)=>{
+    let cls="opt";if(pick!==undefined)cls+=i===right?" correct":(i===pick?" wrong":" dim");
+    return `<button class="${cls}" data-s="${step}" data-i="${i}" ${pick!==undefined?"disabled":""}><span class="tile">${L[i]}</span><span>${fmt(o)}</span></button>`;}).join("")}</div>`;
+}
+function render(){
+  const g=GR[gi],n=g.qs.length,A=ans[gi];
+  let h=`<p class="st">${g.title}</p><p class="si">${g.intro}</p>`;
+  if(qi>=n){
+    const c=g.qs.filter((_,i)=>A[i]&&A[i].ok).length;
+    area.innerHTML=h+`<div class="done"><div class="ring">${c}/${n}</div><p class="si">${c===n?"Ідеально! 🎉":"Непогано — можна пройти ще раз."}</p><div class="ss" id="ss"></div><button class="btn primary" id="rs" style="margin-top:8px">Пройти ще раз</button></div>`;
+    document.getElementById("rs").onclick=()=>{ans[gi]={};sent[gi]="";qi=0;clearInk();render();};
+    send(g,c);return;
+  }
+  const q=g.qs[qi],r=A[qi]||{};
+  h+=`<div class="qp">Речення ${qi+1} з ${n}</div><p class="qt">${q.b+q.s+q.e}</p>`;
+  h+=`<div class="step"><i>${qi+1}</i>Визнач вид підрядної частини</div>`+opts(q.o2,r.p2,q.a2,2,lab);
+  if(r.p2!==undefined)h+=`<div class="fb ${r.ok?"ok":"bad"}">${r.ok?"<b>Правильно.</b>":"Правильна відповідь — "+L[q.a2]+". "+lab(q.o2[q.a2])}<div class="note">${q.n}</div></div>`;
+  h+=`<div class="nav"><button class="btn" id="pv" ${qi===0?"disabled":""}>← Назад</button><button class="btn primary" id="nx" ${r.p2!==undefined?"":"disabled"}>${qi===n-1?"До результату":"Далі →"}</button></div>`;
+  area.innerHTML=h;
+  area.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(A[qi])return;const p=+b.dataset.i;A[qi]={p2:p,ok:p===q.a2};render();});
+  document.getElementById("pv").onclick=()=>{qi--;clearInk();render();};
+  document.getElementById("nx").onclick=()=>{qi++;clearInk();render();};
+}
+/* малювання */
+const cv=document.getElementById("cv"),cx=cv.getContext("2d"),pen=document.getElementById("pen"),tb=document.getElementById("tb");
+let on=false,dr=false,col="#F5304A",w=4,er=false,lx=0,ly=0;
+function fit(){cv.width=innerWidth;cv.height=innerHeight;}fit();addEventListener("resize",fit);
+function clearInk(){cx.clearRect(0,0,cv.width,cv.height);}
+pen.onclick=()=>{on=!on;pen.classList.toggle("on",on);tb.classList.toggle("show",on);cv.classList.toggle("on",on);};
+tb.querySelectorAll(".sw").forEach(s=>s.onclick=()=>{tb.querySelectorAll(".sw").forEach(x=>x.classList.remove("sel"));s.classList.add("sel");col=s.dataset.c;er=false;});
+document.getElementById("th").onclick=()=>{w=w===4?10:4;};
+document.getElementById("er").onclick=()=>{er=!er;};
+document.getElementById("cl").onclick=clearInk;
+cv.addEventListener("pointerdown",e=>{dr=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);});
+cv.addEventListener("pointermove",e=>{if(!dr)return;cx.globalCompositeOperation=er?"destination-out":"source-over";cx.strokeStyle=col;cx.lineWidth=er?w*3:w;cx.lineCap="round";cx.beginPath();cx.moveTo(lx,ly);cx.lineTo(e.clientX,e.clientY);cx.stroke();lx=e.clientX;ly=e.clientY;});
+cv.addEventListener("pointerup",()=>dr=false);
+renderTabs();render();
+</script>
+</body>
+</html>
