@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Звертання · Урок</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#DCE8FB;--soft:#EDF3FD;--card:#FFFBEA;--ink:#14233F;--mute:#5C7399;--a:#8FB8FF;--b:#2F6FE4;--sh:rgba(47,111,228,.45);--ok:#17A863;--no:#D8393E;--terra:#B5442B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px}
+.wrap{max-width:760px;margin:0 auto}
+.kicker{font:800 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.55;padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid rgba(20,35,63,.14)}
+h1{font:800 clamp(24px,5.6vw,36px)/1.08 'Manrope',sans-serif;text-transform:uppercase;margin:0 0 18px}
+h1 span{color:var(--b)}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 15px 10px 10px;border-radius:999px;border:1px solid #fff;background:#fff;color:var(--mute);font:800 12.5px 'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 10px 20px -12px rgba(20,35,63,.45);transition:transform .13s}
+.tab:hover{transform:translateY(-2px)}
+.tab i{font-style:normal;width:22px;height:22px;border-radius:8px;background:rgba(47,111,228,.16);color:var(--b);display:flex;align-items:center;justify-content:center;font-size:11px}
+.tab.active,.gtab.active,.btn.primary{background:linear-gradient(155deg,var(--a),var(--b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--sh)}
+.tab.active i{background:rgba(255,255,255,.28);color:#fff}
+.card{background:var(--card);border-radius:28px;padding:28px 24px;box-shadow:0 20px 44px -28px rgba(20,35,63,.35)}
+.gt{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px}
+.gtab{padding:11px 16px;border-radius:999px;border:none;background:var(--soft);color:var(--mute);font:800 13px 'Manrope',sans-serif;cursor:pointer}
+.st{font:800 20px 'Manrope',sans-serif;margin:0 0 8px}
+.si{color:var(--mute);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+.si b{color:var(--ink)}
+.m{background:var(--terra);color:#fff;border-radius:6px;padding:1px 8px;font-weight:700}
+.g{color:var(--ok);font-weight:800}
+.back .g{color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.flip{perspective:1200px;height:172px;cursor:pointer}
+.fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.open .fi{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:20px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center}
+.front{background:var(--soft)}
+.back{background:linear-gradient(155deg,var(--a),var(--b));color:#fff;transform:rotateY(180deg);text-align:center;align-items:center}
+.fr{font:800 15px/1.32 'Manrope',sans-serif}
+.fd{font-size:12.5px;margin-top:7px;opacity:.8;line-height:1.4}
+.fx{font-size:15px;font-weight:700;margin-bottom:5px}
+.hint{position:absolute;bottom:9px;right:14px;font-size:10px;font-weight:700;opacity:.4}
+.qp{font:700 13px 'Manrope',sans-serif;color:var(--mute);margin-bottom:14px}
+.qt{font:700 19px/1.4 'Manrope',sans-serif;margin:0 0 18px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:13px;text-align:left;width:100%;padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--soft);cursor:pointer;font:500 14.5px 'Inter',sans-serif;color:var(--ink)}
+.tile{width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:800 13px 'Manrope',sans-serif;color:var(--b);background:linear-gradient(150deg,rgba(255,255,255,.75),rgba(47,111,228,.22))}
+.opt.correct{background:#E6F8EE}.opt.wrong{background:#FDECEC}.opt.dim{opacity:.5}
+.fb{margin-top:16px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600}
+.fb.ok{background:#E6F8EE;color:#128A54}.fb.bad{background:#FDECEC;color:var(--no)}
+.nav{display:flex;justify-content:space-between;margin-top:22px}
+.btn{font:800 13px 'Manrope',sans-serif;padding:12px 22px;border-radius:999px;border:none;cursor:pointer;background:transparent;color:var(--mute)}
+.btn:disabled{opacity:.3;cursor:default}
+.done{text-align:center}
+.ring{width:110px;height:110px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(155deg,var(--a),var(--b));display:flex;align-items:center;justify-content:center;font:800 28px 'Manrope',sans-serif;color:#fff}
+footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--mute);font-weight:500}
+#cv{position:fixed;top:0;left:0;z-index:9998;pointer-events:none}
+#pen{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:none;background:linear-gradient(155deg,var(--a),var(--b));box-shadow:0 14px 28px -10px var(--sh);color:#fff;font-size:22px;cursor:pointer;z-index:9999}
+#pen.on{background:linear-gradient(155deg,#FF8A65,var(--no))}
+#tb{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:none;gap:10px;align-items:center;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);padding:9px 16px;border-radius:999px;box-shadow:0 24px 48px -20px rgba(20,35,63,.45);z-index:9999}
+#tb.show{display:flex}
+.sw{width:25px;height:25px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.sw.sel{border-color:var(--ink)}
+.tb2{border:none;background:var(--soft);border-radius:999px;padding:7px 12px;font:800 12px 'Manrope',sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Звертання · 9 клас</div>
+  <h1>Звер<span>тання</span></h1>
+  <div class="tabbar" id="tabs"></div>
+  <div class="card" id="area"></div>
+  <footer>@movoznavka</footer>
+</div>
+<canvas id="cv"></canvas>
+<button id="pen" title="Малювати">✎</button>
+<div id="tb">
+  <button class="sw sel" style="background:#F5304A" data-c="#F5304A"></button>
+  <button class="sw" style="background:#3355EE" data-c="#3355EE"></button>
+  <button class="sw" style="background:#17A863" data-c="#17A863"></button>
+  <button class="sw" style="background:#14233F" data-c="#14233F"></button>
+  <button class="tb2" id="th">Товщ.</button>
+  <button class="tb2" id="er">Ластик</button>
+  <button class="tb2" id="cl">Очистити</button>
+</div>
+
+<script>
+/* Контент: SUBS. type: "cards" | "grouped" | "quiz".
+   Картка: {r: заголовок, d: опис, x: [приклади]}. Питання: {q, o:[варіанти], a: індекс правильного} */
+const M = t => `<span class="m">${t}</span>`;
+const SUBS = [
+{tab:"Що таке", type:"cards", title:"Що таке звертання",
+ intro:"<b>Звертання</b> називає того (або те), до кого звертаються в мовленні. Воно виділяється особливою, <b>кличною інтонацією</b>. Найчастіше виражене іменником, але може бути й іншою частиною мови в значенні іменника.",
+ cards:[
+ {r:"Називає адресата мовлення", d:"того, до кого звертаються", x:[M("Друже")+", допоможи мені.","Я чекаю на тебе, "+M("мамо")+"."]},
+ {r:"Не є членом речення", d:"не підмет, не додаток, не означення, не обставина", x:[M("Оксано")+", ходи сюди!"]},
+ {r:"Форма кличного відмінка", d:"у художньому стилі допускається й називний відмінок", x:[M("Сонце")+"! Я тобі вдячний.","Ой ти, "+M("Дніпре")+" широкий."]},
+ {r:"Кличний відмінок", d:"так само звертання називають вокативом", x:["<span class='g'>мамо, друже, Оксано, краю, земле</span>"]},
+
+ {r:"Іменник", d:"найчастіший випадок", x:["Спи ж ти, "+M("малесенький")+", пізній бо час."]},
+ {r:"Прикметник", d:"у значенні іменника", x:[M("Милий")+", не сумуй!"]},
+ {r:"Дієприкметник", d:"у значенні іменника", x:[M("Від’їжджаючі")+", пройдіть на перон."]},
+ {r:"Числівник", d:"у значенні іменника", x:[M("Перший")+", починай!"]},
+ {r:"Займенник", d:"у значенні іменника", x:["Ой, як же далеко "+M("ти")+", завтра!"]},
+ {r:"Вокативні речення", d:"звертання, що виконує функцію речення в розмові", x:["— "+M("Петре")+"!"]}
+ ]},
+{tab:"Види", type:"cards", title:"Непоширені та поширені звертання",
+ intro:"Звертання буває <b>непоширеним</b> (одне слово) і <b>поширеним</b> (слово із залежними словами). Кілька звертань можуть стояти підряд.",
+ cards:[
+ {r:"Непоширене", d:"виражене одним словом", x:[M("Друже")+", допоможи мені.","Не журися, "+M("Оксано")+"."]},
+ {r:"Поширене", d:"є залежні слова (означення тощо)", x:[M("Рідна хато моя")+", прощавай!","Прощай, "+M("рідний куточок")+"!"]},
+ {r:"Кілька звертань підряд", d:"кожне виділяється розділовими знаками", x:["Прийми мою любов, "+M("народе рідний")+", "+M("річко велика")+"."]},
+ {r:"Звертання у складі підрядної", d:"може бути цілою підрядною частиною", x:[M("Хто в полі, хто в лісі")+", стережіться!"]}
+ ]},
+{tab:"Розділові знаки", type:"cards", title:"Звертання і розділові знаки",
+ intro:"Звертання виділяємо <b>комами</b> або <b>знаком оклику</b> (якщо воно вимовляється з підвищенням тону). Позначення: <b>зв</b> — звертання.",
+ cards:[
+ {r:"На початку речення", d:"Зв, … .", x:[M("Друже")+", допоможи мені."]},
+ {r:"У середині речення", d:"…, зв, … .", x:["Я прощаюсь нині з тобою, "+M("рідна хато моя")+", назавжди."]},
+ {r:"У кінці речення", d:"…, зв. (ставимо знак, якого потребує зміст: крапка, ? або !)", x:["Ми чекаємо тебе, "+M("Оксано")+".","Де ж ви, "+M("мої щирі")+"?"]},
+ {r:"Знак оклику після звертання", d:"Зв! Наступне слово пишемо з великої букви", x:[M("Сонце")+"! Я тобі вдячний."]},
+ {r:"О, ой + звертання", d:"кома після вигуку не ставиться", x:["О "+M("земле рідна")+", ти дала нам життя!"]}
+ ]}
+];
+const L=["А","Б","В","Г"];
+let sub=0,grp=0,qi=0,ans={};
+const tabs=document.getElementById('tabs'),area=document.getElementById('area');
+
+function renderTabs(){
+  tabs.innerHTML=SUBS.map((s,i)=>`<button class="tab ${i===sub?'active':''}" data-i="${i}"><i>${i+1}</i>${s.tab}</button>`).join('');
+  tabs.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{sub=+b.dataset.i;grp=0;qi=0;ans={};clearInk();renderTabs();render();});
+}
+function cardsHTML(cs){
+  return `<div class="grid">${cs.map(c=>`<div class="flip"><div class="fi">
+    <div class="face front"><div class="fr">${c.r}</div><div class="fd">${c.d}</div><div class="hint">натисни →</div></div>
+    <div class="face back">${c.x.map(e=>`<div class="fx">${e}</div>`).join('')}</div></div></div>`).join('')}</div>`;
+}
+function render(){
+  const s=SUBS[sub];
+  let h=`<p class="st">${s.title}</p><p class="si">${s.intro}</p>`;
+  if(s.type==="cards") h+=cardsHTML(s.cards);
+  if(s.type==="grouped") h+=`<div class="gt">${s.groups.map((g,i)=>`<button class="gtab ${i===grp?'active':''}" data-g="${i}">${g.l}</button>`).join('')}</div>`+cardsHTML(s.groups[grp].cards);
+  if(s.type==="quiz"){ area.innerHTML=h; return quiz(s); }
+  area.innerHTML=h;
+  area.querySelectorAll('.flip').forEach(f=>f.onclick=()=>f.classList.toggle('open'));
+  area.querySelectorAll('.gtab').forEach(b=>b.onclick=()=>{grp=+b.dataset.g;clearInk();render();});
+}
+function quiz(s){
+  const n=s.qs.length,box=document.createElement('div');
+  if(qi>=n){
+    const c=Object.values(ans).filter(r=>r.ok).length;
+    box.className='done';
+    box.innerHTML=`<div class="ring">${c}/${n}</div><p class="si">${c===n?'Ідеально! Матеріал засвоєно 🎉':'Непогано — можна пройти ще раз.'}</p><button class="btn primary" id="rs">Пройти ще раз</button>`;
+    area.appendChild(box); document.getElementById('rs').onclick=()=>{qi=0;ans={};render();}; return;
+  }
+  const q=s.qs[qi],r=ans[qi];
+  box.innerHTML=`<div class="qp">Питання ${qi+1} з ${n}</div><p class="qt">${q.q}</p>
+  <div class="opts">${q.o.map((o,i)=>{
+    let cls='opt';if(r){cls+=i===q.a?' correct':(i===r.p?' wrong':' dim');}
+    return `<button class="${cls}" data-i="${i}" ${r?'disabled':''}><span class="tile">${L[i]}</span><span>${o}</span></button>`}).join('')}</div>
+  ${r?`<div class="fb ${r.ok?'ok':'bad'}">${r.ok?'<b>Правильно.</b>':'Правильна відповідь — '+L[q.a]+'. '+q.o[q.a]}</div>`:''}
+  <div class="nav"><button class="btn" id="pv" ${qi===0?'disabled':''}>← Назад</button><button class="btn primary" id="nx" ${r?'':'disabled'}>${qi===n-1?'До результату':'Далі →'}</button></div>`;
+  area.appendChild(box);
+  box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ if(ans[qi])return; const p=+b.dataset.i; ans[qi]={p,ok:p===q.a}; render(); });
+  document.getElementById('pv').onclick=()=>{qi--;clearInk();render();};
+  document.getElementById('nx').onclick=()=>{qi++;clearInk();render();};
+}
+
+/* Малювання пером (режим «учитель») */
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+let on=false,draw=false,col="#F5304A",w=3,er=false,lx=0,ly=0;
+function fit(){cv.width=innerWidth;cv.height=innerHeight;ctx.lineCap='round';ctx.lineJoin='round';}
+fit();addEventListener('resize',fit);
+function clearInk(){ctx.clearRect(0,0,cv.width,cv.height);}
+const pen=document.getElementById('pen'),tb=document.getElementById('tb');
+pen.onclick=()=>{on=!on;pen.classList.toggle('on',on);tb.classList.toggle('show',on);};
+document.querySelectorAll('.sw').forEach(s=>s.onclick=()=>{document.querySelectorAll('.sw').forEach(x=>x.classList.remove('sel'));s.classList.add('sel');col=s.dataset.c;er=false;});
+document.getElementById('th').onclick=()=>{w=w===3?8:3;};
+document.getElementById('er').onclick=()=>{er=!er;};
+document.getElementById('cl').onclick=clearInk;
+document.addEventListener('pointerdown',e=>{if(!on||e.pointerType!=='pen'||e.target.closest('#tb,#pen'))return;e.preventDefault();draw=true;lx=e.clientX;ly=e.clientY;},{passive:false});
+document.addEventListener('pointermove',e=>{if(!draw)return;e.preventDefault();ctx.globalCompositeOperation=er?'destination-out':'source-over';ctx.strokeStyle=col;ctx.lineWidth=(er?w*4:w)*(0.6+(e.pressure||.5)*.8);ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(e.clientX,e.clientY);ctx.stroke();lx=e.clientX;ly=e.clientY;},{passive:false});
+document.addEventListener('pointerup',()=>draw=false);
+document.addEventListener('touchmove',e=>{if(on&&e.touches[0]&&e.touches[0].touchType==='stylus')e.preventDefault();},{passive:false});
+
+renderTabs();render();
+</script>
+</body>
+</html>
