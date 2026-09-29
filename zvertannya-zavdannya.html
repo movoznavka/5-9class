@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Звертання · Завдання</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#DCE8FB;--soft:#EDF3FD;--card:#FFFBEA;--ink:#14233F;--mute:#5C7399;--a:#8FB8FF;--b:#2F6FE4;--sh:rgba(47,111,228,.45);--ok:#17A863;--no:#D8393E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px}
+.wrap{max-width:760px;margin:0 auto}
+.kicker{font:800 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.55;padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid rgba(20,35,63,.14)}
+h1{font:800 clamp(24px,5.6vw,36px)/1.08 'Manrope',sans-serif;text-transform:uppercase;margin:0 0 18px}
+h1 span{color:var(--b)}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 15px 10px 10px;display:flex;align-items:center;gap:8px;border-radius:999px;border:1px solid #fff;background:#fff;color:var(--mute);font:800 12.5px 'Manrope',sans-serif;cursor:pointer;box-shadow:0 10px 20px -12px rgba(20,35,63,.45)}
+.tab i{font-style:normal;width:22px;height:22px;border-radius:8px;background:rgba(47,111,228,.16);color:var(--b);display:flex;align-items:center;justify-content:center;font-size:11px}.tab.active i{background:rgba(255,255,255,.28);color:#fff}
+.tab.active,.btn.primary{background:linear-gradient(155deg,var(--a),var(--b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--sh)}
+.card{background:var(--card);border-radius:28px;padding:28px 24px;box-shadow:0 20px 44px -28px rgba(20,35,63,.35)}
+.st{font:800 20px 'Manrope',sans-serif;margin:0 0 8px}
+.si{color:var(--mute);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+.qp{font:700 13px 'Manrope',sans-serif;color:var(--mute);margin-bottom:14px}
+.qt{font:700 19px/2.1 'Manrope',sans-serif;margin:0 0 20px}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:13px;text-align:left;width:100%;padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--soft);cursor:pointer;font:500 14.5px 'Inter',sans-serif;color:var(--ink)}
+.tile{width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font:800 13px 'Manrope',sans-serif;color:var(--b);background:linear-gradient(150deg,rgba(255,255,255,.75),rgba(47,111,228,.22))}
+.opt.correct{background:#E6F8EE}.opt.wrong{background:#FDECEC}.opt.dim{opacity:.5}
+.fb{margin-top:14px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600}
+.fb.ok{background:#E6F8EE;color:#128A54}.fb.bad{background:#FDECEC;color:var(--no)}
+.nav{display:flex;justify-content:space-between;margin-top:22px}
+.btn{font:800 13px 'Manrope',sans-serif;padding:12px 22px;border-radius:999px;border:none;cursor:pointer;background:transparent;color:var(--mute)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn.sm{padding:8px 14px;font-size:12px}
+.done{text-align:center}
+.ring{width:110px;height:110px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(155deg,var(--a),var(--b));display:flex;align-items:center;justify-content:center;font:800 28px 'Manrope',sans-serif;color:#fff}
+.ss{font-size:13px;font-weight:600;color:var(--mute);margin-top:10px;min-height:18px}.ss.ok{color:#128A54}.ss.bad{color:var(--no)}
+footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--mute);font-weight:500}
+.gp{display:inline-block;min-width:16px;height:26px;margin:0 3px 0 1px;padding:0 2px;border:none;border-bottom:2px dotted var(--mute);background:transparent;font:800 20px 'Manrope',sans-serif;color:var(--b);cursor:pointer;vertical-align:baseline}.gp.ok{color:var(--ok);border-bottom:2px solid var(--ok);background:#E6F8EE}.gp.no{color:var(--no);border-bottom:2px solid var(--no);background:#FDECEC}.gp:disabled{cursor:default}
+.wd{border:none;background:transparent;font:700 19px/1.5 Manrope,sans-serif;color:var(--ink);padding:2px 4px;border-radius:8px;cursor:pointer}.wd.on{background:#CFE0FF;color:var(--b)}.wd.ok{background:#E6F8EE;color:#128A54}.wd.no{background:#FDECEC;color:var(--no)}.wd.miss{outline:2px solid var(--ok)}.wd:disabled{cursor:default}
+.ph{font:700 15px Manrope,sans-serif;padding:4px 6px;border-radius:10px;border:1.5px dashed var(--mute);background:#fff;color:var(--b);max-width:100%}
+#cv{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;touch-action:none}
+#cv.on{pointer-events:auto}
+#pen{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:none;background:linear-gradient(155deg,var(--a),var(--b));box-shadow:0 14px 28px -10px var(--sh);color:#fff;font-size:22px;cursor:pointer;z-index:9999}
+#pen.on{background:linear-gradient(155deg,#FF8A65,var(--no))}
+#tb{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:none;gap:10px;align-items:center;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);padding:9px 16px;border-radius:999px;box-shadow:0 24px 48px -20px rgba(20,35,63,.45);z-index:9999}
+#tb.show{display:flex}
+.sw{width:25px;height:25px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.sw.sel{border-color:var(--ink)}
+.tb2{border:none;background:var(--soft);border-radius:999px;padding:7px 12px;font:800 12px 'Manrope',sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Звертання · 9 клас · Завдання</div>
+  <h1>Завдання: <span>звертання</span></h1>
+  <div class="tabbar" id="tabs"></div>
+  <div class="card" id="area"></div>
+  <footer>@movoznavka</footer>
+</div>
+<canvas id="cv"></canvas>
+<button id="pen" title="Малювати">✎</button>
+<div id="tb">
+  <button class="sw sel" style="background:#F5304A" data-c="#F5304A"></button>
+  <button class="sw" style="background:#3355EE" data-c="#3355EE"></button>
+  <button class="sw" style="background:#17A863" data-c="#17A863"></button>
+  <button class="sw" style="background:#14233F" data-c="#14233F"></button>
+  <button class="tb2" id="th">Товщ.</button>
+  <button class="tb2" id="er">Ластик</button>
+  <button class="tb2" id="cl">Очистити</button>
+</div>
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbxWkeJYw7gUdEjM9H2oeMVTMhBLEq1dDa2DcqNS5vSQjJb19aXyR7p7kDz_otyK3sTggw/exec";
+const MK=["",",","!","?","."];
+const PI="Розставте розділові знаки. Торкайтеся проміжків після слів: знак змінюється (кома, !, ?, крапка, порожньо).";
+/* it = розстановка знаків; pq = вибір відповіді {q,o,c,n} */
+const GR=[
+{tab:"1",name:"Звертання: завдання 1",title:"Завдання 1",intro:"Прочитайте речення й розставте в них розділові знаки. Торкайтеся проміжків після слів.",it:[
+"Шуми, вітре, шуми, буйний, на ліси, на гори!",
+"І ти, людино, в себе в ногах побачиш постать гордої природи.",
+"Скажи, Україно, скажи, моя мила, звідки могутність незламна твоя?",
+"Зашуми весною, зелен луже, теплий вітре, шелести в гіллі.",
+"Україно, Ти для мене диво.",
+"Пусти мене, мій батеньку, на гори, де ряст весняний золотом жарі.",
+"Васильки у полі, васильки у полі і у тебе, мила, васильки з-під вій.",
+"Мені ж, мій Боже, на землі подай любов, сердечний рай!",
+"О Боже мій милий, тяжко жить на світі, а хочеться жить.",
+"Ой ти, пташко жовтобока, не клади гнізда високо!"]},
+{tab:"2",name:"Звертання: завдання 2",title:"Завдання 2",intro:"Поставте розділові знаки.",it:[
+"Я п’ю тебе, сонце, твій теплий цілющий напій.",
+"Клянусь тобі, веселий світе, клянусь тобі, моє життя, що буду жити, поки жити мені дозволить дух життя.",
+"Співаючи про хмари кучеряві, не забувай, поете, про народ!",
+"Не стелись, тумане, не шуміте, тополі, не печальте очі, ви, берізки голі!",
+"Ой Дніпре мій, Дніпре, широкий та дужий, багато ти, батьку, у море носив козацької крові."]},
+{tab:"3",name:"Звертання: вправа 565",title:"Завдання 3 · вправа 565",intro:"Прочитайте уривки з роману Ліни Костенко «Маруся Чурай». Торкніться слова (слів), яке є звертанням, і натисніть «Перевірити».",sel:[
+{s:"«Е, {дівчино,} я слухаю, та й байдуже, що ти співаєш не про того Байду вже».",n:"Непоширене звертання."},
+{s:"«Послухай, — каже, — {дівчино} {з} {Полтави,} де ти навчилась брати ці октави?»",n:"Поширене звертання."},
+{s:"Твій батько був, {Іване,} Остряницею, — наступний гетьман після Павлюка.",n:"Непоширене звертання."},
+{s:"О {Боже} {духів} {і} {живої} {плоти!} Я вперше усміхаюся, прости.",n:"Поширене звертання."},
+{s:"Спасибі, {земле,} за твої щедроти!",n:"Непоширене звертання."}]},
+{tab:"4",name:"Звертання: вправа 567",title:"Завдання 4 · вправа 567",intro:"Торкніться слова (слів), яке є звертанням, і натисніть «Перевірити».",sel:[
+{s:"{Зоре} {моя} {вечірняя,} зійди над горою, поговорим тихесенько в неволі з тобою.",n:"Поширене звертання."},
+{s:"Чом, чом, чом, о {земле} {ти} {моя,} чаруєш так мене ясна твоя краса?",n:"Поширене звертання."},
+{s:"Хвилюють, маюють, квітують поля — добридень тобі, {Україно} {моя!}",n:"Поширене звертання."},
+{s:"{Дорогий} {мій} {сучаснику!} Як же нам треба плекати кожне словечко рідної мови!",n:"Поширене звертання."}]},
+{tab:"5",name:"Звертання: вправа 568",title:"Завдання 5 · вправа 568",intro:"Спишіть, розставляючи розділові знаки при звертаннях.",it:[
+"Куди ж ти ділась, річенько? Воскресни!",
+"Гей, ідіть, благодатні зливи! Випадайте, перлисті роси! Хай нап’ються до несхочу ниви. Хай дівчата помиють коси."]},
+{tab:"6",name:"Звертання: вправа 569",title:"Завдання 6 · вправа 569",intro:"З іменників у дужках утворено звертання (кличний відмінок). Поставте розділові знаки.",it:[
+"Посилала мене мати до криниченьки: «Принеси ж, моя доню, воденьки».",
+"Стелися, барвінку, низенько, присунься, козаче, близенько.",
+"Покинь, Байдо, байдувати, сватай мою дочку та йди царювати.",
+"Куди їдеш, од’їжджаєш, сизокрилий орле, а хто ж мене, молоду, до серця пригорне?"]},
+{tab:"7",name:"Звертання: вправа 571",title:"Завдання 7 · вправа 571",intro:"Перебудуйте речення так, щоб підмети стали звертаннями. Впишіть готове речення з розділовими знаками.",tx:[
+{q:"Друзі відвідують нашу художню галерею.",a:["Друзі, відвідуйте нашу художню галерею!"]},
+{q:"Юні натуралісти оберігають ліси.",a:["Юні натуралісти, оберігайте ліси!"]},
+{q:"Бережно ставитися до книжки повинен кожен учень.",a:["Учні, бережно ставтеся до книжки.","Кожен учню, бережно стався до книжки.","Учню, бережно стався до книжки."]},
+{q:"Працівники сільського господарства дбають про підвищення врожаїв зернових.",a:["Працівники сільського господарства, дбайте про підвищення врожаїв зернових."]}]},
+{tab:"8",name:"Звертання: вправа 572",title:"Завдання 8 · вправа 572",intro:"Вставте в пропуски звертання з довідки й поставте розділові знаки.",dov:["Рідна мати моя", "О рідна земле", "Учителі-наставники і друзі", "Народу рідного Мойсею", "дитино", "сину", "жито і пшениця", "зело"],ia:[["О рідна земле"], ["Рідна мати моя"], ["Учителі-наставники і друзі"], ["Народу рідного Мойсею"], ["жито і пшениця", "зело"]],it:["Лети зі мною. Ти побачиш повільні, свіжі береги, де миколайчики синіють і зеленіє холодок лукавий заячий, між них розсипана гвоздика дика. §, обійми!", "§, ти ночей не доспала і водила мене у поля край села.", "§, з ким Правда й Совість входять в кожен клас, хіба вас оцінили по заслузі?", "Де ви, §, і та неопалима купина?", "Родися, §, і проростай на світ, §!"]}
+];
+GR.forEach(g=>{if(g.it)g.qs=g.it.map((f,n)=>({full:g.ia?(k=>f.replace(/§/g,()=>g.ia[n][k++]))(0):f,ins:g.ia?g.ia[n]:[],w:f.split(" ").map(t=>{const m=t.match(/^(.*?)([,.!?]?)$/);return {t:m[1],c:MK.indexOf(m[2])};})}));else if(g.tx)g.qs=g.tx;else if(g.sel)g.qs=g.sel.map(o=>({full:o.s.replace(/[{}]/g,""),n:o.n,w:o.s.split(" ").map(t=>({t:t.replace(/[{}]/g,""),c:t.includes("{")}))}));else g.qs=g.pq;});
+let gi=0,qi=0,ans=GR.map(()=>({})),sent={};
+const P=new URLSearchParams(location.search),hw=P.get("hw");
+if(hw&&+hw>=1&&+hw<=GR.length)gi=+hw-1;
+const tabs=document.getElementById("tabs"),area=document.getElementById("area");
+function renderTabs(){
+  tabs.innerHTML=GR.map((g,i)=>`<button class="tab ${i===gi?"active":""}" data-i="${i}"><i>${i+1}</i>Завдання ${i+1}</button>`).join("");
+  tabs.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{gi=+b.dataset.i;qi=0;clearInk();renderTabs();render();});
+}
+async function send(g,c){
+  const st=document.getElementById("ss"),student=P.get("student");
+  if(!student||sent[gi]==="sending"||sent[gi]==="ok"){if(st&&sent[gi]==="ok"){st.textContent="Результат надіслано вчителю ✓";st.className="ss ok";}return;}
+  sent[gi]="sending";st.textContent="Надсилаємо результат...";
+  const A=ans[gi],wrong=[];g.qs.forEach((_,i)=>{if(A[i]&&!A[i].ok)wrong.push(i+1);});
+  try{
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"quiz_result",student,testName:g.name,correct:c,answered:Object.keys(A).length,total:g.qs.length,wrongList:wrong,reviewLink:"",flaggedList:[]})});
+    if(!r.ok)throw 0;sent[gi]="ok";st.textContent="Результат надіслано вчителю ✓";st.className="ss ok";
+  }catch(e){sent[gi]="";st.innerHTML='Не вдалося надіслати результат. <button class="btn sm" id="rt">Ще раз</button>';st.className="ss bad";document.getElementById("rt").onclick=()=>send(g,c);}
+}
+function render(){
+  const g=GR[gi],n=g.qs.length,A=ans[gi];
+  let h=`<p class="st">${g.title}</p><p class="si">${g.intro}${g.dov?"<br><b>Довідка:</b> "+g.dov.join("; ")+".":""}${(g.it)?" Торкайтеся проміжків після слів: знак змінюється (кома, !, ?, крапка, порожньо).":""}</p>`;
+  if(qi>=n){
+    const c=g.qs.filter((_,i)=>A[i]&&A[i].ok).length;
+    area.innerHTML=h+`<div class="done"><div class="ring">${c}/${n}</div><p class="si">${c===n?"Ідеально! 🎉":"Непогано — можна пройти ще раз."}</p><div class="ss" id="ss"></div><button class="btn primary" id="rs" style="margin-top:8px">Пройти ще раз</button></div>`;
+    document.getElementById("rs").onclick=()=>{ans[gi]={};sent[gi]="";qi=0;clearInk();render();};
+    send(g,c);return;
+  }
+  const q=g.qs[qi],r=A[qi]||(A[qi]=(g.pq||g.tx)?{done:false}:{cur:q.w.map(()=>g.sel?false:0),done:false,ins:{}});
+  h+=`<div class="qp">${g.pq?"Речення":"Речення"} ${qi+1} з ${n}</div>`;
+  if(g.sel){
+    h+=`<p class="qt">${q.w.map((w,i)=>{let c="wd";if(r.done)c+=w.c?(r.cur[i]?" ok":" miss"):(r.cur[i]?" no":"");else if(r.cur[i])c+=" on";return `<button class="${c}" data-i="${i}" ${r.done?"disabled":""}>${w.t}</button>`;}).join(" ")}</p>`;
+    if(r.done)h+=`<div class="fb ${r.ok?"ok":"bad"}">${r.ok?"<b>Правильно.</b>":"Звертання виділено зеленим."}<div style="margin-top:6px;font-weight:500;font-size:13px">${q.n}</div></div>`;
+    else h+=`<button class="btn primary" id="ck">Перевірити</button>`;
+  }else if(g.tx){
+    h+=`<p class="qt" style="line-height:1.6">${q.q}</p><textarea id="ti" rows="2" ${r.done?"disabled":""} placeholder="Впишіть речення..." style="width:100%;padding:12px 14px;border-radius:16px;border:1.5px solid rgba(20,35,63,.2);font:500 16px Inter,sans-serif;background:#fff;color:var(--ink);resize:vertical">${r.val||""}</textarea>`;
+    if(r.done)h+=`<div class="fb ${r.ok?"ok":"bad"}">${r.ok?"<b>Правильно.</b>":"Приклад правильної відповіді: <b>"+q.a[0]+"</b>"}</div>`;
+    else h+=`<button class="btn primary" id="ck" style="margin-top:12px">Перевірити</button>`;
+  }else if(g.pq){
+    h+=`<p class="qt" style="line-height:1.6">${q.q}</p><div class="opts">${q.o.map((o,i)=>`<button class="opt ${r.done?(i===q.c?"correct":(i===r.sel?"wrong":"dim")):""}" data-i="${i}" ${r.done?"disabled":""}><span class="tile">${"АБВ"[i]}</span>${o}</button>`).join("")}</div>`;
+    if(r.done)h+=`<div class="fb ${r.ok?"ok":"bad"}">${r.ok?"<b>Правильно.</b>":"Неправильно."}<div style="margin-top:6px;font-weight:500;font-size:13px">${q.n}</div></div>`;
+  }else{
+    if(g.hn)h+=`<p class="si">${g.hn[qi]}</p>`;
+    let k=0;const sh=kk=>`<select class="ph" data-k="${kk}" ${r.done?"disabled":""}><option value="">…</option>${g.dov.map(o=>`<option ${r.ins[kk]===o?"selected":""}>${o}</option>`).join("")}</select>`;
+    h+=`<p class="qt">${q.w.map((w,i)=>(w.t==="§"?sh(k++):w.t)+`<button class="gp ${r.done?(r.cur[i]===w.c?"ok":"no"):""}" data-i="${i}" ${r.done?"disabled":""}>${MK[r.cur[i]]}</button>`).join(" ")}</p>`;
+    if(r.done)h+=`<div class="fb ${r.ok?"ok":"bad"}">${r.ok?"<b>Правильно.</b>":"Правильна відповідь: <b>"+q.full+"</b>"}</div>`;
+    else h+=`<button class="btn primary" id="ck">Перевірити</button>`;
+  }
+  h+=`<div class="nav"><button class="btn" id="pv" ${qi===0?"disabled":""}>← Назад</button><button class="btn primary" id="nx" ${r.done?"":"disabled"}>${qi===n-1?"До результату":"Далі →"}</button></div>`;
+  area.innerHTML=h;
+  area.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{r.sel=+b.dataset.i;r.done=true;r.ok=r.sel===q.c;render();});
+  area.querySelectorAll(".ph").forEach(e=>e.onchange=()=>{r.ins[+e.dataset.k]=e.value;});
+  area.querySelectorAll(".wd").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;r.cur[i]=!r.cur[i];b.classList.toggle("on",r.cur[i]);});
+  area.querySelectorAll(".gp").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;r.cur[i]=(r.cur[i]+1)%5;b.textContent=MK[r.cur[i]];});
+  const ck=document.getElementById("ck");
+  if(ck)ck.onclick=()=>{if(g.tx){const nm=x=>x.toLowerCase().replace(/[«»"]/g,"").replace(/\s+/g," ").trim().replace(/[.!?…]+$/,"");r.val=document.getElementById("ti").value;r.ok=q.a.some(a=>nm(a)===nm(r.val));r.done=true;render();return;}r.done=true;r.ok=q.w.every((w,i)=>g.sel?w.c===!!r.cur[i]:w.c===r.cur[i])&&(q.ins||[]).every((a,k)=>r.ins[k]===a);render();};
+  document.getElementById("pv").onclick=()=>{qi--;clearInk();render();};
+  document.getElementById("nx").onclick=()=>{qi++;clearInk();render();};
+}
+/* малювання */
+const cv=document.getElementById("cv"),cx=cv.getContext("2d"),pen=document.getElementById("pen"),tb=document.getElementById("tb");
+let on=false,dr=false,col="#F5304A",w=4,er=false,lx=0,ly=0;
+function fit(){cv.width=innerWidth;cv.height=innerHeight;}fit();addEventListener("resize",fit);
+function clearInk(){cx.clearRect(0,0,cv.width,cv.height);}
+pen.onclick=()=>{on=!on;pen.classList.toggle("on",on);tb.classList.toggle("show",on);cv.classList.toggle("on",on);};
+tb.querySelectorAll(".sw").forEach(s=>s.onclick=()=>{tb.querySelectorAll(".sw").forEach(x=>x.classList.remove("sel"));s.classList.add("sel");col=s.dataset.c;er=false;});
+document.getElementById("th").onclick=()=>{w=w===4?10:4;};
+document.getElementById("er").onclick=()=>{er=!er;};
+document.getElementById("cl").onclick=clearInk;
+cv.addEventListener("pointerdown",e=>{dr=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);});
+cv.addEventListener("pointermove",e=>{if(!dr)return;cx.globalCompositeOperation=er?"destination-out":"source-over";cx.strokeStyle=col;cx.lineWidth=er?w*3:w;cx.lineCap="round";cx.beginPath();cx.moveTo(lx,ly);cx.lineTo(e.clientX,e.clientY);cx.stroke();lx=e.clientX;ly=e.clientY;});
+cv.addEventListener("pointerup",()=>dr=false);
+renderTabs();render();
+</script>
+</body>
+</html>
