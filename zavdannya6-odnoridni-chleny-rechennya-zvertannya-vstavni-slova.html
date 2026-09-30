@@ -574,39 +574,48 @@ let activeSub = 0;
 let quizIdx = 0;
 let quizAnswers = {};
 
-// Якщо в посиланні є ?hw=N (номер ДЗ, вибраний у боті), підтримуються
-// три формати:
-//   "N"   — лише вкладка "Завдання N" з початку (інші ховаємо повністю);
-//   "N.M" — лише вкладка "Завдання N" (інші сховані), одразу з питання M;
-//   якщо жодної вкладки з номером N нема — трактуємо N як номер ПИТАННЯ
-//   всередині поточної (першої) вкладки.
+// ?hw=... — список завдань, розділених пробілом, комою, крапкою з комою або плюсом.
+// Кожен елемент:
+//   "N"   — вкладка "Завдання N" з початку;
+//   "N.M" — вкладка "Завдання N", одразу з питання M.
+// Приклад: hw=1.2 9  → Завдання 1 (з питання 2) + Завдання 9 (з початку).
+// Показуються лише вказані вкладки, у тому порядку, в якому їх вказано.
+// Якщо жодної вкладки з таким номером нема, а елемент один —
+// це номер ПИТАННЯ в першій вкладці (старий режим).
 (function applyHomeworkParam_(){
   const hwParam = new URLSearchParams(location.search).get('hw');
   if(!hwParam) return;
-  const subs = TOPICS[activeTopic].subs;
+  const allSubs = TOPICS[activeTopic].subs;
+  const tokens = hwParam.split(/[\s,;+]+/).filter(Boolean);
 
-  const parts = hwParam.split('.');
-  const exPart = parts[0];
-  const qPart = parts.length > 1 ? parts[1] : null;
-
-  const idx = subs.findIndex(function(s){ return s.dot === exPart; });
-  if(idx !== -1){
-    TOPICS[activeTopic].subs = [subs[idx]];
-    activeSub = 0;
-    if(qPart !== null){
-      const qNum = parseInt(qPart, 10);
-      const questions = subs[idx].questions || [];
-      if(!isNaN(qNum) && qNum >= 1 && qNum <= questions.length){
-        quizIdx = qNum - 1;
+  const chosen = [];
+  tokens.forEach(function(tok){
+    const parts = tok.split('.');
+    const s = allSubs.find(function(x){ return x.dot === parts[0]; });
+    if(!s || chosen.indexOf(s) !== -1) return;
+    if(parts.length > 1){
+      const qNum = parseInt(parts[1], 10);
+      if(!isNaN(qNum) && qNum >= 1 && qNum <= (s.questions || []).length){
+        s.startQ = qNum - 1;
       }
     }
+    chosen.push(s);
+  });
+
+  if(chosen.length){
+    TOPICS[activeTopic].subs = chosen;
+    activeSub = 0;
+    quizIdx = chosen[0].startQ || 0;
     return;
   }
 
-  const qNum = parseInt(hwParam, 10);
-  const questions = (subs[activeSub] && subs[activeSub].questions) || [];
-  if(!isNaN(qNum) && qNum >= 1 && qNum <= questions.length){
-    quizIdx = qNum - 1;
+  // Запасний режим: одне число = номер питання в першій вкладці
+  if(tokens.length === 1){
+    const qNum = parseInt(tokens[0], 10);
+    const questions = (allSubs[0] && allSubs[0].questions) || [];
+    if(!isNaN(qNum) && qNum >= 1 && qNum <= questions.length){
+      quizIdx = qNum - 1;
+    }
   }
 })();
 
@@ -616,6 +625,7 @@ const lessonArea = document.getElementById('lessonArea');
 
 function resetNav(){ activeSub = 0; quizIdx = 0; quizAnswers = {}; }
 function resetQuiz(){ quizIdx = 0; quizAnswers = {}; _resultState = 'idle'; }
+function resetQuizToStart(){ resetQuiz(); quizIdx = (currentSub() && currentSub().startQ) || 0; }
 function currentSub(){ return TOPICS[activeTopic].subs[activeSub]; }
 function currentSection(){ return currentSub(); }
 
@@ -655,7 +665,7 @@ function renderSubs(){
     const nav = ()=>{
       saveCurrentDrawing();
       activeSub = +btn.dataset.i;
-      resetQuiz();
+      resetQuizToStart();
       renderSubs();
       renderContent();
     };
