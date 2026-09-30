@@ -155,15 +155,35 @@ const LETTERS = ["А","Б","В","Г","Д","Е","Є"];
 let _resultState = 'idle', activeSub = 0, quizIdx = 0, quizAnswers = {};
 const subtabbar = document.getElementById('subtabbar'), lessonArea = document.getElementById('lessonArea'), drawStore = {};
 
-/* ?hw=N — лише «Завдання N»; ?hw=N.M — з питання M; ?student=… — надсилання результату вчителю */
+/* ?hw=... — список завдань через пробіл, кому, крапку з комою або плюс.
+   "N" — вкладка «Завдання N» з початку; "N.M" — вкладка «Завдання N» з питання M.
+   Приклад: hw=1.2 9 → Завдання 1 (з питання 2) + Завдання 9.
+   Показуються лише вказані вкладки, в заданому порядку.
+   Якщо вкладки з таким номером нема, а елемент один — це номер ПИТАННЯ в першій вкладці.
+   ?student=… — надсилання результату вчителю */
 (function(){
   const hw = new URLSearchParams(location.search).get('hw'); if(!hw) return;
-  const [n, m] = hw.split('.'), i = SUBS.findIndex(s=>s.dot===n);
-  if(i !== -1){
-    const only = SUBS.splice(i,1)[0]; SUBS.length = 0; SUBS.push(only);
-    const k = parseInt(m,10); if(k>=1 && k<=only.questions.length) quizIdx = k-1;
-  } else {
-    const k = parseInt(n,10); if(k>=1 && k<=SUBS[0].questions.length) quizIdx = k-1;
+  const tokens = hw.split(/[\s,;+]+/).filter(Boolean);
+  const chosen = [];
+  tokens.forEach(function(tok){
+    const parts = tok.split('.');
+    const s = SUBS.find(function(x){ return x.dot === parts[0]; });
+    if(!s || chosen.indexOf(s) !== -1) return;
+    if(parts.length > 1){
+      const k = parseInt(parts[1], 10);
+      if(k >= 1 && k <= s.questions.length) s.startQ = k - 1;
+    }
+    chosen.push(s);
+  });
+  if(chosen.length){
+    SUBS.length = 0;
+    chosen.forEach(function(s){ SUBS.push(s); });
+    quizIdx = SUBS[0].startQ || 0;
+    return;
+  }
+  if(tokens.length === 1){
+    const k = parseInt(tokens[0], 10);
+    if(k >= 1 && k <= SUBS[0].questions.length) quizIdx = k - 1;
   }
 })();
 
@@ -205,7 +225,7 @@ function tap(el, fn){
 function renderSubs(){
   subtabbar.innerHTML = SUBS.map((s,i)=>`<button class="tab ${i===activeSub?'active':''}"><span class="dot">${s.dot}</span>${s.tab}</button>`).join('');
   subtabbar.querySelectorAll('.tab').forEach((b,i)=>tap(b,()=>{
-    saveDraw(); activeSub=i; quizIdx=0; quizAnswers={}; _resultState='idle'; renderSubs(); renderContent();
+    saveDraw(); activeSub=i; quizIdx=SUBS[i].startQ||0; quizAnswers={}; _resultState='idle'; renderSubs(); renderContent();
   }));
 }
 
