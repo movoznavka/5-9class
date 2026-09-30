@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Складне речення. Пряма мова. Діалог · Урок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6DFCB;--bg-soft:#FBEDE0;--card:#FFFAF5;--ink:#3A1F12;--ink-soft:#8F6248;--line:rgba(58,31,18,.1);
+  --c1-a:#FFA46B;--c1-b:#D9531E;--c1-sh:rgba(217,83,30,.45);--c2-b:#D8393E;
+  --p1:#D9531E;--p2:#2F62C9;--aw:#1F8A70;--dir:#7B45C4;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px;position:relative}
+.wrap{max-width:760px;margin:0 auto}
+.topbar{padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid rgba(58,31,18,.14)}
+.kicker{font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(22px,5vw,32px);line-height:1.1;margin:0 0 20px;text-transform:uppercase}
+h1 .hl{color:var(--c1-b)}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 15px 10px 10px;border-radius:999px;border:1px solid #fff;background:#fff;color:var(--ink-soft);font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 10px 20px -12px rgba(58,31,18,.45);transition:transform .13s,box-shadow .13s}
+.tab:hover{transform:translateY(-2px)}
+.tab .dot{width:22px;height:22px;border-radius:8px;background:rgba(217,83,30,.16);color:var(--c1-b);display:flex;align-items:center;justify-content:center;font-size:11px}
+.tab.active{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--c1-sh)}
+.tab.active .dot{background:rgba(255,255,255,.28);color:#fff}
+.tab.pressed,.flip.pressed .flip-inner{transform:scale(.96)}
+.card{background:var(--card);border-radius:28px;padding:28px 24px;box-shadow:0 20px 44px -28px rgba(58,31,18,.35)}
+.section-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;margin:0 0 8px}
+.section-intro{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+.cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.cardgrid{grid-template-columns:1fr}}
+.flip{perspective:1200px;height:170px;cursor:pointer;position:relative}
+.flip.tall{height:200px}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.flip.open .flip-inner{transform:rotateY(180deg)}
+.flip.open.pressed .flip-inner{transform:rotateY(180deg) scale(.97)}
+.flip-face{position:absolute;inset:0;border-radius:20px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.flip-front{background:var(--bg-soft)}
+.flip-back{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;transform:rotateY(180deg);align-items:center;text-align:center}
+.flip-rule{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;line-height:1.32}
+.flip-desc{font-size:12.5px;margin-top:7px;opacity:.8;line-height:1.4}
+.flip-example{font-size:14.5px;font-weight:700;margin-bottom:6px;line-height:1.4}
+.flip-hint{position:absolute;bottom:9px;right:14px;font-size:10px;font-weight:700;opacity:.4}
+.sentscheme{background:var(--bg-soft);border-radius:18px;padding:24px 20px 16px;margin-bottom:10px}
+.ss-hint{font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-bottom:12px}
+.ss-text{font-family:'Manrope',sans-serif;font-weight:700;font-size:16.5px;line-height:2.7}
+.ss-tok{position:relative;padding:2px 3px;border:none;background:none;font:inherit;color:var(--ink);border-radius:8px}
+button.ss-tok{cursor:pointer}
+button.ss-tok:hover{background:rgba(217,83,30,.08)}
+.ss-tok.p1{border-bottom:3px solid var(--p1);color:var(--p1)}
+.ss-tok.p2{border-bottom:3px solid var(--p2);color:var(--p2)}
+.ss-tok.aw{border-bottom:3px dashed var(--aw);color:var(--aw)}
+.ss-tok.dir{border-bottom:3px solid var(--dir);color:var(--dir)}
+.ss-q{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-family:'Manrope',sans-serif;font-weight:800;font-size:10.5px;white-space:nowrap;margin-bottom:3px;opacity:0;pointer-events:none;transition:opacity .2s}
+.ss-tok.revealed .ss-q{opacity:1}
+.ss-q::after{content:'';position:absolute;left:50%;top:100%;border-left:1px solid currentColor;height:5px}
+.ss-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:4px 0 0;font-size:12px;color:var(--ink-soft);font-weight:700}
+.ss-legend i{display:inline-block;width:22px;vertical-align:middle;margin-right:6px}
+.ss-legend i.p1{border-bottom:3px solid var(--p1)}.ss-legend i.p2{border-bottom:3px solid var(--p2)}
+.ss-legend i.aw{border-bottom:3px dashed var(--aw)}.ss-legend i.dir{border-bottom:3px solid var(--dir)}
+footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft)}
+/* drawing */
+#drawCanvas{position:absolute;top:0;left:0;z-index:9998;pointer-events:none}
+#drawToggleBtn{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 14px 28px -10px var(--c1-sh);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999}
+#drawToggleBtn svg{width:24px;height:24px}
+#drawToggleBtn.on{background:linear-gradient(155deg,#FF8A65,var(--c2-b))}
+#drawToolbar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(130%);opacity:0;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.7);backdrop-filter:blur(20px);border:1px solid #fff;padding:9px 16px;border-radius:999px;box-shadow:0 24px 48px -20px rgba(58,31,18,.45);z-index:9999;transition:transform .25s,opacity .2s;pointer-events:none}
+#drawToolbar.show{transform:translateX(-50%);opacity:1;pointer-events:auto}
+.swatch{position:relative;width:25px;height:25px;border-radius:50%;border:none;cursor:pointer;padding:0}
+.swatch.selected{outline:2px solid var(--ink);outline-offset:2px}
+.tool-btn{width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.6);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px}
+.tool-btn .dot{border-radius:50%;background:currentColor}
+.tool-btn.selected{background:var(--c1-b);color:#fff}
+.tool-sep{width:1px;height:22px;background:rgba(58,31,18,.14)}
+@media(max-width:480px){#drawToolbar{max-width:94vw;overflow-x:auto;gap:9px;padding:8px 12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><div class="kicker">Складне речення · Пряма мова · Діалог · 6 клас</div></div>
+  <h1>Одне речення — <span class="hl">дві основи</span>, і чужі слова в лапках</h1>
+  <div class="tabbar" id="subtabbar"></div>
+  <div class="card" id="lessonArea"></div>
+  <footer>@movoznavka</footer>
+</div>
+
+<canvas id="drawCanvas"></canvas>
+<button id="drawToggleBtn" title="Малювати">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M4 20L4.6 16.6C4.7 15.9 5.03 15.26 5.55 14.79L15.3 5.7C16.09 4.96 17.34 4.99 18.09 5.78L18.34 6.04C19.08 6.83 19.04 8.08 18.25 8.81L8.5 17.9C8 18.37 7.37 18.66 6.7 18.75L4 20Z" stroke="white" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 7.5L16.5 10.3" stroke="white" stroke-width="1.7" stroke-linecap="round"/></svg>
+</button>
+<div id="drawToolbar">
+  <button class="swatch selected" style="background:#F5304A" data-color="#F5304A"></button>
+  <button class="swatch" style="background:#3355EE" data-color="#3355EE"></button>
+  <button class="swatch" style="background:#17A863" data-color="#17A863"></button>
+  <button class="swatch" style="background:#3A1F12" data-color="#3A1F12"></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn selected" id="thinBtn" title="Тонка"><span class="dot" style="width:4px;height:4px"></span></button>
+  <button class="tool-btn" id="thickBtn" title="Товста"><span class="dot" style="width:12px;height:12px"></span></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="eraserBtn" title="Ластик">⌫</button>
+  <button class="tool-btn" id="clearBtn" title="Очистити все">✕</button>
+</div>
+
+<script>
+/* Додати матеріал: SUBS[].blocks[] — "cards" (картки-фліпи) або "scheme" (речення з підкресленням; тисни на слово). */
+const ex = w => ({word:w});
+const SUBS = [
+{ tab:"Складне речення", dot:"1", title:"Складне речення",
+  intro:"Порівняй: у простому реченні одна граматична основа, а в складному — дві чи більше. Складне речення складається з частин, подібних до простих.",
+  blocks:[
+  {type:"cards", heading:"Поняття про складне речення", intro:"Тисни на картку, щоб побачити приклад.", cards:[
+    {rule:"Складне речення", desc:"має дві або більше граматичних основ", ex:["Синіє ласкаве небо, і знов курличуть журавлі."]},
+    {rule:"Просте речення", desc:"має лише одну граматичну основу", ex:["Синіє ласкаве небо."]},
+    {rule:"Частини", desc:"частини складного речення подібні до простих речень", ex:["<b>1-ша:</b> Синіє ласкаве небо,","<b>2-га:</b> і знов курличуть журавлі."]},
+    {rule:"Як порахувати частини?", desc:"скільки граматичних основ — стільки й частин", ex:["небо синіє + журавлі курличуть = 2 основи = 2 частини"]}
+  ]},
+  {type:"scheme", heading:"Знайди частини", intro:"Тисни на кольорове слово, щоб побачити граматичну основу.", sentences:[
+    [{t:"Синіє",r:"p1",q:"присудок 1-ї частини"},{t:"ласкаве"},{t:"небо,",r:"p1",q:"підмет 1-ї частини"},{t:"і знов"},{t:"курличуть",r:"p2",q:"присудок 2-ї частини"},{t:"журавлі.",r:"p2",q:"підмет 2-ї частини"}]
+  ], legend:[["p1","1-ша частина"],["p2","2-га частина"]]},
+  {type:"cards", heading:"Зв'язок частин", intro:"Частини складного речення можна поєднати різними видами зв'язку.", cards:[
+    {rule:"Безсполучниковий", desc:"за допомогою тільки інтонації, без сполучників", ex:["На гнізда повернулися лелеки, птахів зігріла рідна сторона (Д. Луценко)."]},
+    {rule:"Сполучниковий", desc:"за допомогою сполучників чи сполучних слів та інтонації", ex:["Весна зупинилась над кручею, і плачуть останні сніги (Л. Завішана)."]},
+    {rule:"Сполучники й сполучні слова", desc:"і, й, та, чи, або, а, але, щоб, якби, бо, мов, як, наче, тому що, що, хто, який, коли, де та ін.", ex:["Найуживаніші сполучники та сполучні слова"]},
+    {rule:"Інтонація", desc:"між частинами — невелика пауза; наприкінці кожної частини (крім останньої) голос підвищуємо, у кінці речення — понижуємо", ex:["Прилинув вітер ↗ | і в хатині він про весну заспівав ↘"]}
+  ], tall:true},
+  {type:"cards", heading:"Розділові знаки", intro:"", cards:[
+    {rule:"Між частинами — кома", desc:"між частинами складного речення ставимо кому", ex:["Прилинув вітер, і в нічній хатині він про весняну волю заспівав (Леся Українка).","Материнське серце горе закрива, материнське серце щастя наверта (М. Гірник)."]}
+  ], tall:true}
+]},
+{ tab:"Пряма мова", dot:"2", title:"Пряма мова та слова автора",
+  intro:"Коли ми передаємо чужі слова точно, так, як їх сказали, — це пряма мова. А хто саме це сказав, повідомляють слова автора.",
+  blocks:[
+  {type:"cards", heading:"Що це таке", intro:"Тисни на картку.", cards:[
+    {rule:"Пряма мова", desc:"точно відтворене висловлення певної особи, передане від її імені", ex:["«Усі слова — співучі струни, коли під майстровим смичком»."]},
+    {rule:"Слова автора", desc:"слова, що вказують, кому належить пряма мова", ex:["Максим Рильський писав:"]},
+    {rule:"Інтонація прямої мови", desc:"вимовляємо повільніше й вищим тоном, ніж слова автора", ex:["Між словами автора й прямою мовою робимо паузу."]}
+  ]},
+  {type:"scheme", heading:"Знайди пряму мову", intro:"Тисни на кольорове слово.", sentences:[
+    [{t:"Максим Рильський писав:",r:"aw",q:"слова автора"},{t:"«Усі слова — співучі струни,",r:"dir",q:"пряма мова"},{t:"коли під майстровим смичком»."  ,r:"dir",q:"пряма мова"}],
+    [{t:"Онук похвалився дідусеві:",r:"aw",q:"слова автора"},{t:"«Я навчився плавати».",r:"dir",q:"пряма мова"}]
+  ], legend:[["aw","слова автора"],["dir","пряма мова"]]}
+]},
+{ tab:"Розділові знаки", dot:"3", title:"Розділові знаки при прямій мові",
+  intro:"На письмі пряму мову завжди беремо в лапки, а перше слово пишемо з великої букви. Знак залежить від того, де стоять слова автора.",
+  blocks:[
+  {type:"cards", heading:"Де стоять слова автора?", intro:"Тисни на картку.", cards:[
+    {rule:"ПЕРЕД прямою мовою", desc:"після слів автора ставимо ДВОКРАПКУ", ex:["Онук похвалився дідусеві: «Я навчився плавати».","Бабуся питає: «А хто допоможе мені води принести?»"]},
+    {rule:"ПІСЛЯ прямої мови", desc:"перед словами автора — КОМА (або ? !) і ТИРЕ. Слова автора — з малої букви", ex:["«Я навчився плавати», — похвалився онук дідусеві.","«А хто допоможе мені води принести?» — питає бабуся."]}
+  ], tall:true},
+  {type:"scheme", heading:"Двокрапка чи кома й тире?", intro:"Слова автора — попереду чи позаду? Тисни на кольорове слово.", sentences:[
+    [{t:"Бабуся питає:",r:"aw",q:"слова автора перед → двокрапка"},{t:"«А хто допоможе мені води принести?»",r:"dir",q:"пряма мова, перше слово з великої"}],
+    [{t:"«Я навчився плавати»,",r:"dir",q:"пряма мова → кома"},{t:"—"},{t:"похвалився",r:"aw",q:"слова автора після → тире, мала буква"},{t:"онук."}]
+  ], legend:[["aw","слова автора"],["dir","пряма мова"]]},
+  {type:"cards", heading:"Схеми речень", intro:"П — пряма мова; А, а — слова автора (велика буква А — слова автора починаються з великої).", cards:[
+    {rule:"1.  А: «П».", desc:"слова автора перед прямою мовою", ex:["Мама сказала: «Нам пора»."]},
+    {rule:"2.  А: «П!»", desc:"пряма мова із знаком оклику чи питання, слова автора перед нею", ex:["Дід гукнув: «Ходи сюди!»"]},
+    {rule:"3.  «П», — а.", desc:"слова автора після прямої мови", ex:["«Нам пора», — сказала мама."]},
+    {rule:"4.  «П?!» — а.", desc:"після ? або ! кому не ставимо — лише тире", ex:["«Ти прийдеш?» — спитала подруга."]}
+  ]}
+]},
+{ tab:"Діалог", dot:"4", title:"Діалог",
+  intro:"Діалог — розмова двох осіб. Кожну репліку починаємо з нового рядка й ставимо перед нею тире.",
+  blocks:[
+  {type:"cards", heading:"Як записати діалог", intro:"Тисни на картку.", cards:[
+    {rule:"Репліка — з нового рядка", desc:"кожна репліка починається з абзацу, перед нею тире, лапок немає", ex:["— Ти вже вдома?","— Так, щойно прийшов."]},
+    {rule:"Діалог зі словами автора", desc:"слова автора виділяємо тире й комою, як при прямій мові", ex:["— Ти вже вдома? — спитала мама.","— Так, — відповів Іван."]}
+  ]},
+  {type:"scheme", heading:"Знайди слова автора", intro:"Тисни на кольорове слово.", sentences:[
+    [{t:"— Ти вже вдома?",r:"dir",q:"репліка"},{t:"—"},{t:"спитала мама.",r:"aw",q:"слова автора"}]
+  ], legend:[["aw","слова автора"],["dir","репліка"]]}
+]}
+];
+
+let activeSub = 0;
+const subtabbar = document.getElementById('subtabbar'), lessonArea = document.getElementById('lessonArea');
+const drawStore = {};
+
+function tap(el, fn){
+  let sx=0, sy=0, pen=false, on=false;
+  el.addEventListener('pointerdown', e=>{on=true;sx=e.clientX;sy=e.clientY;pen=e.pointerType==='pen';el.classList.add('pressed')},{passive:true});
+  el.addEventListener('pointerup', e=>{
+    el.classList.remove('pressed'); if(!on) return; on=false;
+    if(pen && window.isDrawingActive && window.isDrawingActive()) return;
+    if(Math.hypot(e.clientX-sx, e.clientY-sy)>10) return;
+    fn(e);
+  });
+  el.addEventListener('pointercancel', ()=>{on=false;el.classList.remove('pressed')});
+}
+
+function renderSubs(){
+  subtabbar.innerHTML = SUBS.map((s,i)=>`<button class="tab ${i===activeSub?'active':''}"><span class="dot">${s.dot}</span>${s.tab}</button>`).join('');
+  subtabbar.querySelectorAll('.tab').forEach((b,i)=>tap(b, ()=>{
+    if(window.getDrawingSnapshot) drawStore[activeSub] = window.getDrawingSnapshot();
+    activeSub = i; renderSubs(); renderContent();
+  }));
+}
+
+function blockHTML(b, bi){
+  let h = b.heading ? `<p class="section-title" style="margin-top:${bi?26:2}px;font-size:17px">${b.heading}</p>` : '';
+  if(b.intro) h += `<p class="section-intro">${b.intro}</p>`;
+  if(b.type==="cards"){
+    h += `<div class="cardgrid">` + b.cards.map(c=>`
+      <div class="flip ${b.tall?'tall':''}" data-card>
+        <div class="flip-inner">
+          <div class="flip-face flip-front"><div class="flip-rule">${c.rule}</div><div class="flip-desc">${c.desc||''}</div><div class="flip-hint">натисни →</div></div>
+          <div class="flip-face flip-back">${c.ex.map(e=>`<div class="flip-example">${e}</div>`).join('')}</div>
+        </div>
+      </div>`).join('') + `</div>`;
+  } else {
+    h += b.sentences.map(s=>`<div class="sentscheme"><div class="ss-text">${s.map(t=> t.r
+      ? `<button type="button" class="ss-tok ${t.r}" data-role><span class="ss-q">${t.q}</span>${t.t}</button>`
+      : `<span class="ss-tok">${t.t}</span>`).join(' ')}</div></div>`).join('')
+      + `<div class="ss-legend">${b.legend.map(l=>`<span><i class="${l[0]}"></i>${l[1]}</span>`).join('')}</div>`;
+  }
+  return h;
+}
+
+function renderContent(){
+  const s = SUBS[activeSub];
+  lessonArea.innerHTML = `<p class="section-title">${s.title}</p><p class="section-intro">${s.intro}</p>` + s.blocks.map(blockHTML).join('');
+  lessonArea.querySelectorAll('[data-card]').forEach(el=>tap(el, ()=>el.classList.toggle('open')));
+  lessonArea.querySelectorAll('[data-role]').forEach(el=>tap(el, ()=>el.classList.toggle('revealed')));
+  if(window.resizeDrawCanvas) requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    window.resizeDrawCanvas(); window.setDrawingSnapshot(drawStore[activeSub]||null);
+  }));
+}
+renderSubs(); renderContent();
+
+/* Малювання поверх екрана (режим «учитель», малює стилус) */
+(function(){
+  const canvas = document.getElementById('drawCanvas'), ctx = canvas.getContext('2d');
+  const toggleBtn = document.getElementById('drawToggleBtn'), toolbar = document.getElementById('drawToolbar');
+  const thinBtn = document.getElementById('thinBtn'), thickBtn = document.getElementById('thickBtn'), eraserBtn = document.getElementById('eraserBtn');
+  let active=false, drawing=false, color="#F5304A", width=4, eraser=false, lx=0, ly=0, pid=null;
+  window.isDrawingActive = ()=>active;
+
+  function resize(){
+    const w = document.documentElement.clientWidth;
+    const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, innerHeight);
+    const prev = document.createElement('canvas'); prev.width = canvas.width; prev.height = canvas.height;
+    if(canvas.width && canvas.height) prev.getContext('2d').drawImage(canvas,0,0);
+    canvas.width = w*devicePixelRatio; canvas.height = h*devicePixelRatio;
+    canvas.style.width = w+'px'; canvas.style.height = h+'px';
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    ctx.lineCap = ctx.lineJoin = 'round';
+    if(prev.width && prev.height) ctx.drawImage(prev,0,0,prev.width/devicePixelRatio,prev.height/devicePixelRatio);
+  }
+  window.resizeDrawCanvas = resize; resize();
+  addEventListener('resize', resize);
+  if(window.ResizeObserver) new ResizeObserver(resize).observe(document.body);
+
+  window.getDrawingSnapshot = ()=>{ try{ return canvas.width ? canvas.toDataURL('image/png') : null }catch(e){ return null } };
+  window.setDrawingSnapshot = d=>{
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,canvas.width,canvas.height); ctx.restore();
+    if(!d) return;
+    const img = new Image();
+    img.onload = ()=>ctx.drawImage(img,0,0,canvas.width/devicePixelRatio,canvas.height/devicePixelRatio);
+    img.src = d;
+  };
+
+  toggleBtn.addEventListener('click', ()=>{
+    active = !active; toolbar.classList.toggle('show', active); toggleBtn.classList.toggle('on', active);
+  });
+  document.querySelectorAll('.swatch').forEach(sw=>sw.addEventListener('click', ()=>{
+    document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('selected'));
+    sw.classList.add('selected'); color = sw.dataset.color; eraser = false; eraserBtn.classList.remove('selected');
+  }));
+  thinBtn.addEventListener('click', ()=>{ width=4; thinBtn.classList.add('selected'); thickBtn.classList.remove('selected'); });
+  thickBtn.addEventListener('click', ()=>{ width=12; thickBtn.classList.add('selected'); thinBtn.classList.remove('selected'); });
+  eraserBtn.addEventListener('click', ()=>{ eraser = !eraser; eraserBtn.classList.toggle('selected', eraser); });
+  document.getElementById('clearBtn').addEventListener('click', ()=>window.setDrawingSnapshot(null));
+
+  const pos = e=>{ const r = canvas.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top, p:e.pressure||.5}; };
+  document.addEventListener('pointerdown', e=>{
+    if(!active || e.pointerType!=='pen' || (e.target.closest && e.target.closest('#drawToolbar,#drawToggleBtn'))) return;
+    e.preventDefault(); drawing = true; pid = e.pointerId; const p = pos(e); lx = p.x; ly = p.y;
+  },{passive:false});
+  document.addEventListener('pointermove', e=>{
+    if(!active || !drawing || e.pointerId!==pid) return;
+    e.preventDefault(); const p = pos(e);
+    ctx.globalCompositeOperation = eraser ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = color; ctx.lineWidth = (eraser ? width*3 : width) * (.6 + p.p*.8);
+    ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(p.x,p.y); ctx.stroke(); lx = p.x; ly = p.y;
+  },{passive:false});
+  const stop = e=>{ if(e.pointerId!==undefined && e.pointerId!==pid) return; drawing=false; pid=null; };
+  document.addEventListener('pointerup', stop); document.addEventListener('pointercancel', stop);
+  document.addEventListener('touchmove', e=>{ if(active && e.touches[0] && e.touches[0].touchType==='stylus') e.preventDefault(); },{passive:false});
+})();
+</script>
+</body>
+</html>
