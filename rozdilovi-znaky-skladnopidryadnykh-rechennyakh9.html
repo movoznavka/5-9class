@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Розділові знаки в складнопідрядному реченні · Тест</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#DCE8F5;--bg-soft:#EAF2FB;--card:#F8FBFF;--ink:#12263F;--ink-soft:#5A7392;--line:rgba(18,38,63,.1);
+  --c1-a:#6FB1FF;--c1-b:#2B6FD6;--c1-sh:rgba(43,111,214,.45);--c2-b:#C23B2E;--c3-b:#4C8F2A;
+  --correct-bg:#E9F3DE;--correct-ink:#3F7D3A;--wrong-bg:#FBEAE6;--wrong-ink:#C23B2E;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px;position:relative}
+.wrap{max-width:760px;margin:0 auto}
+.topbar{padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid rgba(18,38,63,.14)}
+.kicker{font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(24px,5.6vw,36px);line-height:1.08;margin:0 0 20px;text-transform:uppercase}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 15px 10px 10px;border-radius:999px;border:1px solid #fff;background:#fff;color:var(--ink-soft);font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 10px 20px -12px rgba(18,38,63,.45)}
+.tab .dot{width:22px;height:22px;border-radius:8px;background:rgba(43,111,214,.16);color:var(--c1-b);display:flex;align-items:center;justify-content:center;font-size:11px}
+.tab.active{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--c1-sh)}
+.tab.active .dot{background:rgba(255,255,255,.28);color:#fff}
+.pressed{transform:scale(.97)}
+.card{background:var(--card);border-radius:28px;padding:28px 24px;box-shadow:0 20px 44px -28px rgba(18,38,63,.35)}
+.section-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;margin:0 0 8px}
+.section-intro{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+.qprog{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+.qtext{font-family:'Manrope',sans-serif;font-size:19px;font-weight:700;line-height:1.45;margin:0 0 18px}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:13px;text-align:left;width:100%;padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--bg-soft);cursor:pointer;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:500;color:var(--ink);transition:transform .12s}
+.opt:hover{transform:translateY(-1px)}
+.opt[disabled]{cursor:default}.opt[disabled]:hover{transform:none}
+.tile{position:relative;width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--c1-b);background:linear-gradient(150deg,rgba(255,255,255,.75),rgba(43,111,214,.22));border:1px solid rgba(255,255,255,.7);box-shadow:0 4px 12px -7px var(--c1-sh)}
+.badge{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff}
+.badge.ok{background:var(--c3-b)}.badge.no{background:var(--c2-b)}
+.opt.correct{background:var(--correct-bg)}.opt.wrong{background:var(--wrong-bg)}.opt.dim{opacity:.5}
+.feedback{margin-top:16px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600;line-height:1.5;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:var(--correct-bg);color:var(--correct-ink)}
+.feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink)}
+.feedback .hint{display:block;font-weight:500;margin-top:6px;opacity:.85}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+.btn{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;padding:12px 22px;border-radius:999px;border:none;cursor:pointer}
+.btn.primary{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;box-shadow:0 10px 20px -8px var(--c1-sh)}
+.btn.ghost{background:transparent;color:var(--ink-soft)}
+.btn.small{padding:8px 14px;font-size:12px}
+.btn:disabled{opacity:.3;cursor:default;box-shadow:none}
+.done-screen{text-align:center}
+.ring{width:110px;height:110px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 16px 30px -12px var(--c1-sh);display:flex;align-items:center;justify-content:center}
+.big{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;color:#fff}
+.send-status{font-size:13px;font-weight:600;color:var(--ink-soft);margin-top:10px;min-height:18px}
+.send-status.ok{color:var(--correct-ink)}.send-status.bad{color:var(--c2-b)}
+footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft)}
+#drawCanvas{position:absolute;top:0;left:0;z-index:9998;pointer-events:none}
+#drawToggleBtn{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 14px 28px -10px var(--c1-sh);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999}
+#drawToggleBtn svg{width:24px;height:24px}
+#drawToggleBtn.on{background:linear-gradient(155deg,#FF8A65,var(--c2-b))}
+#drawToolbar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(130%);opacity:0;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.7);backdrop-filter:blur(20px);border:1px solid #fff;padding:9px 16px;border-radius:999px;box-shadow:0 24px 48px -20px rgba(18,38,63,.45);z-index:9999;transition:transform .25s,opacity .2s;pointer-events:none}
+#drawToolbar.show{transform:translateX(-50%);opacity:1;pointer-events:auto}
+.swatch{width:25px;height:25px;border-radius:50%;border:none;cursor:pointer;padding:0}
+.swatch.selected{outline:2px solid var(--ink);outline-offset:2px}
+.tool-btn{width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.6);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px}
+.tool-btn .dot{border-radius:50%;background:currentColor}
+.tool-btn.selected{background:var(--c1-b);color:#fff}
+.tool-sep{width:1px;height:22px;background:rgba(18,38,63,.14)}
+@media(max-width:480px){#drawToolbar{max-width:94vw;overflow-x:auto;gap:9px;padding:8px 12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><div class="kicker">Складнопідрядне речення · Розділові знаки · Тест</div></div>
+  <h1>Тест</h1>
+  <div class="tabbar" id="subtabbar"></div>
+  <div class="card" id="lessonArea"></div>
+  <footer>@movoznavka</footer>
+</div>
+<canvas id="drawCanvas"></canvas>
+<button id="drawToggleBtn" title="Малювати">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M4 20L4.6 16.6C4.7 15.9 5.03 15.26 5.55 14.79L15.3 5.7C16.09 4.96 17.34 4.99 18.09 5.78L18.34 6.04C19.08 6.83 19.04 8.08 18.25 8.81L8.5 17.9C8 18.37 7.37 18.66 6.7 18.75L4 20Z" stroke="white" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 7.5L16.5 10.3" stroke="white" stroke-width="1.7" stroke-linecap="round"/></svg>
+</button>
+<div id="drawToolbar">
+  <button class="swatch selected" style="background:#F5304A" data-color="#F5304A"></button>
+  <button class="swatch" style="background:#3355EE" data-color="#3355EE"></button>
+  <button class="swatch" style="background:#17A863" data-color="#17A863"></button>
+  <button class="swatch" style="background:#12263F" data-color="#12263F"></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn selected" id="thinBtn" title="Тонка"><span class="dot" style="width:4px;height:4px"></span></button>
+  <button class="tool-btn" id="thickBtn" title="Товста"><span class="dot" style="width:12px;height:12px"></span></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="eraserBtn" title="Ластик">⌫</button>
+  <button class="tool-btn" id="clearBtn" title="Очистити все">✕</button>
+</div>
+
+<script>
+const SUBS = [{
+  dot:"1", tab:"Тест", testName:"Розділові знаки в складнопідрядному реченні",
+  title:"Тест: Розділові знаки в складнопідрядному реченні",
+  intro:"Оберіть одну правильну відповідь у кожному питанні.",
+  questions:[
+ {
+  "q": "Кому пропущено в реченні?",
+  "opts": [
+   "Хата, що стала для мене прихистком розміщувалася вище за інші.",
+   "Якщо молодший ні з чим не криється, старший не повинен дорікати.",
+   "Цілком у твоїх силах зробити, щоб світ довкола став трішки кращим.",
+   "З’являться нові машини, рушієм яких буде електромотор і водневе паливо."
+  ],
+  "a": 0,
+  "hint": "Підрядна частина «що стала для мене прихистком» стоїть усередині головної, тож її потрібно виділити комами з обох боків: «Хата, що стала для мене прихистком, розміщувалася…»."
+ },
+ {
+  "q": "Кому пропущено в реченні?",
+  "opts": [
+   "Нас ніхто не чує, бо нас нікому почути.",
+   "Ми забуваємо, що ліки ростуть із землі.",
+   "Камінь, що котиться мохом не поростає.",
+   "Ігрові шоу не такі важливі, як може здаватися."
+  ],
+  "a": 2,
+  "hint": "Підрядна частина «що котиться мохом» вставлена в головну — потрібна й друга кома: «Камінь, що котиться мохом, не поростає»."
+ },
+ {
+  "q": "Кому пропущено в реченні?",
+  "opts": [
+   "Часто ми тікаємо в щоденні справи, щоб не відчувати базового незадоволення життям.",
+   "Люди, які споживають хоча б одне яблуко на день лікарів не знають і живуть на 10 років довше.",
+   "Сад стояв по коліна в тумані, який повільно спадав усе нижче й всотувався в землю.",
+   "Вершник поплескав по шиї вірного товариша, що вивів його в білу зиму до України."
+  ],
+  "a": 1,
+  "hint": "Підрядна частина «які споживають… на день» стоїть усередині головної, тому після «день» потрібна кома."
+ },
+ {
+  "q": "Кому пропущено в реченні?",
+  "opts": [
+   "Думаю про те, хто вмикає зорі й хто їх вимикає.",
+   "Люди носять із собою ліхтарі, щоб краще бачити.",
+   "Якщо не знаєш, що робити роби хоч те, що можеш.",
+   "Якщо ви хочете збирати мед, не перекидайте вулика."
+  ],
+  "a": 2,
+  "hint": "Між двома підрядними частинами («Якщо не знаєш» і «що робити») та головною «роби хоч те» потрібна кома після «робити»: «Якщо не знаєш, що робити, роби хоч те, що можеш»."
+ },
+ {
+  "q": "Кому пропущено в реченні?",
+  "opts": [
+   "За традицією кожний, хто переживає сильне й глибоке почуття відкриває записничок і заготовує, як довго воно триває.",
+   "Засідання, що відбувалося сьогодні, стало справді цікавим завдяки людині, яка стояла тепер на трибуні.",
+   "Западає тиша, у якій вряди-годи чується порипування крісла, чиєсь покахикування чи бурчання в шлунку.",
+   "Думаю, тугу розвію, щоб був я завжди таким, яким мене мати вродила й благословила в світі."
+  ],
+  "a": 0,
+  "hint": "Підрядна частина «хто переживає… почуття» вставлена в головну, тому після «почуття» потрібна кома."
+ },
+ {
+  "q": "Кому пропущено в реченні?",
+  "opts": [
+   "Ми ще не пізнали світу, у якому живемо.",
+   "З-за дерев, які оточували озеро, проблискувало світло.",
+   "Коли дивлюся, як на очах міняються довколишні барви, мені легшає.",
+   "Цікаво хто може облікувати скільки людині відведено випробувань?"
+  ],
+  "a": 3,
+  "hint": "Тут кілька частин: «Цікаво, хто може облікувати, скільки людині відведено випробувань?» — кома потрібна між кожною з них."
+ },
+ {
+  "q": "Пунктуаційну помилку допущено в реченні:",
+  "opts": [
+   "Не знаю я, що буде після нас, в які природа убереться шати.",
+   "Зернина, що лягає в ґрунт, не журиться, коли і що з неї виросте.",
+   "Для того, щоб млинець не прилипав до сковороди, треба її змастити маслом.",
+   "Хто хоче мати друзів, той повинен діяти, не шкодуючи сил і часу."
+  ],
+  "a": 2,
+  "hint": "Складений сполучник «для того щоб» не розривається комою. Правильно: «Для того щоб млинець не прилипав до сковороди, треба її змастити маслом»."
+ },
+ {
+  "q": "Пунктуаційну помилку допущено в реченні:",
+  "opts": [
+   "Перед тим як сідати обідати, радимо обов’язково ретельно помити руки милом.",
+   "І хоча життя послало йому калюжу замість океану, душа в нього була океанська.",
+   "Бери стільки, скільки можеш підняти, інакше надірвешся й утратиш усе, що маєш.",
+   "Незважаючи на те, що починалася буря, ми всією юрбою йшли до морського берега."
+  ],
+  "a": 3,
+  "hint": "Сполучник «незважаючи на те що» складений, тому кома всередині нього (після «те») зайва."
+ },
+ {
+  "q": "Пунктуаційну помилку допущено в реченні:",
+  "opts": [
+   "Мені не шкода того, що моє і що я втрачаю…",
+   "Доки мені Бог сил дасть і доки буду жити, буду робити…",
+   "Є велика різниця між тими, хто розумний і хто інтелектуал.",
+   "Пройшло немало років, як погас вогонь війни, і вичахли гармати."
+  ],
+  "a": 3,
+  "hint": "Сполучник «і» з’єднує однорідні підрядні частини, що належать до одного слова головної частини, тож кома перед ним не ставиться."
+ },
+ {
+  "q": "Тире можна поставити на місці крапок у реченні:",
+  "opts": [
+   "Часом здається … що життя стає легшим і простішим.",
+   "Будинок має таємницю … про яку перехожі навіть не здогадуються.",
+   "Якщо прийдете вчасно … зможемо сходити в парк, що на тому березі.",
+   "Якщо ти за своє життя не посадив жодного дерева … плати за чисте повітря."
+  ],
+  "a": 3,
+  "hint": "Тире ставимо між підрядною частиною (умови) та головною, коли є різке протиставлення чи несподіваний наслідок, — як у реченні Г."
+ },
+ {
+  "q": "Прочитайте речення. «Солов’ї заливисто перетьохкуються у вербах (1) і (2) коли вони тьохкають (3) то здається (4) усе на світі зникає». НЕ ТРЕБА ставити кому на місці цифри:",
+  "opts": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "a": 1,
+  "hint": "Сполучник «і» поєднує однорідні члени «у вербах і коли вони тьохкають» — кома між ними не потрібна. Решта цифр позначають межі частин."
+ },
+ {
+  "q": "Прочитайте речення. «Ви скажіть своєму пану (1) що заплати не бажаю (2) бо (3) коли я що дарую (4) то назад не одбираю». НЕ ТРЕБА ставити кому на місці цифри:",
+  "opts": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "a": 2,
+  "hint": "Сполучник «бо» й підрядна частина «коли я що дарую» стоять поруч — кома між ними не ставиться, бо «бо» стосується всієї конструкції."
+ },
+{
+ "q": "Пунктуаційну помилку допущено в реченні:",
+ "opts": [
+  "З тих, кому багато дано від природи, більше питають.",
+  "Скажи, де ти, відчуй, хто ти.",
+  "Навряд чи взагалі є щось гідніше, як вдосконалювати свій дух, увічнювати себе у своїх творіннях і дарувати їх нащадкам.",
+  "Чим вище літає птах, тим далі він бачить, і тим більше можливостей у нього з’являється.",
+  "Навіть найвеличніша ідея не має ніякої користі, поки ми не вирішимо нею скористатися."
+ ],
+ "a": 3,
+ "hint": "Частини «тим далі він бачить» і «тим більше можливостей у нього з’являється» — однорідні головні частини при спільній підрядній «чим вище літає птах», з’єднані одиничним сполучником «і», тож кома перед ним зайва."
+},
+{
+ "q": "Пунктуаційну помилку допущено в реченні:",
+ "opts": [
+  "І поглянь, як навколо світає, і як сніг неймовірно блищить.",
+  "Просто мені так хочеться бути там, де й ти.",
+  "Слова не підкажуть, як жити завтра, як бути тепер.",
+  "Знаєш, як болить…",
+  "Шалію від такої простоти, коли в однім відлунні сотні «ти»."
+ ],
+ "a": 0,
+ "hint": "Однорідні підрядні частини «як навколо світає» і «як сніг неймовірно блищить» з’єднані одиничним сполучником «і», тому кома перед «і» не ставиться."
+}
+]
+}];
+
+const API_URL = "https://script.google.com/macros/s/AKfycbxWkeJYw7gUdEjM9H2oeMVTMhBLEq1dDa2DcqNS5vSQjJb19aXyR7p7kDz_otyK3sTggw/exec";
+const LETTERS = ["А","Б","В","Г","Д","Е","Є"];
+let _resultState = 'idle', activeSub = 0, quizIdx = 0, quizAnswers = {};
+const subtabbar = document.getElementById('subtabbar'), lessonArea = document.getElementById('lessonArea'), drawStore = {};
+
+(function(){
+  const hw = new URLSearchParams(location.search).get('hw'); if(!hw) return;
+  const i = SUBS.findIndex(s=>s.dot===hw);
+  if(i !== -1){ activeSub = i; return; }
+  const k = parseInt(hw,10);
+  if(k>=1 && k<=SUBS[0].questions.length) quizIdx = k-1;
+})();
+
+const key = ()=>activeSub+'_'+quizIdx;
+function saveDraw(){ if(window.getDrawingSnapshot) drawStore[key()] = window.getDrawingSnapshot(); }
+function score(qs){ let c=0,a=0; qs.forEach((_,i)=>{const r=quizAnswers[i]; if(r){a++; if(r.correct)c++;}}); return {correct:c,answered:a,total:qs.length}; }
+
+async function sendResultOnce(s){
+  if(_resultState==='sending'||_resultState==='sent') return;
+  const student = new URLSearchParams(location.search).get('student'), st = document.getElementById('sendStatus');
+  if(!student || !API_URL) return;
+  _resultState = 'sending'; st.textContent = 'Надсилаємо результат...'; st.className = 'send-status';
+  const {correct,answered,total} = score(s.questions), wrongList = [];
+  s.questions.forEach((_,i)=>{const r=quizAnswers[i]; if(r && !r.correct) wrongList.push(i+1);});
+  try{
+    const resp = await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'quiz_result',student,testName:s.testName,correct,answered,total,wrongList,reviewLink:'',flaggedList:[]})});
+    if(!resp || !resp.ok) throw 0;
+    _resultState = 'sent'; st.textContent = 'Результат надіслано вчителю ✓'; st.className = 'send-status ok';
+  }catch(e){
+    _resultState = 'failed'; st.className = 'send-status bad';
+    st.innerHTML = 'Не вдалося надіслати результат (перевірте інтернет). <button class="btn ghost small" id="retryBtn">Спробувати ще раз</button>';
+    document.getElementById('retryBtn').onclick = ()=>{ _resultState='idle'; sendResultOnce(s); };
+  }
+}
+
+function tap(el, fn){
+  if(!el) return;
+  let sx=0, sy=0, pen=false, on=false;
+  el.addEventListener('pointerdown', e=>{on=true;sx=e.clientX;sy=e.clientY;pen=e.pointerType==='pen';el.classList.add('pressed')},{passive:true});
+  el.addEventListener('pointerup', e=>{
+    el.classList.remove('pressed'); if(!on) return; on=false;
+    if(pen && window.isDrawingActive && window.isDrawingActive()) return;
+    if(Math.hypot(e.clientX-sx,e.clientY-sy)>10) return;
+    fn(e);
+  });
+  el.addEventListener('pointercancel', ()=>{on=false;el.classList.remove('pressed')});
+}
+
+function renderSubs(){
+  if(SUBS.length<2){ subtabbar.style.display='none'; return; }
+  subtabbar.innerHTML = SUBS.map((s,i)=>`<button class="tab ${i===activeSub?'active':''}"><span class="dot">${s.dot}</span>${s.tab}</button>`).join('');
+  subtabbar.querySelectorAll('.tab').forEach((b,i)=>tap(b,()=>{
+    saveDraw(); activeSub=i; quizIdx=0; quizAnswers={}; _resultState='idle'; renderSubs(); renderContent();
+  }));
+}
+
+function renderContent(){
+  const s = SUBS[activeSub], total = s.questions.length;
+  lessonArea.innerHTML = `<p class="section-title">${s.title}</p><p class="section-intro">${s.intro}</p>`;
+  const box = document.createElement('div');
+
+  if(quizIdx >= total){
+    const {correct} = score(s.questions);
+    box.innerHTML = `<div class="done-screen"><div class="ring"><div class="big">${correct}/${total}</div></div>
+      <p class="section-intro" style="margin-top:10px">${correct===total?'Ідеально! Матеріал засвоєно 🎉':'Непогано — можна пройти ще раз.'}</p>
+      <div class="send-status" id="sendStatus"></div>
+      <button class="btn primary" id="quizRestart" style="margin-top:6px">Пройти ще раз</button></div>`;
+    lessonArea.appendChild(box);
+    tap(document.getElementById('quizRestart'),()=>{quizIdx=0;quizAnswers={};_resultState='idle';renderContent();});
+    sendResultOnce(s); syncCanvas(); return;
+  }
+
+  const q = s.questions[quizIdx], rec = quizAnswers[quizIdx];
+  box.innerHTML = `
+    <div class="qprog">Питання ${quizIdx+1} з ${total}</div>
+    <p class="qtext">${q.q}</p>
+    <div class="options">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}" ${rec?'disabled':''}><span class="tile"><span>${LETTERS[i]}</span></span><span>${o}</span></button>`).join('')}</div>
+    <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">${rec?(rec.correct?'<b>Правильно.</b>':`Правильна відповідь — ${LETTERS[q.a]}. ${q.opts[q.a]}`)+(q.hint?`<span class="hint">💡 ${q.hint}</span>`:''):''}</div>
+    <div class="nav-row">
+      <button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button>
+      <button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button>
+    </div>`;
+  lessonArea.appendChild(box);
+
+  box.querySelectorAll('.opt').forEach((btn,i)=>{
+    if(rec){
+      const tile = btn.querySelector('.tile');
+      if(i===q.a){btn.classList.add('correct');tile.insertAdjacentHTML('beforeend','<span class="badge ok">✓</span>');}
+      else if(i===rec.picked){btn.classList.add('wrong');tile.insertAdjacentHTML('beforeend','<span class="badge no">✕</span>');}
+      else btn.classList.add('dim');
+    }
+    tap(btn,()=>{ if(quizAnswers[quizIdx]) return; quizAnswers[quizIdx]={picked:i,correct:i===q.a}; renderContent(); });
+  });
+  tap(document.getElementById('quizPrev'),()=>{saveDraw();quizIdx--;renderContent();});
+  tap(document.getElementById('quizNext'),()=>{saveDraw();quizIdx++;renderContent();});
+  syncCanvas();
+}
+
+function syncCanvas(){
+  if(window.resizeDrawCanvas) requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    window.resizeDrawCanvas(); window.setDrawingSnapshot(drawStore[key()]||null);
+  }));
+}
+renderSubs(); renderContent();
+
+(function(){
+  const canvas = document.getElementById('drawCanvas'), ctx = canvas.getContext('2d');
+  const toggleBtn = document.getElementById('drawToggleBtn'), toolbar = document.getElementById('drawToolbar');
+  const thinBtn = document.getElementById('thinBtn'), thickBtn = document.getElementById('thickBtn'), eraserBtn = document.getElementById('eraserBtn');
+  let active=false, drawing=false, color="#F5304A", width=4, eraser=false, lx=0, ly=0, pid=null;
+  window.isDrawingActive = ()=>active;
+
+  function resize(){
+    const w = document.documentElement.clientWidth;
+    const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, innerHeight);
+    const prev = document.createElement('canvas'); prev.width = canvas.width; prev.height = canvas.height;
+    if(canvas.width && canvas.height) prev.getContext('2d').drawImage(canvas,0,0);
+    canvas.width = w*devicePixelRatio; canvas.height = h*devicePixelRatio;
+    canvas.style.width = w+'px'; canvas.style.height = h+'px';
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    ctx.lineCap = ctx.lineJoin = 'round';
+    if(prev.width && prev.height) ctx.drawImage(prev,0,0,prev.width/devicePixelRatio,prev.height/devicePixelRatio);
+  }
+  window.resizeDrawCanvas = resize; resize();
+  addEventListener('resize', resize);
+  if(window.ResizeObserver) new ResizeObserver(resize).observe(document.body);
+
+  window.getDrawingSnapshot = ()=>{ try{ return canvas.width ? canvas.toDataURL('image/png') : null }catch(e){ return null } };
+  window.setDrawingSnapshot = d=>{
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,canvas.width,canvas.height); ctx.restore();
+    if(!d) return;
+    const img = new Image();
+    img.onload = ()=>ctx.drawImage(img,0,0,canvas.width/devicePixelRatio,canvas.height/devicePixelRatio);
+    img.src = d;
+  };
+
+  toggleBtn.addEventListener('click',()=>{ active=!active; toolbar.classList.toggle('show',active); toggleBtn.classList.toggle('on',active); });
+  document.querySelectorAll('.swatch').forEach(sw=>sw.addEventListener('click',()=>{
+    document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('selected'));
+    sw.classList.add('selected'); color=sw.dataset.color; eraser=false; eraserBtn.classList.remove('selected');
+  }));
+  thinBtn.addEventListener('click',()=>{ width=4; thinBtn.classList.add('selected'); thickBtn.classList.remove('selected'); });
+  thickBtn.addEventListener('click',()=>{ width=12; thickBtn.classList.add('selected'); thinBtn.classList.remove('selected'); });
+  eraserBtn.addEventListener('click',()=>{ eraser=!eraser; eraserBtn.classList.toggle('selected',eraser); });
+  document.getElementById('clearBtn').addEventListener('click',()=>window.setDrawingSnapshot(null));
+
+  const pos = e=>{ const r=canvas.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top,p:e.pressure||.5}; };
+  document.addEventListener('pointerdown',e=>{
+    if(!active || e.pointerType!=='pen' || (e.target.closest && e.target.closest('#drawToolbar,#drawToggleBtn'))) return;
+    e.preventDefault(); drawing=true; pid=e.pointerId; const p=pos(e); lx=p.x; ly=p.y;
+  },{passive:false});
+  document.addEventListener('pointermove',e=>{
+    if(!active || !drawing || e.pointerId!==pid) return;
+    e.preventDefault(); const p=pos(e);
+    ctx.globalCompositeOperation = eraser?'destination-out':'source-over';
+    ctx.strokeStyle = color; ctx.lineWidth = (eraser?width*3:width)*(.6+p.p*.8);
+    ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(p.x,p.y); ctx.stroke(); lx=p.x; ly=p.y;
+  },{passive:false});
+  const stop = e=>{ if(e.pointerId!==undefined && e.pointerId!==pid) return; drawing=false; pid=null; };
+  document.addEventListener('pointerup',stop); document.addEventListener('pointercancel',stop);
+  document.addEventListener('touchmove',e=>{ if(active && e.touches[0] && e.touches[0].touchType==='stylus') e.preventDefault(); },{passive:false});
+})();
+</script>
+</body>
+</html>
