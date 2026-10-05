@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Розділові знаки в складнопідрядних реченнях · Завдання</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#DCEBFB;--soft:#EAF3FD;--card:#FFFBEA;--ink:#14263E;--mute:#6683A6;--a:#8FC2FF;--b:#2F7BEA;--sh:rgba(47,123,234,.45);--ok:#17A863;--no:#D8393E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px}
+.wrap{max-width:760px;margin:0 auto}
+.kicker{font:800 12.5px 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.55;padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid rgba(20,38,62,.14)}
+h1{font:800 clamp(24px,5.6vw,36px)/1.08 'Manrope',sans-serif;text-transform:uppercase;margin:0 0 18px}
+h1 span{color:var(--b)}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 15px 10px 10px;border-radius:999px;border:1px solid #fff;background:#fff;color:var(--mute);font:800 12.5px 'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 10px 20px -12px rgba(20,38,62,.45)}
+.tab i{font-style:normal;width:22px;height:22px;border-radius:8px;background:rgba(47,123,234,.16);color:var(--b);display:flex;align-items:center;justify-content:center;font-size:11px}
+.tab.active,.btn.primary{background:linear-gradient(155deg,var(--a),var(--b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--sh)}
+.tab.active i{background:rgba(255,255,255,.28);color:#fff}
+.card{background:var(--card);border-radius:28px;padding:28px 24px;box-shadow:0 20px 44px -28px rgba(20,38,62,.35)}
+.st{font:800 20px 'Manrope',sans-serif;margin:0 0 8px}
+.si{color:var(--mute);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+.qp{font:700 13px 'Manrope',sans-serif;color:var(--mute);margin-bottom:14px}
+.qt{font:700 19px/1.9 'Manrope',sans-serif;margin:0 0 8px}
+.src{display:block;font:500 12.5px 'Inter',sans-serif;color:var(--mute);line-height:1.4}
+.hint{font-size:12.5px;color:var(--mute);margin:10px 0 16px}
+.gap{display:inline-block;min-width:11px;height:1.35em;margin:0 1px 0 0;padding:0;border:none;border-radius:6px;background:rgba(47,123,234,.1);font:800 19px 'Manrope',sans-serif;line-height:1;text-align:left;vertical-align:baseline;color:var(--b);cursor:pointer}
+.gap:hover{background:rgba(47,123,234,.25)}
+.gap.on{background:none;min-width:0;padding-right:3px}
+.gap.good{color:var(--ok);background:none;min-width:0;padding-right:3px;cursor:default}
+.gap.bad{color:var(--no);background:none;min-width:0;padding-right:3px;text-decoration:line-through;cursor:default}
+.gap.miss{color:#E8871E;background:rgba(232,135,30,.18);min-width:0;padding-right:3px;cursor:default}
+.gap:disabled:not(.good):not(.bad):not(.miss){background:none;min-width:0;width:0;padding:0}
+.fb{margin-top:14px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600}
+.fb.ok{background:#E6F8EE;color:#128A54}.fb.bad{background:#FDECEC;color:var(--no)}
+.note{margin-top:6px;font-weight:500;font-size:14px;line-height:1.5;color:var(--ink)}
+.nav{display:flex;justify-content:space-between;margin-top:22px}
+.btn{font:800 13px 'Manrope',sans-serif;padding:12px 22px;border-radius:999px;border:none;cursor:pointer;background:transparent;color:var(--mute)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn.sm{padding:8px 14px;font-size:12px}
+.done{text-align:center}
+.ring{width:110px;height:110px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(155deg,var(--a),var(--b));display:flex;align-items:center;justify-content:center;font:800 28px 'Manrope',sans-serif;color:#fff}
+.ss{font-size:13px;font-weight:600;color:var(--mute);margin-top:10px;min-height:18px}.ss.ok{color:#128A54}.ss.bad{color:var(--no)}
+footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--mute);font-weight:500}
+#cv{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;touch-action:none}
+#cv.on{pointer-events:auto}
+#pen{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:none;background:linear-gradient(155deg,var(--a),var(--b));box-shadow:0 14px 28px -10px var(--sh);color:#fff;font-size:22px;cursor:pointer;z-index:9999}
+#pen.on{background:linear-gradient(155deg,#FF8A65,var(--no))}
+#tb{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);display:none;gap:10px;align-items:center;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);padding:9px 16px;border-radius:999px;box-shadow:0 24px 48px -20px rgba(20,38,62,.45);z-index:9999}
+#tb.show{display:flex}
+.sw{width:25px;height:25px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.sw.sel{border-color:var(--ink)}
+.tb2{border:none;background:var(--soft);border-radius:999px;padding:7px 12px;font:800 12px 'Manrope',sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Розділові знаки в складнопідрядних реченнях · 9 клас · Завдання</div>
+  <h1>Завдання: <span>розділові знаки</span></h1>
+  <div class="tabbar" id="tabs"></div>
+  <div class="card" id="area"></div>
+  <footer>@movoznavka</footer>
+</div>
+<canvas id="cv"></canvas>
+<button id="pen" title="Малювати">✎</button>
+<div id="tb">
+  <button class="sw sel" style="background:#F5304A" data-c="#F5304A"></button>
+  <button class="sw" style="background:#3355EE" data-c="#3355EE"></button>
+  <button class="sw" style="background:#17A863" data-c="#17A863"></button>
+  <button class="sw" style="background:#14263E" data-c="#14263E"></button>
+  <button class="tb2" id="th">Товщ.</button>
+  <button class="tb2" id="er">Ластик</button>
+  <button class="tb2" id="cl">Очистити</button>
+</div>
+
+<script>
+/* Кожне речення записано з правильними комами. Учень бачить його без ком і ставить їх сам.
+   Рядок [текст, "автор"]; якщо припустимо кілька варіантів — [[варіант1, варіант2], "автор"]. */
+const API_URL="https://script.google.com/macros/s/AKfycbxWkeJYw7gUdEjM9H2oeMVTMhBLEq1dDa2DcqNS5vSQjJb19aXyR7p7kDz_otyK3sTggw/exec";
+const INTRO="Поставте, де потрібно, розділові знаки. Натискайте між словами, щоб поставити кому, і ще раз — щоб прибрати.";
+const NM="Розділові знаки в складнопідрядних реченнях: ";
+const GR=[
+{tab:"Завдання 1",name:NM+"завдання 1",title:"Завдання 1 · вправа 171",it:[
+["Місяць-молодик показав несміло свої ріжки, наче боявся вломити їх на рівному плесі темної небесної води.","Дара Корній"],
+["Пишіть листи і надсилайте вчасно, коли їх ждуть далекі адресати, коли є час, коли немає часу і коли навіть ні про що писати.","Л. Костенко"],
+["Потрібно кожному змінювати щось в собі. Якщо ти станеш іншим і навколо тебе мільйон людей стануть іншими, то і країна почне змінюватися.","С. Вакарчук"],
+["Так холодно, немов чужа зима кладе долоні на останні квіти.","М. Кіяновська"],
+["І я не знаю, як світанок настає і як закінчився улюблений альбом.","С. Вакарчук"],
+["Ви дуже сильні, якщо бажаєте добра, якщо стараєтеся, якщо гуртуєтеся, якщо намагаєтеся спільно творити добро, жити чесно, жити творчо.","Л. Гузар"],
+["Я люблю, коли в листя зелене дерева одягає весна і під вітром хитаються клени і співає в квітках далина. Ще задумані далі безкраї зачаровують душу мою, коли жито в полях достигає і зозуля кує у гаю.","В. Сосюра"],
+["Йшла до нього, наче місячна царівна йшла до нього, як до березня весна.","Ю. Рибчинський"],
+["Світ є таким, яким ти його бачиш, а не таким, яким бачить сусід і показує телевізор.","А. Ворон"],
+["До кого я пригорнуся і хто приголубить, коли тепер того нема, який мене любить?","Нар. тв."]]},
+{tab:"Завдання 2",name:NM+"завдання 2",title:"Завдання 2",it:[
+["Пишіть листи і надсилайте вчасно, коли їх ждуть далекі адресати, коли є час, коли немає часу і коли навіть ні про що писати.","Л. Костенко"],
+["Я помічав, що в таборах, де було голодно і холодно, люди відчували себе дуже здоровими й міцними духом.","М. Дочинець"],
+["У нас є до кого звернутися лише тоді, коли тобі добре.","Л. Костенко"],
+["Коли приходить сезон ягід, можете відмовляти собі в будь-якій їжі, тільки не в ягодах.","М. Дочинець"],
+["Надію в хаті поважайте, її на видному тримайте, бо де у хаті вона є, туди і щастя забреде.","С. Горлач"],
+["І хоч весна одранкувала, а осінь вже рум’янить глід, мені зозуля накувала немарно сто завітних літ.","Д. Луценко"],
+["Бери стільки, скільки можеш підняти, інакше надірвешся й утратиш усе, що маєш.","В. Шкляр"],
+["У Івася немає тата. Не питайте тільки чому.","В. Симоненко"],
+["З того часу, як почалися бої в Будапешті, гармати супроводження йшли поряд штурмових груп.","О. Гончар"],
+[["День був жаркий, незважаючи на те що краплі рясного вранішнього дощу іскрилися на траві.","День був жаркий незважаючи на те, що краплі рясного вранішнього дощу іскрилися на траві."],"Марко Вовчок"],
+["Для того щоб бути щасливим, треба мріяти завжди.","М. Сом"]]},
+{tab:"Завдання 3",name:NM+"завдання 3",title:"Завдання 3",it:[
+["Коли рвались нитки від болю і легені душила спека, долітали з краю магнолій найдорожчі у світі треки."],
+["Стрілянина, якою прорвало враз береги, шматувала повітря."],
+["Коли людині є що сказати, вона виллє з глибини власної душі все те, що має на папір або полотно."],
+["Все, що гарне у природі, все, що чесне у народі, розцвітає в ці деньки."],
+["Допоки кожне плем’я було окремо, всякий, хто дужчий або нахабніший, міг збиткуватися з нього."],
+["Я з друзями прийшов у ті місця, де ще стоять глибокі озерця, що як дівчата заглядають в очі."],
+["Перед тим як відхилити ляду, вона закриває ліхтар, прислухається."]]},
+{tab:"Завдання 4",name:NM+"завдання 4",title:"Завдання 4 · вправа 481",it:[
+["І скрізь, де генія сіяє слава, де світ новий підвівся із руїн, Франкові нашому — земний уклін!","М. Рильський"],
+[["І де в світі тая сила, щоб в бігу її спинила, щоб згасила мов огонь розвидняющийся день!","І де в світі тая сила, щоб в бігу її спинила, щоб згасила, мов огонь, розвидняющийся день!"],"І. Франко"],
+["Як тільки займався світанок і як тільки птаство здіймало свій різноголосий концерт, дідусі вже сиділи за столом і пили каву.","М. Гоголь"],
+[["Було чутно і як неспокійно хлюпає поряд Десна, і як десь під стріхами турботливо дзвенять ластівки.","Було чутно, і як неспокійно хлюпає поряд Десна, і як десь під стріхами турботливо дзвенять ластівки."],"В. Тиха"]]}
+];
+const parse=a=>{const t=a.split(" ");return{w:t.map(x=>x.replace(/,$/,"")),c:new Set(t.map((x,i)=>x.endsWith(",")?i:-1).filter(i=>i>=0))}};
+const canGap=(w,i)=>i<w.length-1&&!/[.!?…]$/.test(w[i])&&w[i]!=="—"&&w[i+1]!=="—";
+const full=a=>a.w.map((x,i)=>x+(a.c.has(i)?",":"")).join(" ");
+const diff=(s,a)=>[...s].filter(i=>!a.c.has(i)).length+[...a.c].filter(i=>!s.has(i)).length;
+GR.forEach(g=>{g.intro=INTRO;g.it=g.it.map(x=>{const alts=(Array.isArray(x[0])?x[0]:[x[0]]).map(parse);return{alts,w:alts[0].w,s:x[1]};});});
+let gi=0,qi=0,ans=GR.map(()=>({})),sent={};
+const P=new URLSearchParams(location.search),hw=P.get("hw");
+{const hm=/^(\d+)(?:\.(\d+))?/.exec(hw||"");if(hm&&+hm[1]>=1&&+hm[1]<=GR.length){gi=+hm[1]-1;const n=GR[gi].qs?GR[gi].qs.length:(GR[gi].it||[]).length;if(hm[2]&&+hm[2]>=1&&+hm[2]<=n)qi=+hm[2]-1;}}
+const tabs=document.getElementById("tabs"),area=document.getElementById("area");
+function renderTabs(){
+  tabs.innerHTML=GR.map((g,i)=>`<button class="tab ${i===gi?"active":""}" data-i="${i}"><i>${i+1}</i>${g.tab}</button>`).join("");
+  tabs.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{gi=+b.dataset.i;qi=0;clearInk();renderTabs();render();});
+}
+async function send(g,c){
+  const st=document.getElementById("ss"),student=P.get("student");
+  if(!student||sent[gi]==="sending"||sent[gi]==="ok"){if(st&&sent[gi]==="ok"){st.textContent="Результат надіслано вчителю ✓";st.className="ss ok";}return;}
+  sent[gi]="sending";st.textContent="Надсилаємо результат...";
+  const A=ans[gi],wrong=[];g.it.forEach((_,i)=>{if(A[i]&&!A[i].ok)wrong.push(i+1);});
+  try{
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"quiz_result",student,testName:"Розділові знаки в складнопідрядних реченнях (завдання)",correct:c,answered:Object.values(A).filter(x=>x.chk).length,total:g.it.length,wrongList:wrong,reviewLink:"",flaggedList:[]})});
+    if(!r.ok)throw 0;sent[gi]="ok";st.textContent="Результат надіслано вчителю ✓";st.className="ss ok";
+  }catch(e){sent[gi]="";st.innerHTML='Не вдалося надіслати результат. <button class="btn sm" id="rt">Ще раз</button>';st.className="ss bad";document.getElementById("rt").onclick=()=>send(g,c);}
+}
+function sentence(it,r,alt){
+  return it.w.map((x,i)=>{
+    if(!canGap(it.w,i))return x;
+    const on=r.sel.has(i),exp=r.chk&&alt.c.has(i);
+    const st=r.chk?(on?(exp?"good":"bad"):(exp?"miss":"")):(on?"on":"");
+    return x+`<button class="gap ${st}" data-i="${i}" ${r.chk?"disabled":""}>${on||exp?",":""}</button>`;
+  }).join(" ");
+}
+function render(){
+  const g=GR[gi],n=g.it.length,A=ans[gi];
+  let h=`<p class="st">${g.title}</p><p class="si">${g.intro}</p>`;
+  if(qi>=n){
+    const c=g.it.filter((_,i)=>A[i]&&A[i].ok).length;
+    area.innerHTML=h+`<div class="done"><div class="ring">${c}/${n}</div><p class="si">${c===n?"Ідеально! 🎉":"Непогано — можна пройти ще раз."}</p><div class="ss" id="ss"></div><button class="btn primary" id="rs" style="margin-top:8px">Пройти ще раз</button></div>`;
+    document.getElementById("rs").onclick=()=>{ans[gi]={};sent[gi]="";qi=0;clearInk();render();};
+    send(g,c);return;
+  }
+  const it=g.it[qi],r=A[qi]||(A[qi]={sel:new Set(),chk:false,ok:false});
+  const alt=r.chk?it.alts.slice().sort((x,y)=>diff(r.sel,x)-diff(r.sel,y))[0]:it.alts[0];
+  h+=`<div class="qp">Речення ${qi+1} з ${n}</div><p class="qt">${sentence(it,r,alt)}${it.s?`<span class="src">${it.s}</span>`:""}</p>`;
+  if(!r.chk)h+=`<div class="hint">Усього ком у реченні: підрахуйте самі. Якщо кома не потрібна — залиште порожнім.</div><button class="btn primary" id="ck">Перевірити</button>`;
+  else h+=`<div class="fb ${r.ok?"ok":"bad"}">${r.ok?"<b>Правильно.</b>":"Є помилки: <span style=\"color:#D8393E\">червоним</span> — зайва кома, <span style=\"color:#E8871E\">жовтим</span> — пропущена."}<div class="note">${r.ok&&it.alts.length<2?"":"Правильно: "+it.alts.map(full).join("<br>або: ")}</div></div>`;
+  h+=`<div class="nav"><button class="btn" id="pv" ${qi===0?"disabled":""}>← Назад</button><button class="btn primary" id="nx" ${r.chk?"":"disabled"}>${qi===n-1?"До результату":"Далі →"}</button></div>`;
+  area.innerHTML=h;
+  area.querySelectorAll(".gap").forEach(b=>b.onclick=()=>{
+    if(r.chk)return;const i=+b.dataset.i;
+    if(r.sel.has(i)){r.sel.delete(i);b.classList.remove("on");b.textContent="";}else{r.sel.add(i);b.classList.add("on");b.textContent=",";}
+  });
+  const ck=document.getElementById("ck");
+  if(ck)ck.onclick=()=>{r.chk=true;r.ok=it.alts.some(a=>diff(r.sel,a)===0);render();};
+  document.getElementById("pv").onclick=()=>{qi--;clearInk();render();};
+  document.getElementById("nx").onclick=()=>{qi++;clearInk();render();};
+}
+/* малювання */
+const cv=document.getElementById("cv"),cx=cv.getContext("2d"),pen=document.getElementById("pen"),tb=document.getElementById("tb");
+let on=false,dr=false,col="#F5304A",w=4,er=false,lx=0,ly=0;
+function fit(){cv.width=innerWidth;cv.height=innerHeight;}fit();addEventListener("resize",fit);
+function clearInk(){cx.clearRect(0,0,cv.width,cv.height);}
+pen.onclick=()=>{on=!on;pen.classList.toggle("on",on);tb.classList.toggle("show",on);cv.classList.toggle("on",on);};
+tb.querySelectorAll(".sw").forEach(s=>s.onclick=()=>{tb.querySelectorAll(".sw").forEach(x=>x.classList.remove("sel"));s.classList.add("sel");col=s.dataset.c;er=false;});
+document.getElementById("th").onclick=()=>{w=w===4?10:4;};
+document.getElementById("er").onclick=()=>{er=!er;};
+document.getElementById("cl").onclick=clearInk;
+cv.addEventListener("pointerdown",e=>{dr=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);});
+cv.addEventListener("pointermove",e=>{if(!dr)return;cx.globalCompositeOperation=er?"destination-out":"source-over";cx.strokeStyle=col;cx.lineWidth=er?w*3:w;cx.lineCap="round";cx.beginPath();cx.moveTo(lx,ly);cx.lineTo(e.clientX,e.clientY);cx.stroke();lx=e.clientX;ly=e.clientY;});
+cv.addEventListener("pointerup",()=>dr=false);
+renderTabs();render();
+</script>
+</body>
+</html>

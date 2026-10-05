@@ -121,7 +121,7 @@ const GR=[
 GR.forEach(g=>{if(g.it)g.qs=g.it.map((f,n)=>({full:g.ia?(k=>f.replace(/§/g,()=>g.ia[n][k++]))(0):f,ins:g.ia?g.ia[n]:[],w:f.split(" ").map(t=>{const m=t.match(/^(.*?)([,.!?]?)$/);return {t:m[1],c:MK.indexOf(m[2])};})}));else if(g.tx)g.qs=g.tx;else if(g.sel)g.qs=g.sel.map(o=>({full:o.s.replace(/[{}]/g,""),n:o.n,w:o.s.split(" ").map(t=>({t:t.replace(/[{}]/g,""),c:t.includes("{")}))}));else g.qs=g.pq;});
 let gi=0,qi=0,ans=GR.map(()=>({})),sent={};
 const P=new URLSearchParams(location.search),hw=P.get("hw");
-if(hw&&+hw>=1&&+hw<=GR.length)gi=+hw-1;
+{const hm=/^(\d+)(?:\.(\d+))?/.exec(hw||"");if(hm&&+hm[1]>=1&&+hm[1]<=GR.length){gi=+hm[1]-1;const n=GR[gi].qs?GR[gi].qs.length:(GR[gi].it||[]).length;if(hm[2]&&+hm[2]>=1&&+hm[2]<=n)qi=+hm[2]-1;}}
 const tabs=document.getElementById("tabs"),area=document.getElementById("area");
 function renderTabs(){
   tabs.innerHTML=GR.map((g,i)=>`<button class="tab ${i===gi?"active":""}" data-i="${i}"><i>${i+1}</i>Завдання ${i+1}</button>`).join("");
@@ -133,7 +133,7 @@ async function send(g,c){
   sent[gi]="sending";st.textContent="Надсилаємо результат...";
   const A=ans[gi],wrong=[];g.qs.forEach((_,i)=>{if(A[i]&&!A[i].ok)wrong.push(i+1);});
   try{
-    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"quiz_result",student,testName:g.name,correct:c,answered:Object.keys(A).length,total:g.qs.length,wrongList:wrong,reviewLink:"",flaggedList:[]})});
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"quiz_result",student,testName:"Звертання (завдання)",correct:c,answered:Object.keys(A).length,total:g.qs.length,wrongList:wrong,reviewLink:"",flaggedList:[]})});
     if(!r.ok)throw 0;sent[gi]="ok";st.textContent="Результат надіслано вчителю ✓";st.className="ss ok";
   }catch(e){sent[gi]="";st.innerHTML='Не вдалося надіслати результат. <button class="btn sm" id="rt">Ще раз</button>';st.className="ss bad";document.getElementById("rt").onclick=()=>send(g,c);}
 }

@@ -108,6 +108,7 @@
     .tool-btn{width:30px;height:30px;}
     .tool-btn svg{width:14px;height:14px;}
   }
+  .hint-box{margin-top:10px;padding:12px 15px;border-radius:14px;background:var(--bg-soft);color:var(--ink);font-size:13.5px;line-height:1.5;font-weight:500;}
 </style>
 </head>
 <body>
@@ -440,12 +441,12 @@ async function sendResultOnce_(s){
   if(statusEl){ statusEl.textContent = 'Надсилаємо результат...'; statusEl.className = 'send-status'; }
   const {correct, answered, total} = quizScore(s.questions);
   const wrongList = [];
-  s.questions.forEach((_,i)=>{ const r = quizAnswers[i]; if(r && !r.correct) wrongList.push(i+1); });
+  s.questions.forEach((_,i)=>{ const r = quizAnswers[i]; if(r && !r.correct) wrongList.push(__wrongLabel_(s,i)); });
   try{
     const resp = await fetch(API_URL, {
       method: 'POST',
       headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify({type:'quiz_result', student, testName: s.testName || s.title, correct, answered, total, wrongList, reviewLink:'', flaggedList:[]})
+      body: JSON.stringify({type:'quiz_result', student, testName: s.testName || s.title, correct, answered, total: (s._total||total), wrongList, reviewLink: __reviewLink_(s), flaggedList:[]})
     });
     if(!resp || !resp.ok) throw new Error('bad status');
     _resultState = 'sent';
@@ -469,30 +470,126 @@ let activeSub = 0;
 let quizIdx = 0;
 let quizAnswers = {};
 
-// ?hw=N — лише вкладка "Завдання N"; ?hw=N.M — вкладка N з питання M;
-// якщо вкладки з номером N нема — N трактується як номер питання в першій вкладці.
-(function applyHomeworkParam_(){
-  const hwParam = new URLSearchParams(location.search).get('hw');
-  if(!hwParam) return;
-  const subs = TOPICS[activeTopic].subs;
-  const parts = hwParam.split('.');
-  const exPart = parts[0];
-  const qPart = parts.length > 1 ? parts[1] : null;
-  const idx = subs.findIndex(function(s){ return s.dot === exPart; });
-  if(idx !== -1){
-    TOPICS[activeTopic].subs = [subs[idx]];
-    activeSub = 0;
-    if(qPart !== null){
-      const qNum = parseInt(qPart, 10);
-      const questions = subs[idx].questions || [];
-      if(!isNaN(qNum) && qNum >= 1 && qNum <= questions.length){ quizIdx = qNum - 1; }
-    }
-    return;
+// ?hw=... — що відкривати (задає бот).
+//  • ОДИН елемент без "-"  → від цього номера й до кінця ("5" = питання 5 і далі; "1.5" = завдання 1 з питання 5 і далі);
+//  • діапазон через "-"     → лише він ("5-10"; "1.5-8"; у завданнях "3-6" = завдання 3..6 цілком);
+//  • КІЛЬКА елементів через пробіл/кому/плюс → відкриваються лише вони, кожен за своїм правилом:
+//    "1.5 3.4" = Завдання 1 з питання 5 і до кінця + Завдання 3 з питання 4 і до кінця;
+//    "1 4" = Завдання 1 і Завдання 4 цілком; "1.5 3" = Завдання 1 з п.5 + Завдання 3 цілком;
+//    у тестах (без завдань) "3 7 12" = лише питання 3, 7 і 12.
+//  Одне питання окремо: "1.5-5" або "5-5".
+function __hwParse_(hwParam, subs){
+  const tokens = String(hwParam||'').split(/[\s,;+]+/).filter(Boolean);
+  if(!tokens.length) return null;
+  const multi = tokens.length > 1;
+  // номери "завдань" (dot) діють лише у вкладці вправ; у тестах числа = номери питань
+  const hasDots = (activeTopic === 'exercises') && subs.some(function(s){ return s.dot !== undefined && s.dot !== null && s.dot !== ''; });
+  const order = [];
+  function entry(sub){
+    let e = order.find(function(x){ return x.sub === sub; });
+    if(!e){ e = {sub: sub, nums: new Set()}; order.push(e); }
+    return e;
   }
-  const qNum = parseInt(hwParam, 10);
-  const questions = (subs[activeSub] && subs[activeSub].questions) || [];
-  if(!isNaN(qNum) && qNum >= 1 && qNum <= questions.length){ quizIdx = qNum - 1; }
+  function addRange(sub, a, b){
+    const e = entry(sub); if(e.nums === 'all') return;
+    const len = (sub.questions||[]).length;
+    for(let n = Math.max(1,a); n <= Math.min(len,b); n++) e.nums.add(n);
+  }
+  function addAll(sub){ entry(sub).nums = 'all'; }
+  const byDot = function(d){ return subs.find(function(s){ return String(s.dot) === String(d); }); };
+  tokens.forEach(function(tok){
+    let m;
+    if((m = tok.match(/^(\d+)\.(\d+)(?:-(\d+))?$/))){
+      const s = byDot(m[1]); if(!s || !hasDots) return;
+      const len = (s.questions||[]).length;
+      if(m[3]) addRange(s, +m[2], +m[3]);   // 1.5-8 → питання 5..8
+      else addRange(s, +m[2], len);         // 1.5   → з питання 5 і до кінця завдання
+    } else if((m = tok.match(/^(\d+)-$/))){                     // "5-" → з 5-го й до кінця
+      addRange(subs[0], +m[1], (subs[0].questions||[]).length);
+    } else if((m = tok.match(/^(\d+)-(\d+)$/))){
+      if(hasDots && byDot(m[1])){
+        subs.forEach(function(s){ const d = parseInt(s.dot,10); if(d >= +m[1] && d <= +m[2]) addAll(s); });
+      } else addRange(subs[0], +m[1], +m[2]);
+    } else if((m = tok.match(/^(\d+)$/))){
+      if(hasDots && byDot(m[1])) addAll(byDot(m[1]));
+      else {
+        const len = ((subs[0]||{}).questions||[]).length;
+        if(multi) addRange(subs[0], +m[1], +m[1]); else addRange(subs[0], +m[1], len);
+      }
+    }
+  });
+  const res = [];
+  order.forEach(function(e){
+    if(e.nums === 'all'){ res.push(e.sub); return; }
+    if(!e.nums.size) return;
+    const total = e.sub.questions.length;
+    const qs = e.sub.questions.map(function(q,i){ return Object.assign({}, q, {_n:i+1}); })
+      .filter(function(q){ return e.nums.has(q._n); });
+    res.push(Object.assign({}, e.sub, {questions: qs, _total: total}));
+  });
+  return res.length ? res : null;
+}
+
+(function applyHomeworkParam_(){
+  const P = new URLSearchParams(location.search);
+  if(P.get('review')){ window.__reviewMode = P.get('review'); return; }
+  const hwParam = P.get('hw');
+  if(!hwParam) return;
+  const res = __hwParse_(hwParam, TOPICS[activeTopic].subs);
+  if(res){ TOPICS[activeTopic].subs = res; activeSub = 0; quizIdx = 0; }
 })();
+
+// Підпис помилки: у завданнях "1.5" (завдання.питання), у тестах — номер питання.
+function __wrongLabel_(s, i){
+  const n = (s.questions[i] && s.questions[i]._n) || (i+1);
+  return (activeTopic === 'exercises' && s.dot) ? (s.dot + '.' + n) : n;
+}
+// Посилання на розбір помилок (бот показує його кнопкою «Переглянути розбір відповідей»).
+function __reviewLink_(s){
+  const items = [];
+  s.questions.forEach(function(q,i){
+    const r = quizAnswers[i];
+    if(r && !r.correct){
+      const picked = (r.typed !== undefined) ? encodeURIComponent(r.typed) : r.picked;
+      items.push(__wrongLabel_(s,i) + ':' + picked);
+    }
+  });
+  if(!items.length) return '';
+  return location.origin + location.pathname + '?review=' + encodeURIComponent(items.join('|'));
+}
+function renderReview_(){
+  const subs = TOPICS[activeTopic].subs;
+  ['topictoggle','subtabbar'].forEach(function(id){ const el = document.getElementById(id); if(el) el.style.display = 'none'; });
+  const area = document.getElementById('lessonArea');
+  let html = '<p class="section-title">Розбір відповідей</p><p class="section-intro">Питання, в яких були помилки.</p>';
+  String(window.__reviewMode).split('|').forEach(function(it){
+    const k = it.indexOf(':');
+    const label = k < 0 ? it : it.slice(0,k);
+    const picked = k < 0 ? '' : it.slice(k+1);
+    const parts = label.split('.');
+    const s = (activeTopic === 'exercises' && parts.length > 1) ? subs.find(function(x){ return String(x.dot) === parts[0]; }) : subs[0];
+    const n = parseInt(parts.length > 1 ? parts[1] : parts[0], 10);
+    const q = s && s.questions && s.questions[n-1];
+    if(!q) return;
+    const title = (activeTopic === 'exercises' && parts.length > 1) ? ('Завдання ' + parts[0] + ', питання ' + n) : ('Питання ' + n);
+    html += '<div style="margin:18px 0 6px;"><div class="qprog">' + title + '</div>';
+    if(s.mode === 'write'){
+      let typed = ''; try{ typed = decodeURIComponent(picked); }catch(e){ typed = picked; }
+      html += '<p class="qtext">' + q.q + '</p><div class="feedback show bad"><span>Ваша відповідь: <b>' + typed + '</b><br>Правильно: <b>' + q.a[0] + '</b></span></div>';
+    } else {
+      const opts = q.opts || s.opts || [];
+      const p = parseInt(picked, 10);
+      html += '<p class="qtext">' + (s.rawQ ? q.q : '«' + q.q + '»') + '</p><div class="options">' + opts.map(function(o,i){
+        const cls = i === q.a ? 'correct' : (i === p ? 'wrong' : 'dim');
+        const badge = i === q.a ? '<span class="badge ok">✓</span>' : (i === p ? '<span class="badge no">✕</span>' : '');
+        return '<button class="opt ' + cls + '" disabled><span class="tile"><span>' + LETTERS[i] + '</span>' + badge + '</span><span>' + o + '</span></button>';
+      }).join('') + '</div>';
+      if(q.hint) html += '<div class="hint-box">' + q.hint + '</div>';
+    }
+    html += '</div>';
+  });
+  area.innerHTML = html;
+}
 
 const topictoggle = document.getElementById('topictoggle');
 const subtabbar = document.getElementById('subtabbar');
@@ -577,7 +674,7 @@ function renderQuiz(s){
   const rec = quizAnswers[quizIdx];
   const box = document.createElement('div');
   box.innerHTML = `
-    <div class="qprog">Питання ${quizIdx+1} з ${total}</div>
+    <div class="qprog">${q._n ? ('Питання '+q._n+' ('+(quizIdx+1)+' з '+total+')') : ('Питання '+(quizIdx+1)+' з '+total)}</div>
     <p class="qtext">«${q.q}»</p>
     <div class="options">
       ${s.opts.map((o,i)=>`
@@ -638,7 +735,7 @@ function attachTapToggle(el, handler){
 window.attachTapToggle = attachTapToggle;
 
 function renderAll(){ renderTopics(); renderSubs(); renderContent(); }
-renderAll();
+if(window.__reviewMode){ renderReview_(); } else { renderAll(); }
 
 // ======================================================================
 // МАЛЮВАННЯ ПОВЕРХ ЕКРАНА (режим "учитель")
