@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Присудок: простий і складений дієслівний · Завдання</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#D5F0EC;
+    --bg-soft:#EAF9F7;
+    --card:#FFFFFF;
+    --ink:#0F2238;
+    --ink-soft:#5B7690;
+    --line: rgba(15,34,56,0.1);
+
+    --c1-a:#6FD3C4; --c1-b:#0E9F8E; --c1-sh: rgba(14,159,142,0.4);
+    --c3-a:#5FE0A8; --c3-b:#17A863; --c3-sh: rgba(23,168,99,0.4);
+    --c2-b:#EF6A66;
+    --c4-a:#FFD98A; --c4-b:#C56A0E;
+    --terra:#EF6A66;
+
+    --correct-bg:#E2F6EA;
+    --correct-ink:#128A54;
+    --wrong-bg:#FBE6E1;
+    --wrong-ink:#C8442B;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding:28px 16px 64px;
+    position:relative;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:16px;margin-bottom:22px;
+    border-bottom:1.5px solid rgba(15,34,56,0.14);
+  }
+  .kicker{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink);opacity:.55;
+  }
+  .kicker.tag{opacity:.4;}
+
+  h1{
+    font-family:'Manrope',sans-serif;font-weight:800;
+    font-size:clamp(24px,5.6vw,36px);line-height:1.08;letter-spacing:-0.01em;
+    margin:0 0 8px;text-transform:uppercase;
+  }
+  h1 .hl{color:var(--c1-b);}
+  .sub{color:var(--ink-soft);font-size:15px;max-width:56ch;margin:0 0 22px;font-weight:500;}
+
+  .topictoggle{display:flex;gap:10px;margin-bottom:14px;}
+  .topictoggle button{
+    flex:1;padding:15px;border-radius:20px;border:none;background:var(--card);
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:14.5px;color:var(--ink-soft);
+    cursor:pointer;box-shadow:0 8px 18px -14px rgba(15,34,56,.3);
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .topictoggle button.active{
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;
+    box-shadow:0 10px 20px -10px var(--c1-sh);
+  }
+
+  .tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .tab{
+    padding:10px 15px 10px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.9);
+    background:#FFFFFF;
+    color:var(--ink-soft);font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;
+    cursor:pointer;display:flex;align-items:center;gap:8px;
+    box-shadow: 0 10px 20px -12px rgba(15,34,56,0.45), inset 0 1px 0 rgba(255,255,255,0.8);
+    transition:transform .13s ease, box-shadow .13s ease, background .13s ease;
+  }
+  .tab:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 14px 24px -12px rgba(15,34,56,0.5), inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  .tab:active{ transform:translateY(0) scale(0.97); }
+  .tab .dot{
+    width:22px;height:22px;border-radius:8px;background:rgba(14,159,142,.16);color:var(--c1-b);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;
+  }
+  .tab.active{
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-color:transparent;
+    box-shadow:0 12px 22px -8px var(--c1-sh), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .tab.active:hover{
+    box-shadow:0 16px 26px -8px var(--c1-sh), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .tab.active .dot{background:rgba(255,255,255,.28);color:#fff;}
+
+  .card{
+    background:var(--card);border-radius:28px;padding:28px 24px;
+    box-shadow: 0 20px 44px -28px rgba(15,34,56,0.35);
+  }
+
+  .section-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.005em;margin:0 0 8px;}
+  .section-intro{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 18px;}
+  .section-intro b{color:var(--ink);}
+
+  .m{background:var(--terra);color:#fff;border-radius:6px;padding:1px 8px;font-weight:700;}
+  .d{background:var(--c3-b);color:#fff;border-radius:6px;padding:1px 8px;font-weight:700;}
+
+  /* flip cards */
+  .cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:560px){.cardgrid{grid-template-columns:1fr;}}
+  .flip{perspective:1200px;height:158px;cursor:pointer;position:relative;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;}
+  .flip.open .flip-inner{transform:rotateY(180deg);}
+  .flip-face{position:absolute;inset:0;border-radius:20px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;}
+  .flip-front{background:var(--bg-soft);}
+  .flip-back{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;transform:rotateY(180deg);align-items:center;text-align:center;}
+  .flip-tag{font-family:'Manrope',sans-serif;font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin-bottom:7px;}
+  .flip-back .flip-tag{opacity:.75;}
+  .flip-rule{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;line-height:1.32;}
+  .flip-desc{font-size:12.5px;margin-top:7px;opacity:.8;line-height:1.4;}
+  .flip-example{font-size:15px;font-weight:700;margin-bottom:5px;}
+  .flip-example:last-child{margin-bottom:0;}
+  .flip-note{font-size:11px;opacity:.7;font-weight:500;margin-bottom:3px;}
+  .flip-hint{position:absolute;bottom:9px;right:14px;font-size:10px;font-weight:700;opacity:.4;}
+
+  /* mini quiz */
+  .qprog{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:var(--ink-soft);margin-bottom:14px;}
+  .qtext{font-family:'Manrope',sans-serif;font-size:19px;font-weight:700;line-height:1.4;margin:0 0 18px;}
+  .qtext .m, .qtext .d{font-size:19px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:13px;text-align:left;width:100%;
+    padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--bg-soft);
+    cursor:pointer;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:500;color:var(--ink);
+    transition:transform .12s ease, background .15s ease;
+  }
+  .opt:hover{transform:translateY(-1px);}
+  .opt[disabled]{cursor:default;}
+  .opt[disabled]:hover{transform:none;}
+  .tile{
+    position:relative;width:30px;height:30px;min-width:30px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--c1-b);
+    background: linear-gradient(150deg, rgba(255,255,255,0.75), rgba(14,159,142,0.22));
+    border:1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 4px 12px -7px var(--c1-sh), inset 0 1px 1px rgba(255,255,255,0.8);
+  }
+  .badge{
+    position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;
+    border:2px solid var(--card);display:flex;align-items:center;justify-content:center;
+    font-size:9.5px;font-weight:800;color:#fff;
+  }
+  .badge.ok{background:var(--c3-b);}
+  .badge.no{background:var(--c2-b);}
+  .opt.correct{background:var(--correct-bg);}
+  .opt.wrong{background:var(--wrong-bg);}
+  .opt.dim{opacity:.5;}
+
+  /* написання відповіді (вправа 110) */
+  .writebox{display:flex;flex-direction:column;gap:12px;}
+  .writebox input[type=text]{
+    font:600 16px 'Inter',sans-serif;padding:14px 16px;border-radius:16px;
+    border:2px solid var(--line);background:#fff;color:var(--ink);
+  }
+  .writebox input[type=text]:focus{outline:none;border-color:var(--c1-b);}
+  .writebox input[disabled]{opacity:.7;}
+  .writehint{font-size:12px;color:var(--ink-soft);}
+  .wfield{display:flex;flex-direction:column;gap:6px;}
+  .wfield label{font-size:12px;font-weight:700;color:var(--ink-soft);}
+
+  .feedback{margin-top:16px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600;display:none;align-items:center;gap:9px;}
+  .feedback.show{display:flex;}
+  .feedback.ok{background:var(--correct-bg);color:var(--correct-ink);}
+  .feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink);}
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:22px;}
+  .btn{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;padding:12px 22px;
+    border-radius:999px;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .btn.primary{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;box-shadow:0 10px 20px -8px var(--c1-sh);}
+  .btn.ghost{background:transparent;color:var(--ink-soft);}
+  .btn:disabled{opacity:.3;cursor:default;box-shadow:none;}
+
+  .tab.pressed{
+    transform:scale(0.95);
+    background:#F1E7FF;
+    box-shadow: inset 0 3px 8px rgba(15,34,56,0.22);
+  }
+  .tab.active.pressed{
+    background:linear-gradient(155deg,var(--c1-b),var(--c1-b));
+    box-shadow: inset 0 3px 8px rgba(15,34,56,0.3);
+  }
+  .topictoggle button.pressed{
+    transform:scale(0.97);
+    box-shadow: inset 0 3px 8px rgba(15,34,56,0.22);
+  }
+  .opt.pressed{ transform:scale(0.98); background:#EEE6FB; }
+  .btn.pressed{ transform:scale(0.95); filter:brightness(0.94); }
+  .flip.pressed .flip-inner{ transform:scale(0.97); }
+  .flip.open.pressed .flip-inner{ transform:rotateY(180deg) scale(0.97); }
+  .done-screen .ring{
+    width:110px;height:110px;margin:0 auto 16px;border-radius:50%;
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 16px 30px -12px var(--c1-sh);
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .done-screen .big{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;color:#fff;}
+  .done-screen .send-status{font-size:13px;font-weight:600;color:var(--ink-soft);margin-top:10px;min-height:18px;}
+  .done-screen .send-status.ok{color:var(--correct-ink);}
+  .done-screen .send-status.bad{color:var(--c2-b);}
+  .btn.ghost.small{padding:8px 14px;font-size:12px;}
+
+  footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft);font-weight:500;}
+
+  /* ===================== DRAWING / TEACHER MODE ===================== */
+  #drawCanvas{position:absolute;top:0;left:0;z-index:9998;pointer-events:none;}
+  #drawToggleBtn{
+    position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;
+    border:1px solid rgba(255,255,255,0.5);
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%),
+      linear-gradient(155deg,var(--c1-a),var(--c1-b));
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    box-shadow:
+      0 14px 28px -10px var(--c1-sh),
+      inset 0 1px 1px rgba(255,255,255,0.6),
+      inset 0 -6px 10px -4px rgba(0,0,0,0.15);
+    color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), background .2s ease, box-shadow .2s ease;
+  }
+  #drawToggleBtn svg{width:24px;height:24px;display:block;transition:transform .25s ease, opacity .15s ease;}
+  #drawToggleBtn:active{transform:scale(0.90);}
+  #drawToggleBtn.on{
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%),
+      linear-gradient(155deg,#FF8A65,var(--c2-b));
+    box-shadow:
+      0 14px 28px -10px rgba(216,57,62,0.55),
+      inset 0 1px 1px rgba(255,255,255,0.6),
+      inset 0 -6px 10px -4px rgba(0,0,0,0.15);
+  }
+  #drawToggleBtn.on svg{ transform:rotate(90deg); }
+  #drawToolbar{
+    position:fixed;left:50%;bottom:22px;
+    transform:translateX(-50%) translateY(130%) scale(0.94);opacity:0;
+    display:flex;align-items:center;gap:12px;
+    background: linear-gradient(150deg, rgba(255,255,255,0.6), rgba(255,255,255,0.15));
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.7);padding:9px 16px;border-radius:999px;
+    box-shadow: 0 24px 48px -20px rgba(15,34,56,0.45), inset 0 1px 1px rgba(255,255,255,0.9);
+    z-index:9999;transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;pointer-events:none;
+  }
+  #drawToolbar.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  #drawToolbar.mini{transform:translateX(-50%) translateY(130%) scale(0.94);opacity:0;pointer-events:none;}
+  #drawToolbarMini{
+    position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(130%) scale(0.9);opacity:0;
+    width:40px;height:26px;border-radius:14px;border:1px solid rgba(255,255,255,0.5);
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 10px 20px -10px var(--c1-sh);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;pointer-events:none;
+  }
+  #drawToolbarMini svg{width:18px;height:18px;}
+  #drawToolbarMini.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  .swatch{
+    position:relative;width:25px;height:25px;border-radius:50%;border:none;
+    box-shadow: 0 3px 8px -2px rgba(15,34,56,0.35), inset 0 1px 1px rgba(255,255,255,0.5);
+    cursor:pointer;padding:0;transition:transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .swatch::after{
+    content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--ink);
+    opacity:0;transform:scale(0.7);transition:opacity .15s ease, transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .swatch.selected{ transform:scale(1.08); }
+  .swatch.selected::after{ opacity:1; transform:scale(1); }
+  .tool-btn{
+    width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,0.5);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .15s ease, color .15s ease, transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .tool-btn svg{ width:16px; height:16px; }
+  .tool-btn .dot{border-radius:50%;background:currentColor;}
+  #xthinBtn .dot{ width:3.5px; height:3.5px; }
+  #thinBtn .dot{ width:7px; height:7px; }
+  #thickBtn .dot{ width:12.5px; height:12.5px; }
+  .tool-btn.selected{background:var(--c1-b);color:#fff;transform:scale(1.06);}
+  .tool-sep{width:1px;height:22px;background:rgba(15,34,56,0.14);}
+  @media (max-width:480px){
+    #drawToolbar{max-width:94vw;overflow-x:auto;padding:8px 13px;gap:9px;}
+    .swatch{width:21px;height:21px;}
+    .tool-btn{width:30px;height:30px;}
+    .tool-btn svg{width:14px;height:14px;}
+  }
+  .hint-box{margin-top:10px;padding:12px 15px;border-radius:14px;background:var(--bg-soft);color:var(--ink);font-size:13.5px;line-height:1.5;font-weight:500;}
+  .punct{display:flex;flex-wrap:wrap;align-items:center;row-gap:8px;margin:8px 0 16px;font-size:19px;font-weight:700;line-height:1.3;}
+  .pgap{width:22px;height:36px;margin:0 2px;border:1.5px dashed rgba(15,34,56,.3);border-radius:9px;background:var(--bg-soft);font-family:inherit;color:var(--c1-b);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;font-size:24px;font-weight:800;}
+  .pgap.on{background:rgba(14,159,142,.16);border:1.5px solid var(--c1-b);}
+  .pgap.ok{background:var(--correct-bg);border:1.5px solid var(--correct-ink);color:var(--correct-ink);}
+  .pgap.bad{background:var(--wrong-bg);border:1.5px solid var(--wrong-ink);color:var(--wrong-ink);}
+  .pgap.miss{background:#FFF1DC;border:1.5px dashed var(--c4-b);color:var(--c4-b);}
+  .pgap:disabled{cursor:default;}
+  .pgap.static{width:18px;height:28px;font-size:20px;cursor:default;}
+  .gsp{display:inline-block;width:8px;}
+  /* присудок: підсвітка в тексті питання */
+  .s{background:#17A863;color:#fff;border-radius:6px;padding:1px 7px;font-weight:700}
+  /* вибір слів-присудка */
+  .pick{display:flex;flex-wrap:wrap;gap:8px 6px;margin:8px 0 18px;}
+  .pkw{font:700 17px 'Manrope',sans-serif;padding:7px 11px;border-radius:12px;border:1.5px solid transparent;background:var(--bg-soft);color:var(--ink);cursor:pointer;transition:transform .12s ease, background .15s ease;}
+  .pkw.on{background:rgba(14,159,142,.18);border-color:var(--c1-b);}
+  .pkw.ok{background:var(--correct-bg);border-color:var(--correct-ink);color:var(--correct-ink);}
+  .pkw.bad{background:var(--wrong-bg);border-color:var(--wrong-ink);color:var(--wrong-ink);}
+  .pkw.miss{background:#FFF1DC;border:1.5px dashed var(--c4-b);color:var(--c4-b);}
+  .pkw:disabled,.pkw.static{cursor:default;}
+  .pkw.pressed{transform:scale(0.96);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="kicker">Присудок · 8 клас · Завдання</div>
+    <div class="kicker tag" id="totalTag"></div>
+  </div>
+
+  <h1>При<span class="hl">судок</span>: завдання</h1>
+
+  <div class="topictoggle" id="topictoggle"></div>
+  <div class="tabbar" id="subtabbar"></div>
+
+  <div class="card" id="lessonArea"></div>
+
+  <footer>@movoznavka</footer>
+</div>
+
+<canvas id="drawCanvas"></canvas>
+
+<button id="drawToggleBtn" title="Малювати">
+  <svg id="drawIcon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 20L4.6 16.6C4.7 15.9 5.03 15.26 5.55 14.79L15.3 5.7C16.09 4.96 17.34 4.99 18.09 5.78L18.34 6.04C19.08 6.83 19.04 8.08 18.25 8.81L8.5 17.9C8 18.37 7.37 18.66 6.7 18.75L4 20Z" stroke="white" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M13.5 7.5L16.5 10.3" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+  </svg>
+</button>
+<div id="drawToolbar">
+  <button class="swatch selected" style="background:#F5304A" data-color="#F5304A"></button>
+  <button class="swatch" style="background:#3355EE" data-color="#3355EE"></button>
+  <button class="swatch" style="background:#17A863" data-color="#17A863"></button>
+  <button class="swatch" style="background:#0F2238" data-color="#0F2238"></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn selected" id="xthinBtn" title="Дуже тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thinBtn" title="Тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thickBtn" title="Товста лінія"><span class="dot"></span></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="eraserBtn" title="Ластик">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.5 13.5L10.5 21.5H5.5L2.5 18.5C2.11 18.11 2.11 17.48 2.5 17.09L13.5 6.09C13.89 5.7 14.52 5.7 14.91 6.09L18.5 9.68C19.5 10.68 19.5 12.5 18.5 13.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M9 13.5L15 19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <button class="tool-btn" id="clearBtn" title="Очистити все">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 7H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9.5 7V4.8C9.5 4.36 9.86 4 10.3 4H13.7C14.14 4 14.5 4.36 14.5 4.8V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M7 7L7.6 19.2C7.63 19.9 8.2 20.5 8.9 20.5H15.1C15.8 20.5 16.37 19.9 16.4 19.2L17 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="minimizeBtn" title="Згорнути панель">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+<button id="drawToolbarMini" title="Розгорнути панель">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 15L12 9L18 15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script>
+/* ============================================================
+   Речення позначаються так:  [слово] — обов’язкова частина присудка,
+   {слово} — необов’язкова (частка «не», «би», зв’язка «були»).
+   Кожне речення дає ДВА питання: 1) позначити слова присудка,
+   2) визначити його вид. Прості й складені перемішані.
+   testName має збігатись з назвою тесту в списку TOPICS у Code89.gs.
+   ============================================================ */
+const TEST_NAME = "Присудок: простий і складений дієслівний (завдання)";
+
+function parseS(text){
+  const toks = text.split(' ');
+  let inR = false, inO = false;
+  const words = [], a = [], opt = [];
+  toks.forEach(function(t,i){
+    if(t.indexOf('[') >= 0) inR = true;
+    if(t.indexOf('{') >= 0) inO = true;
+    if(inR) a.push(i); else if(inO) opt.push(i);
+    words.push(t.replace(/[\[\]{}]/g,''));
+    if(t.indexOf(']') >= 0) inR = false;
+    if(t.indexOf('}') >= 0) inO = false;
+  });
+  return {words:words, a:a, opt:opt};
+}
+function hl(p){
+  return p.words.map(function(w,i){ return (p.a.indexOf(i)>=0 || p.opt.indexOf(i)>=0) ? '<span class="s">'+w+'</span>' : w; }).join(' ');
+}
+const SOFT = 'style="color:var(--ink-soft);font-weight:600"';
+const T_PROST = "Простий дієслівний", T_SKL = "Складений дієслівний";
+
+/* Питання про вид присудка: речення БЕЗ підсвітки, щоб не підказувати, де присудок. */
+function plain(p){ return p.words.join(' '); }
+function pair(text, kind, hintPick, hintType, flip){
+  const p = parseS(text);
+  const pick = {mode:'pick', words:p.words, a:p.a, opt:p.opt, hint:hintPick};
+  const opts = flip ? [T_SKL, T_PROST] : [T_PROST, T_SKL];
+  const type = {
+    mode:'options',
+    q:'<div style="margin-bottom:8px">'+plain(p)+'</div><span '+SOFT+'>Який вид присудка в цьому реченні?</span>',
+    opts:opts, a:opts.indexOf(kind==='s' ? T_SKL : T_PROST), hint:hintType
+  };
+  return [pick, type];
+}
+let __n = 0;
+function P(text, hp, ht){ __n++; return [text, 'p', hp, ht, ((__n*5+2)%7) < 3]; }
+function S(text, hp, ht){ __n++; return [text, 's', hp, ht, ((__n*5+2)%7) < 3]; }
+function flat(list){ return list.reduce(function(acc,x){ return acc.concat(pair.apply(null,x)); }, []); }
+
+/* Питання «Чим виражений присудок?» — речення без підсвітки. */
+const HOW_OPTS = [
+  "Одне дієслово в особовій формі",
+  "Складена форма майбутнього часу або наказового способу (буду + інфінітив, хай + дієслово)",
+  "Фразеологізм",
+  "Допоміжне дієслово + інфінітив",
+  "Прикметник + інфінітив",
+  "Прислівник + інфінітив"
+];
+function how(text, ans, hint){
+  return {mode:'options', q:'<div style="margin-bottom:8px">'+text+'</div><span '+SOFT+'>Чим виражений присудок у цьому реченні?</span>', opts:HOW_OPTS, a:ans, hint:hint};
+}
+
+const INTRO_FIND = "Прочитайте речення. Торкніться слів, які входять до складу присудка (або кількох присудків), і натисніть «Перевірити». Потім визначте вид присудка.";
+
+/* ===== Усі речення з вправ 246–262, прості й складені перемішані ===== */
+const P1  = P("Очі [розкрила] конвалія біла і в здивуванні [застигла], [зомліла]…", "Три однорідні присудки: «розкрила», «застигла», «зомліла».", "Кожен присудок виражено одним дієсловом.");
+const P2  = P("[Лляється] море, [плеще] в берег, [б’ється] в сірі скелі", "Присудки: «лляється», «плеще», «б’ється».", "Кожен присудок — одне дієслово.");
+const P3  = P("Людино вільна, завжди [будеш] ти, як дзеркало своє, [любити] море!", "Присудок — «будеш любити»: слова стоять не поруч, але разом означають одну дію.", "«Будеш» не додає нової дії, це лише форма майбутнього часу від «любити». Дієслово у будь-якій формі — простий присудок.");
+const P4  = P("[Зацвіли] вже липи й щедро [ллють] навколо аромат солодкий, повний світлих чар.", "Присудки: «зацвіли», «ллють».", "Кожен присудок — одне дієслово.");
+const P5  = P("Садами день уже [одмріяв], [заснуло] листя жовтим сном.", "Присудки: «одмріяв», «заснуло».", "Кожен присудок — одне дієслово.");
+const P6  = P("І лиш [шумить] осінній Київ за голубим моїм вікном.", "Присудок — «шумить».", "Присудок виражено одним дієсловом.");
+const P7  = P("[Дзвени], моя радісна ліро, [хай] звуків [лунає] прибій!", "Присудки: «дзвени» і «хай лунає».", "«Хай лунає» — складена форма наказового способу (хай + дієслово). Нової дії «хай» не додає — присудок простий.");
+const P8  = P("Всім серцем я Київ [люблю] щиро, я Київ [люблю] золотий.", "Присудок — «люблю» (двічі).", "Присудок виражено одним дієсловом.");
+const P9  = P("[Переливаються] і [тануть] мрійні гони.", "Присудки: «переливаються», «тануть».", "Кожен присудок — одне дієслово.");
+const P10 = P("Мені в непроглядній пітьмі днів твоя [лунала] {б} мова солов’їна.", "Присудок — «лунала б» (частка «б» — за бажанням).", "Дієслово в умовному способі — один присудок, простий.");
+const P11 = P("[Хай] наша рідна Україна в добрі і мирі [прожива].", "Присудок — «хай прожива».", "Складена форма наказового способу (хай + дієслово) — простий присудок.");
+const P12 = P("З ініціативи Національної спілки бандуристів України кожного року в столиці [проводиться] великий вечір бандурного мистецтва.", "Присудок — «проводиться».", "Присудок виражено одним дієсловом.");
+const P13 = P("Він [присвячується] видатному українському митцеві, письменнику, художнику й мистецтвознавцеві Гнату Хоткевичу.", "Присудок — «присвячується».", "Присудок виражено одним дієсловом.");
+const P14 = P("Цей всеукраїнський конкурс щороку [відкриває] нові імена обдарованих лауреатів.", "Присудок — «відкриває».", "Присудок виражено одним дієсловом.");
+const P15 = P("…яка в умілих руках молодих і досвідчених виконавців [творить] незабутнє диво.", "Присудок — «творить».", "Присудок виражено одним дієсловом.");
+const P16 = P("«Гомін степів» Г. Китастого, інтерпретації народних пісень, дум духовно [підносить] слухачів над буденністю, повертаючи їх у далеке минуле рідного народу.", "Присудок — «підносить». «Повертаючи» — дієприслівник, він не є присудком.", "Присудок виражено одним дієсловом.");
+const P17 = P("Із цих мелодій [постає] незабутній образ Гната Хоткевича — полум’яного патріота України, невтомного трудівника і творця.", "Присудок — «постає».", "Присудок виражено одним дієсловом.");
+const P18 = P("Я [печу] [раки] і мовчки [стою] на одному місці…", "Присудки: «печу раки» (= червонію) і «стою».", "«Печу раки» — фразеологізм, він виконує роль одного дієслова. «Стою» — одне дієслово. Обидва присудки прості.");
+const P19 = P("[Пішов] батько навпростець, не скоро [вернеться].", "Присудки: «пішов», «вернеться».", "Кожен присудок — одне дієслово.");
+const P20 = P("І гуси вола [з] [ніг] [звалять].", "Присудок — сталий вислів «з ніг звалять»: три слова, але одна дія.", "Фразеологізм виконує роль одного дієслова — простий присудок.");
+const P21 = P("Одна бджола меду {не} [наносить].", "Присудок — «не наносить» (частка «не» — за бажанням).", "Присудок виражено одним дієсловом.");
+const P22 = P("Півень ранку криком {не} [закличе].", "Присудок — «не закличе».", "Присудок виражено одним дієсловом.");
+const P23 = P("Ми [вирушаємо] на операції, [повертаємось] стомлені, чорні, як болотяники.", "Присудки: «вирушаємо», «повертаємось».", "Кожен присудок — одне дієслово.");
+const P24 = P("І, як підтяті, [падаємо] в землянках на нари.", "Присудок — «падаємо».", "Присудок виражено одним дієсловом.");
+const P25 = P("Ми {не} [питаємо] про нашу Ластівку, дарма що [гризе] турбота.", "Присудки: «не питаємо», «гризе».", "Кожен присудок — одне дієслово.");
+const P26 = P("Все одно командир {не} [скаже].", "Присудок — «не скаже».", "Присудок виражено одним дієсловом.");
+const P27 = P("І [уявляєш]?", "Присудок — «уявляєш».", "Присудок виражено одним дієсловом.");
+const P28 = P("Часом [розплющуємо] очі.", "Присудок — «розплющуємо».", "Присудок виражено одним дієсловом.");
+const P29 = P("— [Драстуйте], — [сміється], — витязі.", "Присудки: «драстуйте», «сміється».", "Кожен присудок — одне дієслово.");
+const P30 = P("Ну й [спите].", "Присудок — «спите».", "Присудок виражено одним дієсловом.");
+const P31 = P("Аж сосни [хитаються].", "Присудок — «хитаються».", "Присудок виражено одним дієсловом.");
+const P32 = P("І задерикувато [посварить] пальчиком.", "Присудок — «посварить».", "Присудок виражено одним дієсловом.");
+const P33 = P("Оченята аж [світяться].", "Присудок — «світяться».", "Присудок виражено одним дієсловом.");
+const P34 = P("Понад Россю [клубочаться] тумани.", "Присудок — «клубочаться».", "Присудок виражено одним дієсловом.");
+const P35 = P("[Бродять] луками.", "Присудок — «бродять».", "Присудок виражено одним дієсловом.");
+const P36 = P("Коло води [шурхотять] вербени.", "Присудок — «шурхотять».", "Присудок виражено одним дієсловом.");
+const P37 = P("Одна по одній [пробує] голоси жабота, і ліниво [скидаються] окуні.", "Присудки: «пробує», «скидаються».", "Кожен присудок — одне дієслово.");
+const P38 = P("Ранок ще тільки [заклобується] із невідомого обрію.", "Присудок — «заклобується».", "Присудок виражено одним дієсловом.");
+const P39 = P("Того пізнього вечора я ні на кого {не} [чекав].", "Присудок — «не чекав».", "Присудок виражено одним дієсловом.");
+const P40 = P("Я [лежав] на канапі із привабливо виданою цікавою книгою.", "Присудок — «лежав».", "Присудок виражено одним дієсловом.");
+const P41 = P("[Дзеленчали] за вікнами трамваї і [шурхотіли] шинами тролейбуси.", "Присудки: «дзеленчали», «шурхотіли».", "Кожен присудок — одне дієслово.");
+const P42 = P("На підвіконні [сів] пишногрудий голуб.", "Присудок — «сів».", "Присудок виражено одним дієсловом.");
+const P43 = P("Телефон [задзвонив] різко, і хоч [стояв] він на столику поруч з одчиненим вікном, голуб, звиклий до трамвайних передзвонів, і хвостом {не} [ворухнув].", "Присудки: «задзвонив», «стояв», «не ворухнув». «Звиклий» — дієприкметник, не присудок.", "Кожен присудок — одне дієслово.");
+const P44 = P("Він, як наш партизанський командир, — ніколи пораненим фашистам {не} [залишав]…", "Присудок — «не залишав».", "Присудок виражено одним дієсловом.");
+const P45 = P("Війна [принесла] страшні нещастя Києву.", "Присудок — «принесла».", "Присудок виражено одним дієсловом.");
+const P46 = P("А солдати [були] вже тут, на березі Дніпра.", "Присудок — «були». Тут це повнозначне дієслово: «перебували».", "«Були» означає «перебували», тому це одне дієслово, а не зв’язка. Так само: «Я була в школі».");
+const P47 = P("Брайко [був] саме там, куди [вривалися] снаряди.", "Присудки: «був» (= перебував) і «вривалися».", "«Був» має своє значення («перебував») — це повнозначне дієслово. Обидва присудки прості.");
+const P48 = P("На щастя, над багнистою невидимою безоднею [був] настил, зроблений із кругляків.", "Присудок — «був» (= лежав, існував).", "Тут «був» — повнозначне дієслово. «Зроблений» — дієприкметник, не присудок.");
+const P49 = P("На Хортиці у матері [буду] добре [жити], в оксамиті [ходити], меди-вина [пити].", "Присудки: «буду жити», «(буду) ходити», «(буду) пити».", "«Буду» лише утворює майбутній час, нової дії не додає. Це складена форма майбутнього часу — простий присудок.");
+const P50 = P("І четвертий рік [минає] тихенько, по волі.", "Присудок — «минає».", "Присудок виражено одним дієсловом.");
+const P51 = P("А я таки [мережать] [буду] тихенько на народ білі листи.", "Присудок — «мережать буду» (= буду мережати).", "«Буду» лише утворює майбутній час, нової дії не додає. Це складена форма дієслова — простий присудок.");
+const P52 = P("А день [зростав].", "Присудок — «зростав».", "Присудок виражено одним дієсловом.");
+const P53 = P("Табір ще [спить].", "Присудок — «спить».", "Присудок виражено одним дієсловом.");
+const P54 = P("Я [озирнувся].", "Присудок — «озирнувся».", "Присудок виражено одним дієсловом.");
+const P55 = P("Дівчина [вишивала] сестричці невеличку батистову хустину.", "Присудок — «вишивала».", "Присудок виражено одним дієсловом.");
+const P56 = P("Біля казанка [чаклував] Марценюк.", "Присудок — «чаклував».", "Присудок виражено одним дієсловом.");
+const P57 = P("Ольга Дмитрівна міцно [притискує] дітей до серця і нестримно [плаче] від радості.", "Присудки: «притискує», «плаче».", "Кожен присудок — одне дієслово.");
+const P58 = P("У селі [блимали] рідкі вогники.", "Присудок — «блимали».", "Присудок виражено одним дієсловом.");
+const P59 = P("[Ударив] у крила вітер.", "Присудок — «ударив».", "Присудок виражено одним дієсловом.");
+const P60 = P("Мороз мене [січе].", "Присудок — «січе».", "Присудок виражено одним дієсловом.");
+const P61 = P("У жилах кров твоя в мені [тече].", "Присудок — «тече».", "Присудок виражено одним дієсловом.");
+
+const S1  = S("Мов з кайданів [хоче] [вийти] на степи веселі.", "Присудок — «хоче вийти»: два слова — дві дії.", "«Хоче» виражає додаткову дію (бажання), «вийти» — основну: допоміжне слово + інфінітив.");
+const S2  = S("Ледве [встигаємо] [доповісти] командирові.", "Присудок — «встигаємо доповісти».", "«Встигаємо» — допоміжне слово, «доповісти» називає основну дію.");
+const S3  = S("І сонцю ще [несила] [подолати] їх.", "Присудок — «несила подолати».", "Допоміжна частина — прислівник «несила», основна дія — «подолати».");
+const S4  = S("І червоним дзьобом [почав] [чистити] запорошене пилюкою крило.", "Присудок — «почав чистити».", "«Почав» вказує на початок дії, «чистити» називає її: допоміжне слово + інфінітив.");
+const S5  = S("[Почало] рясно [осипатися] на бульварах Києва жовтогаряче листя.", "Присудок — «почало осипатися».", "«Почало» вказує на початок дії, «осипатися» називає саму дію: допоміжне слово + інфінітив.");
+const S6  = S("Танкісти [змушені] {були} [залягти] у воронку.", "Присудок — «змушені були залягти»: слово «були» можна було й не виділяти.", "Допоміжна частина — прикметник «змушені», основна дія — «залягти».");
+const S7  = S("За рідний край [віддать] [готові] вони свою гарячу кров.", "Присудок — «віддать готові».", "«Готові» — допоміжна частина (прикметник), «віддать» — основна дія.");
+const S8  = S("Великий, довгий шлях [зуміли] ми [пройти].", "Присудок — «зуміли пройти».", "«Зуміли» — допоміжне слово, «пройти» — основна дія.");
+const S9  = S("[Рад] {би} ще раз він [побачить] отаку зиму.", "Присудок — «рад би побачить» (частка «би» — за бажанням).", "«Рад» — допоміжна частина (прикметник), «побачить» — інфінітив.");
+const S10 = S("[Думав] [жити], [поживати] та Бога [хвалити], а [довелось] на чужині тільки сльози [лити]!", "Присудки: «думав жити, поживати, хвалити» і «довелось лити».", "Допоміжні слова «думав» і «довелось» разом з інфінітивами називають одну дію — складені присудки.");
+const S11 = S("{Не} [хочу] я, моя мати, за плугом [ходити], оксамитові жупани на ріллі [носити]…", "Присудки: «не хочу ходити», «(не хочу) носити».", "«Хочу» — допоміжне слово, «ходити», «носити» — основна дія.");
+const S12 = S("І четверту [починаю] книжечку в неволі [мережати]…", "Присудок — «починаю мережати».", "«Починаю» вказує на початок дії, «мережати» називає її: допоміжне слово + інфінітив.");
+const S13 = S("{Не} [здужаєш] {чи} [боїшся] на ворога [стати]?", "Присудки: «не здужаєш стати» і «боїшся стати».", "«Здужаєш» і «боїшся» — допоміжні слова, «стати» — основна дія.");
+const S14 = S("Ти [спішиш], батьку, од бурі [затулить] мене своїм плечем.", "Присудок — «спішиш затулить».", "«Спішиш» — допоміжне слово (намір, прагнення), «затулить» — основна дія.");
+const S15 = S("[Маю] ж я колись майбутнє [взяти] на своє плече!", "Присудок — «маю взяти».", "«Маю» — допоміжне слово (необхідність), «взяти» — основна дія.");
+
+/* 10 завдань; у кожному — і прості, і складені присудки, без підказок у назвах */
+const TASK_SETS = [
+  [P1,  S8,  P35, P12, P45, P59, S1,  P24],
+  [P36, P18, S11, P44, P2,  P53, P7,  P25],
+  [P13, S6,  P4,  P56, P39, S12, P20, P10],
+  [P28, P46, S3,  P14, P60, P33, P49, P41],
+  [P3,  P37, S9,  P29, P54, P15, S14, P50],
+  [P47, P22, P8,  S10, P55, P31, P26, P40],
+  [S7,  P5,  P16, P61, S2,  P42, P57],
+  [P21, P32, P9,  S13, P48, P58, P23],
+  [P17, P27, S15, P38, P6,  S4,  P51],
+  [P11, P19, S5,  P30, P34, P43, P52]
+];
+
+const HOWQ = [
+  how("Очі розкрила конвалія біла.", 0, "Присудок «розкрила» — одне дієслово."),
+  how("Людино вільна, завжди будеш ти, як дзеркало своє, любити море!", 1, "«Будеш любити» — складена форма майбутнього часу."),
+  how("І гуси вола з ніг звалять.", 2, "«З ніг звалять» — фразеологізм."),
+  how("Почало рясно осипатися на бульварах Києва жовтогаряче листя.", 3, "«Почало осипатися» — допоміжне дієслово + інфінітив."),
+  how("Танкісти змушені були залягти у воронку.", 4, "«Змушені були залягти» — допоміжна частина «змушені» є прикметником."),
+  how("За рідний край віддать готові вони свою гарячу кров.", 4, "«Готові» — прикметник."),
+  how("Великий, довгий шлях зуміли ми пройти.", 3, "«Зуміли пройти» — допоміжне дієслово + інфінітив."),
+  how("І сонцю ще несила подолати їх.", 5, "«Несила» — прислівник."),
+  how("А я таки мережать буду тихенько на народ білі листи.", 1, "«Мережать буду» — складена форма майбутнього часу."),
+  how("Хай наша рідна Україна в добрі і мирі прожива.", 1, "«Хай прожива» — складена форма наказового способу."),
+  how("Не хочу я, моя мати, за плугом ходити.", 3, "«Не хочу ходити» — допоміжне дієслово + інфінітив."),
+  how("Рад би ще раз він побачить отаку зиму.", 4, "«Рад» — прикметник."),
+  how("Брайко був саме там.", 0, "«Був» тут повнозначне дієслово (перебував)."),
+  how("Мені в непроглядній пітьмі днів твоя лунала б мова солов’їна.", 0, "«Лунала б» — одне дієслово в умовному способі."),
+  how("Я печу раки.", 2, "«Печу раки» — фразеологізм (= червонію).")
+];
+
+const subsList = TASK_SETS.map(function(set, i){
+  return {id:"t"+(i+1), tab:"Завдання "+(i+1), dot:String(i+1), type:"quiz", rawQ:true, testName:TEST_NAME,
+    title:"Завдання "+(i+1)+" · Присудки в реченнях", intro:INTRO_FIND, questions:flat(set)};
+});
+subsList.push({id:"t11", tab:"Завдання 11", dot:"11", type:"quiz", rawQ:true, testName:TEST_NAME,
+  title:"Завдання 11 · Чим виражений присудок",
+  intro:"Прочитайте речення. Знайдіть присудок і визначте, чим він виражений.",
+  questions:HOWQ});
+
+const TOPICS = { "exercises": { "label": "Вправи", "subs": subsList } };
+/* /exec-посилання Apps Script проєкту бота @resultat89_bot (те саме, що HOMEWORK_API_URL в index89.html) */
+const API_URL = "https://script.google.com/macros/s/AKfycbxWkeJYw7gUdEjM9H2oeMVTMhBLEq1dDa2DcqNS5vSQjJb19aXyR7p7kDz_otyK3sTggw/exec";
+let _resultState = 'idle'; // idle | sending | sent | failed
+
+async function sendResultOnce_(s){
+  if(_resultState === 'sending' || _resultState === 'sent') return;
+  const student = new URLSearchParams(location.search).get('student');
+  const statusEl = document.getElementById('sendStatus');
+  if(!student || !API_URL || API_URL.indexOf('ВСТАВТЕ') === 0){
+    if(statusEl) statusEl.textContent = '';
+    return;
+  }
+  _resultState = 'sending';
+  if(statusEl){ statusEl.textContent = 'Надсилаємо результат...'; statusEl.className = 'send-status'; }
+  const {correct, answered, total} = quizScore(s.questions);
+  const wrongList = [];
+  s.questions.forEach((_,i)=>{ const r = quizAnswers[i]; if(r && !r.correct) wrongList.push(__wrongLabel_(s,i)); });
+  try{
+    const resp = await fetch(API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({type:'quiz_result', student, testName: s.testName, correct, answered, total: (s._total||total), wrongList, reviewLink: __reviewLink_(s), flaggedList:[]})
+    });
+    if(!resp || !resp.ok) throw new Error('bad status');
+    _resultState = 'sent';
+    if(statusEl){ statusEl.textContent = 'Результат надіслано вчителю ✓'; statusEl.className = 'send-status ok'; }
+  }catch(e){
+    _resultState = 'failed';
+    if(statusEl){
+      statusEl.innerHTML = 'Не вдалося надіслати результат (перевірте інтернет). <button class="btn ghost small" id="retrySendBtn">Спробувати ще раз</button>';
+      statusEl.className = 'send-status bad';
+      const retryBtn = document.getElementById('retrySendBtn');
+      if(retryBtn) retryBtn.onclick = ()=>{ _resultState = 'idle'; sendResultOnce_(s); };
+    }
+  }
+}
+
+const LETTERS = ["А","Б","В","Г","Д","Е","Є"];
+const TOPIC_ORDER = ["exercises"];
+
+let activeTopic = "exercises";
+let activeSub = 0;
+let quizIdx = 0;
+let quizAnswers = {};
+
+// ?hw=... — що відкривати (задає бот).
+//  • ОДИН елемент без "-"  → від цього номера й до кінця ("5" = питання 5 і далі; "1.5" = завдання 1 з питання 5 і далі);
+//  • діапазон через "-"     → лише він ("5-10"; "1.5-8"; у завданнях "3-6" = завдання 3..6 цілком);
+//  • КІЛЬКА елементів через пробіл/кому/плюс → відкриваються лише вони, кожен за своїм правилом:
+//    "1.5 3.4" = Завдання 1 з питання 5 і до кінця + Завдання 3 з питання 4 і до кінця;
+//    "1 4" = Завдання 1 і Завдання 4 цілком; "1.5 3" = Завдання 1 з п.5 + Завдання 3 цілком;
+//    у тестах (без завдань) "3 7 12" = лише питання 3, 7 і 12.
+//  Одне питання окремо: "1.5-5" або "5-5".
+function __hwParse_(hwParam, subs){
+  const tokens = String(hwParam||'').split(/[\s,;+]+/).filter(Boolean);
+  if(!tokens.length) return null;
+  const multi = tokens.length > 1;
+  // номери "завдань" (dot) діють лише у вкладці вправ; у тестах числа = номери питань
+  const hasDots = (activeTopic === 'exercises') && subs.some(function(s){ return s.dot !== undefined && s.dot !== null && s.dot !== ''; });
+  const order = [];
+  function entry(sub){
+    let e = order.find(function(x){ return x.sub === sub; });
+    if(!e){ e = {sub: sub, nums: new Set()}; order.push(e); }
+    return e;
+  }
+  function addRange(sub, a, b){
+    const e = entry(sub); if(e.nums === 'all') return;
+    const len = (sub.questions||[]).length;
+    for(let n = Math.max(1,a); n <= Math.min(len,b); n++) e.nums.add(n);
+  }
+  function addAll(sub){ entry(sub).nums = 'all'; }
+  const byDot = function(d){ return subs.find(function(s){ return String(s.dot) === String(d); }); };
+  tokens.forEach(function(tok){
+    let m;
+    if((m = tok.match(/^(\d+)\.(\d+)(?:-(\d+))?$/))){
+      const s = byDot(m[1]); if(!s || !hasDots) return;
+      const len = (s.questions||[]).length;
+      if(m[3]) addRange(s, +m[2], +m[3]);   // 1.5-8 → питання 5..8
+      else addRange(s, +m[2], len);         // 1.5   → з питання 5 і до кінця завдання
+    } else if((m = tok.match(/^(\d+)-$/))){                     // "5-" → з 5-го й до кінця
+      addRange(subs[0], +m[1], (subs[0].questions||[]).length);
+    } else if((m = tok.match(/^(\d+)-(\d+)$/))){
+      if(hasDots && byDot(m[1])){
+        subs.forEach(function(s){ const d = parseInt(s.dot,10); if(d >= +m[1] && d <= +m[2]) addAll(s); });
+      } else addRange(subs[0], +m[1], +m[2]);
+    } else if((m = tok.match(/^(\d+)$/))){
+      if(hasDots && byDot(m[1])) addAll(byDot(m[1]));
+      else {
+        const len = ((subs[0]||{}).questions||[]).length;
+        if(multi) addRange(subs[0], +m[1], +m[1]); else addRange(subs[0], +m[1], len);
+      }
+    }
+  });
+  const res = [];
+  order.forEach(function(e){
+    if(e.nums === 'all'){ res.push(e.sub); return; }
+    if(!e.nums.size) return;
+    const total = e.sub.questions.length;
+    const qs = e.sub.questions.map(function(q,i){ return Object.assign({}, q, {_n:i+1}); })
+      .filter(function(q){ return e.nums.has(q._n); });
+    res.push(Object.assign({}, e.sub, {questions: qs, _total: total}));
+  });
+  return res.length ? res : null;
+}
+
+(function applyHomeworkParam_(){
+  const P = new URLSearchParams(location.search);
+  if(P.get('review')){ window.__reviewMode = P.get('review'); return; }
+  const hwParam = P.get('hw');
+  if(!hwParam) return;
+  const res = __hwParse_(hwParam, TOPICS[activeTopic].subs);
+  if(res){ TOPICS[activeTopic].subs = res; activeSub = 0; quizIdx = 0; }
+})();
+
+// Підпис помилки: у завданнях "1.5" (завдання.питання), у тестах — номер питання.
+function __wrongLabel_(s, i){
+  const n = (s.questions[i] && s.questions[i]._n) || (i+1);
+  return (activeTopic === 'exercises' && s.dot) ? (s.dot + '.' + n) : n;
+}
+// Посилання на розбір помилок (бот показує його кнопкою «Переглянути розбір відповідей»).
+function __reviewLink_(s){
+  const items = [];
+  s.questions.forEach(function(q,i){
+    const r = quizAnswers[i];
+    if(r && !r.correct){
+      const picked = (r.typed !== undefined) ? encodeURIComponent(r.typed) : r.picked;
+      items.push(__wrongLabel_(s,i) + ':' + picked);
+    }
+  });
+  if(!items.length) return '';
+  return location.origin + location.pathname + '?review=' + encodeURIComponent(items.join('|'));
+}
+function renderReview_(){
+  const subs = TOPICS[activeTopic].subs;
+  ['topictoggle','subtabbar'].forEach(function(id){ const el = document.getElementById(id); if(el) el.style.display = 'none'; });
+  const area = document.getElementById('lessonArea');
+  let html = '<p class="section-title">Розбір відповідей</p><p class="section-intro">Питання, в яких були помилки.</p>';
+  String(window.__reviewMode).split('|').forEach(function(it){
+    const k = it.indexOf(':');
+    const label = k < 0 ? it : it.slice(0,k);
+    const picked = k < 0 ? '' : it.slice(k+1);
+    const parts = label.split('.');
+    const s = (activeTopic === 'exercises' && parts.length > 1) ? subs.find(function(x){ return String(x.dot) === parts[0]; }) : subs[0];
+    const n = parseInt(parts.length > 1 ? parts[1] : parts[0], 10);
+    const q = s && s.questions && s.questions[n-1];
+    if(!q) return;
+    const title = (activeTopic === 'exercises' && parts.length > 1) ? ('Завдання ' + parts[0] + ', питання ' + n) : ('Питання ' + n);
+    html += '<div style="margin:18px 0 6px;"><div class="qprog">' + title + '</div>';
+    const mode = q.mode || s.mode;
+    if(mode === 'punct'){
+      let typed = ''; try{ typed = decodeURIComponent(picked); }catch(e){ typed = picked; }
+      const sign = s.sign || ',';
+      const mine = new Set(typed.split(',').filter(function(x){ return x !== ''; }).map(Number));
+      const exp = new Set(q.a);
+      let sent = '';
+      q.words.forEach(function(w,i){
+        sent += '<span class="pw">'+w+'</span>';
+        if(i < q.words.length-1){
+          if(mine.has(i) && exp.has(i)) sent += '<span class="pgap static ok">'+sign+'</span>';
+          else if(mine.has(i)) sent += '<span class="pgap static bad">'+sign+'</span>';
+          else if(exp.has(i)) sent += '<span class="pgap static miss">'+sign+'</span>';
+          else sent += '<span class="gsp"></span>';
+        }
+      });
+      const right = q.words.map(function(w,i){ return w + (exp.has(i) ? sign : ''); }).join(' ');
+      html += '<div class="punct">' + sent + '</div><div class="hint-box"><b>Правильно:</b> ' + right + (q.hint ? '<br>' + q.hint : '') + '<br><span style="color:var(--ink-soft)">Червоним — зайві знаки, помаранчевим — пропущені.</span></div>';
+    } else if(mode === 'pick'){
+      let typed = ''; try{ typed = decodeURIComponent(picked); }catch(e){ typed = picked; }
+      const mine = new Set(typed.split(',').filter(function(x){ return x !== ''; }).map(Number));
+      const req = new Set(q.a), op = new Set(q.opt || []);
+      const sent = q.words.map(function(w,i){
+        let cls = 'pkw static';
+        if(mine.has(i) && (req.has(i) || op.has(i))) cls += ' ok';
+        else if(mine.has(i)) cls += ' bad';
+        else if(req.has(i)) cls += ' miss';
+        return '<span class="'+cls+'">'+w+'</span>';
+      }).join('');
+      const right = q.words.map(function(w,i){ return (req.has(i) || op.has(i)) ? '<span class="s">'+w+'</span>' : w; }).join(' ');
+      html += '<div class="pick">' + sent + '</div><div class="hint-box"><b>Присудок:</b> ' + right + (q.hint ? '<br>' + q.hint : '') + '<br><span style="color:var(--ink-soft)">Червоним — зайві слова, помаранчевим — пропущені.</span></div>';
+    } else if(mode === 'write'){
+      let typed = ''; try{ typed = decodeURIComponent(picked); }catch(e){ typed = picked; }
+      html += '<p class="qtext">' + q.q + '</p><div class="feedback show bad"><span>Ваша відповідь: <b>' + typed + '</b><br>Правильно: <b>' + q.a[0] + '</b></span></div>';
+    } else {
+      const opts = q.opts || s.opts || [];
+      const p = parseInt(picked, 10);
+      html += '<p class="qtext">' + (s.rawQ ? q.q : '«' + q.q + '»') + '</p><div class="options">' + opts.map(function(o,i){
+        const cls = i === q.a ? 'correct' : (i === p ? 'wrong' : 'dim');
+        const badge = i === q.a ? '<span class="badge ok">✓</span>' : (i === p ? '<span class="badge no">✕</span>' : '');
+        return '<button class="opt ' + cls + '" disabled><span class="tile"><span>' + LETTERS[i] + '</span>' + badge + '</span><span>' + o + '</span></button>';
+      }).join('') + '</div>';
+      if(q.hint) html += '<div class="hint-box">' + q.hint + '</div>';
+    }
+    html += '</div>';
+  });
+  area.innerHTML = html;
+}
+
+const topictoggle = document.getElementById('topictoggle');
+const subtabbar = document.getElementById('subtabbar');
+const lessonArea = document.getElementById('lessonArea');
+
+function resetNav(){ activeSub = 0; quizIdx = 0; quizAnswers = {}; }
+function resetQuiz(){ quizIdx = 0; quizAnswers = {}; _resultState = 'idle'; }
+function currentSub(){ return TOPICS[activeTopic].subs[activeSub]; }
+function currentSection(){ return currentSub(); }
+
+const drawStore = {};
+function sectionKey(){
+  const sec = currentSection();
+  let k = activeTopic + '__' + activeSub;
+  if(sec.type === "quiz") k += '__q' + quizIdx;
+  return k;
+}
+function saveCurrentDrawing(){ if(window.getDrawingSnapshot) drawStore[sectionKey()] = window.getDrawingSnapshot(); }
+function restoreCurrentDrawing(){ if(window.setDrawingSnapshot) window.setDrawingSnapshot(drawStore[sectionKey()] || null); }
+
+function renderTopics(){
+  if(TOPIC_ORDER.length<2){ topictoggle.style.display='none'; return; }
+  topictoggle.innerHTML = TOPIC_ORDER.map(key => `
+    <button class="${key===activeTopic?'active':''}" data-key="${key}">${TOPICS[key].label}</button>
+  `).join('');
+  topictoggle.querySelectorAll('button').forEach(btn=>{
+    const nav = ()=>{
+      saveCurrentDrawing();
+      activeTopic = btn.dataset.key;
+      resetNav();
+      renderAll();
+    };
+    attachTapToggle(btn, nav);
+  });
+}
+
+function renderSubs(){
+  const subs = TOPICS[activeTopic].subs;
+  if(subs.length<2){ subtabbar.style.display='none'; return; }
+  subtabbar.innerHTML = subs.map((s,i)=>`
+    <button class="tab ${i===activeSub?'active':''}" data-i="${i}">
+      <span class="dot">${s.dot}</span>${s.tab}
+    </button>`).join('');
+  subtabbar.querySelectorAll('.tab').forEach(btn=>{
+    const nav = ()=>{
+      saveCurrentDrawing();
+      activeSub = +btn.dataset.i;
+      resetQuiz();
+      renderSubs();
+      renderContent();
+    };
+    attachTapToggle(btn, nav);
+  });
+}
+
+function renderContent(){
+  const s = currentSection();
+  const secKey = sectionKey();
+  let html = `<p class="section-title">${s.title}</p><p class="section-intro">${s.intro}</p>`;
+
+  if(s.type === "cards"){
+    html += `<div class="cardgrid">${s.cards.map((c,idx)=>`
+      <div class="flip" data-kind="card" data-card-key="${secKey}__card${idx}">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div class="flip-rule">${c.rule}</div>
+            <div class="flip-desc">${c.desc||''}</div>
+            <div class="flip-hint">натисни →</div>
+          </div>
+          <div class="flip-face flip-back">
+            ${c.examples.map(e=>`<div class="flip-example">${e.word}</div>`).join('')}
+          </div>
+        </div>
+      </div>`).join('')}</div>`;
+    lessonArea.innerHTML = html;
+    lessonArea.querySelectorAll('[data-kind="card"]').forEach(el=>{
+      const toggle = ()=>{ el.classList.toggle('open'); };
+      attachTapToggle(el, toggle);
+    });
+    syncCanvasAfterRender();
+    return;
+  }
+
+  if(s.type === "quiz"){
+    lessonArea.innerHTML = html;
+    renderQuiz(s);
+    syncCanvasAfterRender();
+    return;
+  }
+
+  lessonArea.innerHTML = html;
+  syncCanvasAfterRender();
+}
+
+function syncCanvasAfterRender(){
+  if(window.resizeDrawCanvas){
+    requestAnimationFrame(()=> requestAnimationFrame(()=>{
+      window.resizeDrawCanvas();
+      restoreCurrentDrawing();
+    }));
+  }
+}
+
+function quizScore(qs){
+  let correct = 0, answered = 0;
+  qs.forEach((_,i)=>{ const r = quizAnswers[i]; if(r){ answered++; if(r.correct) correct++; } });
+  return {correct, answered, total: qs.length};
+}
+
+function normalizeWrite(s){
+  return (s||'').toLowerCase().trim()
+    .replace(/['’ʼ]/g,"’")
+    .replace(/\s*\+\s*/g,' + ')
+    .replace(/\s+/g,' ');
+}
+
+function renderQuiz(s){
+  const total = s.questions.length;
+
+  if(quizIdx >= total){
+    const {correct} = quizScore(s.questions);
+    const extra = document.createElement('div');
+    extra.innerHTML = `
+      <div class="done-screen">
+        <div class="ring"><div class="big">${correct}/${total}</div></div>
+        <p class="section-intro" style="margin-top:10px;">${correct===total ? 'Ідеально! Матеріал засвоєно 🎉' : 'Непогано — можна пройти ще раз.'}</p>
+        <div class="send-status" id="sendStatus"></div>
+        <button class="btn primary" id="quizRestart" style="margin-top:6px;">Пройти ще раз</button>
+      </div>`;
+    lessonArea.appendChild(extra);
+    attachTapToggle(document.getElementById('quizRestart'), ()=>{ resetQuiz(); renderContent(); });
+    sendResultOnce_(s);
+    return;
+  }
+
+  const q = s.questions[quizIdx];
+  const rec = quizAnswers[quizIdx];
+  const box = document.createElement('div');
+
+  const mode = q.mode || s.mode;
+  if(mode === "punct"){
+    // Режим розстановки знаків: q.words — слова речення, q.a — номери слів, ПІСЛЯ яких потрібен знак (s.sign, за замовчуванням кома).
+    const sign = s.sign || ",";
+    const words = q.words;
+    const exp = new Set(q.a);
+    const mine = new Set(rec ? rec.typed.split(',').filter(function(x){ return x !== ''; }).map(Number) : []);
+    const sel = new Set();
+    let sent = '';
+    words.forEach(function(w,i){
+      sent += '<span class="pw">'+w+'</span>';
+      if(i < words.length-1){
+        let cls = 'pgap', txt = '';
+        if(rec){
+          if(mine.has(i) && exp.has(i)){ cls += ' ok'; txt = sign; }
+          else if(mine.has(i)){ cls += ' bad'; txt = sign; }
+          else if(exp.has(i)){ cls += ' miss'; txt = sign; }
+        }
+        sent += '<button type="button" class="'+cls+'" data-g="'+i+'" '+(rec?'disabled':'')+'>'+txt+'</button>';
+      }
+    });
+    const right = words.map(function(w,i){ return w + (exp.has(i) ? sign : ''); }).join(' ');
+    box.innerHTML = `
+      <div class="qprog">${q._n ? ('Питання '+q._n+' ('+(quizIdx+1)+' з '+total+')') : ('Питання '+(quizIdx+1)+' з '+total)}</div>
+      <p class="qtext" style="font-size:14px;color:var(--ink-soft);font-weight:600;">Торкніться проміжку між словами, де потрібна кома.</p>
+      <div class="punct">${sent}</div>
+      <div>
+        <button class="btn primary" id="punctCheck" ${rec?'disabled':''}>Перевірити</button>
+      </div>
+      <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">
+        ${rec ? (rec.correct ? '<span><b>Правильно.</b></span>' : '<span>Є помилки: червоним позначено зайві знаки, помаранчевим — пропущені.</span>') : ''}
+      </div>
+      ${rec ? '<div class="hint-box"><b>Правильно:</b> '+right+(q.hint ? '<br>'+q.hint : '')+'</div>' : ''}
+      <div class="nav-row">
+        <button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button>
+        <button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button>
+      </div>`;
+    lessonArea.appendChild(box);
+    if(!rec){
+      box.querySelectorAll('.pgap').forEach(function(g){
+        attachTapToggle(g, function(){
+          const i = +g.dataset.g;
+          if(sel.has(i)){ sel.delete(i); g.classList.remove('on'); g.textContent = ''; }
+          else { sel.add(i); g.classList.add('on'); g.textContent = sign; }
+        });
+      });
+      attachTapToggle(document.getElementById('punctCheck'), function(){
+        if(quizAnswers[quizIdx]) return;
+        const arr = Array.from(sel).sort(function(a,b){ return a-b; });
+        const correct = arr.length === exp.size && arr.every(function(x){ return exp.has(x); });
+        quizAnswers[quizIdx] = {typed: arr.join(','), correct: correct};
+        renderContent();
+      });
+    }
+  } else if(mode === "pick"){
+    // Режим вибору слів присудка: q.words — слова, q.a — обов'язкові номери, q.opt — необов'язкові.
+    const words = q.words;
+    const req = new Set(q.a), op = new Set(q.opt || []);
+    const mine = new Set(rec ? rec.typed.split(',').filter(function(x){ return x !== ''; }).map(Number) : []);
+    const sel = new Set();
+    let sent = '';
+    words.forEach(function(w,i){
+      let cls = 'pkw';
+      if(rec){
+        if(mine.has(i) && (req.has(i) || op.has(i))) cls += ' ok';
+        else if(mine.has(i)) cls += ' bad';
+        else if(req.has(i)) cls += ' miss';
+      }
+      sent += '<button type="button" class="'+cls+'" data-w="'+i+'" '+(rec?'disabled':'')+'>'+w+'</button>';
+    });
+    const right = words.map(function(w,i){ return (req.has(i) || op.has(i)) ? '<span class="s">'+w+'</span>' : w; }).join(' ');
+    box.innerHTML = `
+      <div class="qprog">${q._n ? ('Питання '+q._n+' ('+(quizIdx+1)+' з '+total+')') : ('Питання '+(quizIdx+1)+' з '+total)}</div>
+      <p class="qtext" style="font-size:14px;color:var(--ink-soft);font-weight:600;">Торкніться слів, які входять до складу присудка (або кількох присудків).</p>
+      <div class="pick">${sent}</div>
+      <div>
+        <button class="btn primary" id="pickCheck" ${rec?'disabled':''}>Перевірити</button>
+      </div>
+      <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">
+        ${rec ? (rec.correct ? '<span><b>Правильно.</b></span>' : '<span>Є помилки: червоним позначено зайві слова, помаранчевим — пропущені.</span>') : ''}
+      </div>
+      ${rec ? '<div class="hint-box"><b>Присудок:</b> '+right+(q.hint ? '<br>'+q.hint : '')+'</div>' : ''}
+      <div class="nav-row">
+        <button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button>
+        <button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button>
+      </div>`;
+    lessonArea.appendChild(box);
+    if(!rec){
+      box.querySelectorAll('.pkw').forEach(function(g){
+        attachTapToggle(g, function(){
+          const i = +g.dataset.w;
+          if(sel.has(i)){ sel.delete(i); g.classList.remove('on'); }
+          else { sel.add(i); g.classList.add('on'); }
+        });
+      });
+      attachTapToggle(document.getElementById('pickCheck'), function(){
+        if(quizAnswers[quizIdx]) return;
+        if(!sel.size) return;
+        const arr = Array.from(sel).sort(function(a,b){ return a-b; });
+        const correct = Array.from(req).every(function(x){ return sel.has(x); }) && arr.every(function(x){ return req.has(x) || op.has(x); });
+        quizAnswers[quizIdx] = {typed: arr.join(','), correct: correct};
+        renderContent();
+      });
+    }
+  } else if(mode === "write"){
+    // Режим письма. Поля задаються в підвкладці: fields:["Підпис поля 1","Підпис поля 2"] (за замовчуванням — два поля),
+    // правильні відповіді: q.a = ["варіант 1 + варіант 2", ...] (для одного поля — просто ["відповідь", ...]).
+    const fields = (s.fields && s.fields.length) ? s.fields : ["Просте словосполучення 1","Просте словосполучення 2"];
+    const typedParts = rec ? rec.typed.split(' + ') : [];
+    const wh = s.writeHint || (fields.length > 1 ? 'Без крапки в кінці. Порядок полів не важливий.' : 'Без крапки в кінці.');
+    box.innerHTML = `
+      <div class="qprog">${q._n ? ('Питання '+q._n+' ('+(quizIdx+1)+' з '+total+')') : ('Питання '+(quizIdx+1)+' з '+total)}</div>
+      <p class="qtext">${q.q}</p>
+      <div class="writebox">
+        ${fields.map(function(lab,k){ return '<div class="wfield"><label for="writeInput'+(k+1)+'">'+lab+'</label><input type="text" id="writeInput'+(k+1)+'" placeholder="Напишіть тут…" value="'+((typedParts[k]||'').replace(/"/g,'&quot;'))+'" '+(rec?'disabled':'')+' autocomplete="off"></div>'; }).join('')}
+        <div class="writehint">${wh}</div>
+        <div>
+          <button class="btn primary" id="writeCheck" ${rec?'disabled':''}>Перевірити</button>
+        </div>
+      </div>
+      <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">
+        ${rec ? (rec.correct ? `<span><b>Правильно.</b></span>` : `<span>Один з правильних варіантів: <b>${q.a[0]}</b></span>`) : ''}
+      </div>
+      ${rec && q.hint ? '<div class="hint-box">'+q.hint+'</div>' : ''}
+      <div class="nav-row">
+        <button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button>
+        <button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button>
+      </div>`;
+    lessonArea.appendChild(box);
+
+    const inputs = fields.map(function(_,k){ return document.getElementById('writeInput'+(k+1)); });
+    const checkBtn = document.getElementById('writeCheck');
+    if(checkBtn){
+      attachTapToggle(checkBtn, ()=>{
+        if(quizAnswers[quizIdx]) return;
+        const vals = inputs.map(function(inp){ return inp.value.trim(); });
+        const empty = vals.findIndex(function(v){ return !v; });
+        if(empty >= 0){ inputs[empty].focus(); return; }
+        const typed = vals.join(' + ');
+        const norm = normalizeWrite(typed);
+        const correct = q.a.some(a=>normalizeWrite(a)===norm);
+        quizAnswers[quizIdx] = {typed, correct};
+        renderContent();
+      });
+    }
+    if(!rec){
+      inputs.forEach(function(inp,k){
+        inp.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); if(k < inputs.length-1) inputs[k+1].focus(); else if(checkBtn) checkBtn.click(); } });
+      });
+    }
+  } else {
+    const opts = q.opts || s.opts;
+    box.innerHTML = `
+      <div class="qprog">${q._n ? ('Питання '+q._n+' ('+(quizIdx+1)+' з '+total+')') : ('Питання '+(quizIdx+1)+' з '+total)}</div>
+      <p class="qtext">${s.rawQ ? q.q : '«'+q.q+'»'}</p>
+      <div class="options">
+        ${opts.map((o,i)=>`
+          <button class="opt" data-i="${i}" ${rec?'disabled':''}>
+            <span class="tile"><span>${LETTERS[i]}</span></span><span>${o}</span>
+          </button>`).join('')}
+      </div>
+      <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">
+        ${rec ? (rec.correct ? `<span><b>Правильно.</b></span>` : `<span>Правильна відповідь — ${LETTERS[q.a]}. ${opts[q.a]}</span>`) : ''}
+      </div>
+      ${rec && q.hint ? '<div class="hint-box">'+q.hint+'</div>' : ''}
+      <div class="nav-row">
+        <button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button>
+        <button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button>
+      </div>`;
+    lessonArea.appendChild(box);
+
+    if(rec){
+      box.querySelectorAll('.opt').forEach((btn,i)=>{
+        const tile = btn.querySelector('.tile');
+        if(i===q.a){ btn.classList.add('correct'); tile.insertAdjacentHTML('beforeend','<span class="badge ok">✓</span>'); }
+        else if(i===rec.picked){ btn.classList.add('wrong'); tile.insertAdjacentHTML('beforeend','<span class="badge no">✕</span>'); }
+        else { btn.classList.add('dim'); }
+      });
+    }
+    box.querySelectorAll('.opt').forEach(btn=>{
+      attachTapToggle(btn, ()=>{
+        if(quizAnswers[quizIdx]) return;
+        const picked = +btn.dataset.i;
+        quizAnswers[quizIdx] = {picked, correct: picked===q.a};
+        renderContent();
+      });
+    });
+  }
+
+  const prevBtn = document.getElementById('quizPrev');
+  const nextBtn = document.getElementById('quizNext');
+  if(prevBtn) attachTapToggle(prevBtn, ()=>{ saveCurrentDrawing(); quizIdx--; renderContent(); });
+  if(nextBtn) attachTapToggle(nextBtn, ()=>{ saveCurrentDrawing(); quizIdx++; renderContent(); });
+}
+
+function attachTapToggle(el, handler){
+  if(!el) return;
+  let sx = 0, sy = 0, penTap = false, tracking = false;
+  el.addEventListener('pointerdown', (e)=>{
+    tracking = true; sx = e.clientX; sy = e.clientY; penTap = e.pointerType === 'pen';
+    el.classList.add('pressed');
+  }, {passive:true});
+  el.addEventListener('pointerup', (e)=>{
+    el.classList.remove('pressed');
+    if(!tracking) return;
+    tracking = false;
+    if(penTap && window.isDrawingActive && window.isDrawingActive()) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if(Math.hypot(dx,dy) > 10) return;
+    handler(e);
+  });
+  el.addEventListener('pointercancel', ()=>{ tracking = false; el.classList.remove('pressed'); });
+  el.addEventListener('pointerleave', ()=>{ if(tracking) el.classList.remove('pressed'); });
+}
+window.attachTapToggle = attachTapToggle;
+
+function renderAll(){
+  renderTopics();
+  renderSubs();
+  renderContent();
+}
+if(window.__reviewMode){ renderReview_(); } else { renderAll(); }
+
+// ======================================================================
+// МАЛЮВАННЯ ПОВЕРХ ЕКРАНА (режим "учитель") — той самий механізм, що й
+// у фонетиці: просте растрове малювання пером, чорнило кожної вкладки/
+// питання зберігається окремо.
+// ======================================================================
+(function(){
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  const toggleBtn = document.getElementById('drawToggleBtn');
+  const toolbar = document.getElementById('drawToolbar');
+  const toolbarMini = document.getElementById('drawToolbarMini');
+  const minimizeBtn = document.getElementById('minimizeBtn');
+  const xthinBtn = document.getElementById('xthinBtn');
+  const thinBtn = document.getElementById('thinBtn');
+  const thickBtn = document.getElementById('thickBtn');
+  const eraserBtn = document.getElementById('eraserBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const swatches = document.querySelectorAll('.swatch');
+
+  let drawingActive = false;
+  let isDrawing = false;
+  let currentColor = "#F5304A";
+  let currentWidth = 4;
+  let eraserMode = false;
+  let lastX = 0, lastY = 0;
+  let activePointerId = null;
+
+  window.isDrawingActive = function(){ return drawingActive; };
+
+  function currentDocHeight(){
+    return Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, window.innerHeight);
+  }
+
+  function resizeCanvas(){
+    const docWidth = document.documentElement.clientWidth;
+    const docHeight = currentDocHeight();
+    const prev = document.createElement('canvas');
+    prev.width = canvas.width; prev.height = canvas.height;
+    if(canvas.width && canvas.height){ prev.getContext('2d').drawImage(canvas, 0, 0); }
+    canvas.width = docWidth * devicePixelRatio;
+    canvas.height = docHeight * devicePixelRatio;
+    canvas.style.width = docWidth + 'px';
+    canvas.style.height = docHeight + 'px';
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if(prev.width && prev.height){
+      ctx.drawImage(prev, 0, 0, prev.width / devicePixelRatio, prev.height / devicePixelRatio);
+    }
+  }
+  window.resizeDrawCanvas = resizeCanvas;
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('orientationchange', resizeCanvas);
+  if(window.ResizeObserver){ new ResizeObserver(()=> resizeCanvas()).observe(document.body); }
+
+  window.clearDrawing = function(){ ctx.clearRect(0, 0, canvas.width, canvas.height); };
+  window.getDrawingSnapshot = function(){
+    try{ return (canvas.width && canvas.height) ? canvas.toDataURL('image/png') : null; }catch(e){ return null; }
+  };
+  window.setDrawingSnapshot = function(dataURL){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if(!dataURL) return;
+    const img = new Image();
+    img.onload = function(){ ctx.drawImage(img, 0, 0, canvas.width / devicePixelRatio, canvas.height / devicePixelRatio); };
+    img.src = dataURL;
+  };
+
+  function setActive(on){
+    drawingActive = on;
+    toolbar.classList.toggle('show', on);
+    toolbar.classList.remove('mini');
+    if(toolbarMini) toolbarMini.classList.remove('show');
+    toggleBtn.classList.toggle('on', on);
+    toggleBtn.title = on ? 'Вимкнути малювання' : 'Малювати';
+  }
+  toggleBtn.addEventListener('click', ()=> setActive(!drawingActive));
+
+  if(minimizeBtn && toolbarMini){
+    minimizeBtn.addEventListener('click', ()=>{
+      toolbar.classList.remove('show'); toolbar.classList.add('mini'); toolbarMini.classList.add('show');
+    });
+    toolbarMini.addEventListener('click', ()=>{
+      toolbar.classList.remove('mini'); toolbar.classList.add('show'); toolbarMini.classList.remove('show');
+    });
+  }
+
+  swatches.forEach(sw=>{
+    sw.addEventListener('click', ()=>{
+      swatches.forEach(s=>s.classList.remove('selected'));
+      sw.classList.add('selected');
+      currentColor = sw.dataset.color;
+      eraserMode = false;
+      eraserBtn.classList.remove('selected');
+    });
+  });
+
+  if(xthinBtn){
+    xthinBtn.addEventListener('click', ()=>{
+      currentWidth = 2;
+      [xthinBtn,thinBtn,thickBtn].forEach(b=>b.classList.remove('selected'));
+      xthinBtn.classList.add('selected');
+    });
+  }
+  thinBtn.addEventListener('click', ()=>{
+    currentWidth = xthinBtn ? 5 : 4;
+    [xthinBtn,thinBtn,thickBtn].forEach(b=>b&&b.classList.remove('selected'));
+    thinBtn.classList.add('selected');
+  });
+  thickBtn.addEventListener('click', ()=>{
+    currentWidth = xthinBtn ? 11 : 12;
+    [xthinBtn,thinBtn,thickBtn].forEach(b=>b&&b.classList.remove('selected'));
+    thickBtn.classList.add('selected');
+  });
+  eraserBtn.addEventListener('click', ()=>{
+    eraserMode = !eraserMode;
+    eraserBtn.classList.toggle('selected', eraserMode);
+  });
+  clearBtn.addEventListener('click', ()=>{ window.clearDrawing(); });
+
+  function pointerPos(e){
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top, pressure: e.pressure || 0.5 };
+  }
+  function isOnControls(e){
+    return !!(e.target.closest && e.target.closest('#drawToolbar, #drawToolbarMini, #drawToggleBtn'));
+  }
+
+  document.addEventListener('pointerdown', (e)=>{
+    if(!drawingActive) return;
+    if(e.pointerType !== 'pen') return;
+    if(isOnControls(e)) return;
+    e.preventDefault();
+    isDrawing = true;
+    activePointerId = e.pointerId;
+    const p = pointerPos(e);
+    lastX = p.x; lastY = p.y;
+  }, { passive: false });
+
+  document.addEventListener('pointermove', (e)=>{
+    if(!drawingActive || !isDrawing) return;
+    if(e.pointerId !== activePointerId) return;
+    e.preventDefault();
+    const p = pointerPos(e);
+    ctx.globalCompositeOperation = eraserMode ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = currentColor;
+    const pressureFactor = 0.6 + (p.pressure || 0.5) * 0.8;
+    ctx.lineWidth = (eraserMode ? currentWidth * 3 : currentWidth) * pressureFactor;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastX = p.x; lastY = p.y;
+  }, { passive: false });
+
+  function stopDrawing(e){
+    if(e && e.pointerId !== undefined && e.pointerId !== activePointerId) return;
+    isDrawing = false; activePointerId = null;
+  }
+  document.addEventListener('pointerup', stopDrawing);
+  document.addEventListener('pointercancel', stopDrawing);
+
+  document.addEventListener('touchmove', function(e){
+    if(drawingActive && e.touches && e.touches[0] && e.touches[0].touchType === 'stylus'){ e.preventDefault(); }
+  }, { passive: false });
+})();
+</script>
+</body>
+</html>
