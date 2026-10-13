@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Складнопідрядне речення: узагальнення · Урок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FADDE7;
+    --bg-soft:#FDEEF3;
+    --card:#FFFAFB;
+    --ink:#3A1624;
+    --ink-soft:#A06A80;
+    --line: rgba(58,22,36,0.1);
+
+    --c1-a:#FF9DBB; --c1-b:#D6336C; --c1-sh: rgba(214,51,108,0.45);
+    --c2-b:#C0392B;
+    --terra:#9C2F55;
+    --ok:#17A863;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Inter',sans-serif;min-height:100vh;
+    padding:28px 16px 64px;position:relative;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:16px;margin-bottom:22px;
+    border-bottom:1.5px solid rgba(58,22,36,0.14);
+  }
+  .kicker{
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink);opacity:.55;
+  }
+
+  h1{
+    font-family:'Manrope',sans-serif;font-weight:800;
+    font-size:clamp(24px,5.6vw,36px);line-height:1.08;letter-spacing:-0.01em;
+    margin:0 0 20px;text-transform:uppercase;
+  }
+  h1 .hl{color:var(--c1-b);}
+
+  .tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .tab{
+    padding:10px 15px 10px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.9);
+    background:#FFFFFF;color:var(--ink-soft);
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;
+    cursor:pointer;display:flex;align-items:center;gap:8px;
+    box-shadow:0 10px 20px -12px rgba(58,22,36,0.45), inset 0 1px 0 rgba(255,255,255,0.8);
+    transition:transform .13s ease, box-shadow .13s ease, background .13s ease;
+  }
+  .tab:hover{transform:translateY(-2px);}
+  .tab:active{transform:translateY(0) scale(0.97);}
+  .tab .dot{
+    width:22px;height:22px;border-radius:8px;background:rgba(214,51,108,.14);color:var(--c1-b);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;
+  }
+  .tab.active{
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-color:transparent;
+    box-shadow:0 12px 22px -8px var(--c1-sh), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .tab.active .dot{background:rgba(255,255,255,.28);color:#fff;}
+
+  .card{
+    background:var(--card);border-radius:28px;padding:28px 24px;
+    box-shadow:0 20px 44px -28px rgba(58,22,36,0.35);
+  }
+
+  .grouptoggle{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px;}
+  .gtab{
+    padding:11px 16px;border-radius:999px;border:none;background:var(--bg-soft);
+    color:var(--ink-soft);font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;
+    cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6);
+    transition:transform .13s ease, background .13s ease;
+  }
+  .gtab:hover{transform:translateY(-1px);}
+  .gtab.active{
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;
+    box-shadow:0 10px 20px -10px var(--c1-sh);
+  }
+  .gtab.pressed{transform:scale(0.96);}
+
+  .section-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;margin:0 0 8px;}
+  .section-intro{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 18px;}
+  .section-intro b{color:var(--ink);}
+
+  .m{background:var(--terra);color:#fff;border-radius:6px;padding:1px 7px;font-weight:700;}
+  .g{font-weight:800;}
+
+  /* flip cards */
+  .cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:560px){.cardgrid{grid-template-columns:1fr;}}
+  .flip{perspective:1200px;height:172px;cursor:pointer;position:relative;}
+  .flip.tall{height:235px;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;}
+  .flip.open .flip-inner{transform:rotateY(180deg);}
+  .flip-face{position:absolute;inset:0;border-radius:20px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;}
+  .flip-front{background:var(--bg-soft);}
+  .flip-back{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;transform:rotateY(180deg);align-items:center;text-align:center;}
+  .flip-back .m{background:rgba(255,255,255,.95);color:var(--terra);}
+  .flip-rule{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;line-height:1.32;}
+  .flip-desc{font-size:12.5px;margin-top:7px;opacity:.8;line-height:1.4;}
+  .flip-example{font-size:14.5px;font-weight:700;margin-bottom:6px;line-height:1.4;}
+  .flip-example:last-child{margin-bottom:0;}
+  .flip-hint{position:absolute;bottom:9px;right:14px;font-size:10px;font-weight:700;opacity:.4;}
+
+  .tab.pressed{
+    transform:scale(0.95);background:#FBE3EC;
+    box-shadow:inset 0 3px 8px rgba(58,22,36,0.22);
+  }
+  .tab.active.pressed{
+    background:linear-gradient(155deg,var(--c1-b),var(--c1-b));
+    box-shadow:inset 0 3px 8px rgba(58,22,36,0.3);
+  }
+  .flip.pressed .flip-inner{transform:scale(0.97);}
+  .flip.open.pressed .flip-inner{transform:rotateY(180deg) scale(0.97);}
+
+  footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft);font-weight:500;}
+
+  /* ===================== DRAWING / TEACHER MODE ===================== */
+  #drawCanvas{position:absolute;top:0;left:0;z-index:9998;pointer-events:none;}
+  #drawToggleBtn{
+    position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;
+    border:1px solid rgba(255,255,255,0.5);
+    background:linear-gradient(150deg,rgba(255,255,255,0.35),rgba(255,255,255,0) 60%),linear-gradient(155deg,var(--c1-a),var(--c1-b));
+    backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%);
+    box-shadow:0 14px 28px -10px var(--c1-sh), inset 0 1px 1px rgba(255,255,255,0.6), inset 0 -6px 10px -4px rgba(0,0,0,0.15);
+    color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), background .2s ease;
+  }
+  #drawToggleBtn svg{width:24px;height:24px;display:block;transition:transform .25s ease;}
+  #drawToggleBtn:active{transform:scale(0.90);}
+  #drawToggleBtn.on{
+    background:linear-gradient(150deg,rgba(255,255,255,0.3),rgba(255,255,255,0) 60%),linear-gradient(155deg,#6B3A52,#3A1624);
+    box-shadow:0 14px 28px -10px rgba(58,22,36,0.55), inset 0 1px 1px rgba(255,255,255,0.4);
+  }
+  #drawToggleBtn.on svg{transform:rotate(90deg);}
+  #drawToolbar{
+    position:fixed;left:50%;bottom:22px;
+    transform:translateX(-50%) translateY(130%) scale(0.94);opacity:0;
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(150deg,rgba(255,255,255,0.65),rgba(255,255,255,0.2));
+    backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+    border:1px solid rgba(255,255,255,0.7);padding:9px 16px;border-radius:999px;
+    box-shadow:0 24px 48px -20px rgba(58,22,36,0.45), inset 0 1px 1px rgba(255,255,255,0.9);
+    z-index:9999;transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;pointer-events:none;
+  }
+  #drawToolbar.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  #drawToolbar.mini{transform:translateX(-50%) translateY(130%) scale(0.94);opacity:0;pointer-events:none;}
+  #drawToolbarMini{
+    position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(130%) scale(0.9);opacity:0;
+    width:40px;height:26px;border-radius:14px;border:1px solid rgba(255,255,255,0.5);
+    background:linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 10px 20px -10px var(--c1-sh);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;pointer-events:none;
+  }
+  #drawToolbarMini svg{width:18px;height:18px;}
+  #drawToolbarMini.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto;}
+  .swatch{
+    position:relative;width:25px;height:25px;border-radius:50%;border:none;
+    box-shadow:0 3px 8px -2px rgba(58,22,36,0.35), inset 0 1px 1px rgba(255,255,255,0.5);
+    cursor:pointer;padding:0;transition:transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .swatch::after{
+    content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--ink);
+    opacity:0;transform:scale(0.7);transition:opacity .15s ease, transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .swatch.selected{transform:scale(1.08);}
+  .swatch.selected::after{opacity:1;transform:scale(1);}
+  .tool-btn{
+    width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,0.55);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:background .15s ease, color .15s ease, transform .15s cubic-bezier(.34,1.56,.64,1);
+  }
+  .tool-btn svg{width:16px;height:16px;}
+  .tool-btn .dot{border-radius:50%;background:currentColor;}
+  #xthinBtn .dot{width:3.5px;height:3.5px;}
+  #thinBtn .dot{width:7px;height:7px;}
+  #thickBtn .dot{width:12.5px;height:12.5px;}
+  .tool-btn.selected{background:var(--c1-b);color:#fff;transform:scale(1.06);}
+  .tool-sep{width:1px;height:22px;background:rgba(58,22,36,0.14);}
+  @media (max-width:480px){
+    #drawToolbar{max-width:94vw;overflow-x:auto;padding:8px 13px;gap:9px;}
+    .swatch{width:21px;height:21px;}
+    .tool-btn{width:30px;height:30px;}
+    .tool-btn svg{width:14px;height:14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="kicker">Складнопідрядне речення · 9 клас</div>
+    <div class="kicker" style="opacity:.4">Узагальнення</div>
+  </div>
+
+  <h1>Складнопідрядне речення — <span class="hl">узагальнення</span></h1>
+
+  <div class="tabbar" id="subtabbar"></div>
+  <div class="card" id="lessonArea"></div>
+
+  <footer>@movoznavka</footer>
+</div>
+
+<canvas id="drawCanvas"></canvas>
+
+<button id="drawToggleBtn" title="Малювати">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 20L4.6 16.6C4.7 15.9 5.03 15.26 5.55 14.79L15.3 5.7C16.09 4.96 17.34 4.99 18.09 5.78L18.34 6.04C19.08 6.83 19.04 8.08 18.25 8.81L8.5 17.9C8 18.37 7.37 18.66 6.7 18.75L4 20Z" stroke="white" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M13.5 7.5L16.5 10.3" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+  </svg>
+</button>
+<div id="drawToolbar">
+  <button class="swatch selected" style="background:#F5304A" data-color="#F5304A"></button>
+  <button class="swatch" style="background:#3355EE" data-color="#3355EE"></button>
+  <button class="swatch" style="background:#17A863" data-color="#17A863"></button>
+  <button class="swatch" style="background:#3A1624" data-color="#3A1624"></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn selected" id="xthinBtn" title="Дуже тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thinBtn" title="Тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thickBtn" title="Товста лінія"><span class="dot"></span></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="eraserBtn" title="Ластик">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.5 13.5L10.5 21.5H5.5L2.5 18.5C2.11 18.11 2.11 17.48 2.5 17.09L13.5 6.09C13.89 5.7 14.52 5.7 14.91 6.09L18.5 9.68C19.5 10.68 19.5 12.5 18.5 13.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M9 13.5L15 19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <button class="tool-btn" id="clearBtn" title="Очистити все">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 7H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M9.5 7V4.8C9.5 4.36 9.86 4 10.3 4H13.7C14.14 4 14.5 4.36 14.5 4.8V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M7 7L7.6 19.2C7.63 19.9 8.2 20.5 8.9 20.5H15.1C15.8 20.5 16.37 19.9 16.4 19.2L17 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="minimizeBtn" title="Згорнути панель">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+<button id="drawToolbarMini" title="Розгорнути панель">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 15L12 9L18 15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script>
+/* ============================================================
+   ЯК ДОДАТИ/ЗМІНИТИ МАТЕРІАЛ
+   SUBS — вкладки. Кожна має groups[]: у групі є label (кнопка-перемикач,
+   якщо груп більше однієї), tall (вищі картки — для схем) та cards[].
+   Картка: {r: заголовок, d: опис, x: [приклади]}.
+   m("...") — виділення підрядної частини; SCH(...) — схема зі стрілками.
+   ============================================================ */
+
+const m = t => `<span class="m">${t}</span>`;
+const g = t => `<span class="g">${t}</span>`;
+
+function SCH(L,A){
+  const W=80,n=L.length,w=W*n;let mx=0;
+  A.forEach(([i,j])=>{mx=Math.max(mx,Math.abs(j-i));});
+  const H=6+9*mx+8+22,base=H-6,yt=base-16;let p='';
+  A.forEach(([i,j])=>{
+    const d=Math.abs(j-i),ap=6+9*d,x1=W*i+W/2+(j>i?5:-5),x2=W*j+W/2,c=(x1+x2)/2;
+    p+=`<path d="M${x1} ${yt} Q${c} ${yt-2*ap} ${x2} ${yt-3}" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" marker-end="url(#ah)"/>`;
+  });
+  const t=L.map((q,i)=>`<text x="${W*i+W/2}" y="${base}" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="800" font-size="15">${q}</text>`).join('');
+  return `<svg viewBox="0 0 ${w} ${H}" width="100%" style="max-width:${w}px;display:block;margin:6px auto 0" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>${p}${t}</svg>`;
+}
+
+const SUBS = [
+  /* ---------- 1. БУДОВА ---------- */
+  {
+    tab: "Будова", dot: "1",
+    title: "З чого складається СПР",
+    intro: "Складнопідрядне речення (СПР) — це складне речення, у якому одна частина <b>залежить</b> від іншої. Згадаймо, з чого воно складається. Натисни на картку, щоб побачити приклад.",
+    groups: [{
+      cards: [
+        {r:"Головна частина", d:"незалежна; від неї ставимо питання до підрядної", x:[`<b>Я знаю</b>, що весна близько.`]},
+        {r:"Підрядна частина", d:"залежна; відповідає на питання (що? який? коли?)", x:[`Я знаю, ${m("що весна близько")}.`]},
+        {r:"Засіб зв’язку", d:"сполучник лише зв’язує частини; сполучне слово ще й є членом речення", x:[`Ми вийшли, <b>бо</b> дощ скінчився.`, `Місто, <b>де</b> я виріс, змінилося.`]},
+        {r:"Питання до підрядної", d:"ставимо від слова в головній частині", x:[`Я знаю (що?) — ${m("що весна близько")}.`, `Книжка (яка?) — ${m("яку я прочитав")}, цікава.`]},
+        {r:"СПР чи ССР?", d:"у ССР частини рівноправні, у СПР — одна залежить від іншої", x:[`Сонце зійшло, <b>і</b> роса зникла. — ССР`, `Роса зникла, <b>коли</b> зійшло сонце. — СПР`]}
+      ]
+    }]
+  },
+
+  /* ---------- 2. СПОЛУЧНИКИ Й СПОЛУЧНІ СЛОВА ---------- */
+  {
+    tab: "Сполучники й слова", dot: "2",
+    title: "Сполучники та сполучні слова",
+    intro: "<b>Сполучні слова</b>, на відміну від сполучників, <b>є членами речення</b>: до них можна поставити питання, на них падає логічний наголос. Сполучник можна замінити лише сполучником, а сполучне слово — лише іншим повнозначним словом.",
+    groups: [
+      {
+        label: "Відмінність",
+        cards: [
+          {r:"Сполучник", d:"не є членом речення; питання поставити не можна", x:[`Знаю, <b>що</b> скоро повернуся.`]},
+          {r:"Сполучне слово", d:"є членом речення; до нього можна поставити питання", x:[`<b>Хто</b> думає, той і розум має.`, `Торт, <b>який</b> готувала мама, смачний.`]}
+        ]
+      },
+      {
+        label: "Лише сполучні слова",
+        cards: [
+          {r:"Займенники", d:"хто, який, котрий, чий, скільки, наскільки", x:[`Не зрадь дороги, <b>яку</b> мати стеле.`]},
+          {r:"Прислівники місця", d:"де, куди, звідки", x:[`Я знаю ліс, <b>куди</b> ми ходили.`]},
+          {r:"Прислівники часу", d:"поки, доки, відколи", x:[`Чекай, <b>доки</b> я не повернуся.`]},
+          {r:"Прислівники мети й причини", d:"навіщо (мета); чому (причина)", x:[`Не знаю, <b>навіщо</b> він це зробив.`, `Поясни, <b>чому</b> ти спізнився.`]}
+        ]
+      },
+      {
+        label: "Лише сполучники",
+        cards: [
+          {r:"Мети", d:"аби, щоб, для того щоб, задля того щоб", x:[`Я прийшов, <b>щоб</b> допомогти.`]},
+          {r:"Порівняльні", d:"мов, немов, наче, неначе, ніби, нібито, буцім", x:[`Сніг лежав, <b>наче</b> білий килим.`]},
+          {r:"Часові", d:"після того як, перш ніж, як тільки, тільки-но, щойно, ледве", x:[`<b>Тільки-но</b> зійшло сонце, ми вирушили.`]},
+          {r:"Умовні", d:"якщо, якби, коли б, раз", x:[`<b>Якщо</b> будеш готовий, іди.`]},
+          {r:"Допустові", d:"хоч (хоча), хай, нехай, дарма що, незважаючи на те що", x:[`<b>Хоч</b> було холодно, ми гуляли.`]},
+          {r:"Наслідкові", d:"так що", x:[`Лив дощ, <b>так що</b> всюди були калюжі.`]},
+          {r:"Причини", d:"бо, тому що, через те що, оскільки, позаяк", x:[`Ми залишились удома, <b>бо</b> йшов дощ.`]}
+        ]
+      },
+      {
+        label: "Що, як, коли",
+        tall: true,
+        cards: [
+          {r:"ЩО", d:"сполучник, сполучне слово чи частка?", x:[`Знаю, <b>що</b> прийдеш. — сполучник`, `Дорога, <b>що</b> (= яку) мати стеле. — сполучне слово`, `<b>Що</b> за шум?! — частка`]},
+          {r:"КОЛИ", d:"сполучник чи сполучне слово?", x:[`Душа в’яне, <b>коли</b> (= якщо) любов не гріє. — сполучник`, `Люблю, <b>коли</b> цвітуть каштани. — сполучне слово`]},
+          {r:"ЯК", d:"сполучник, сполучне слово чи частка?", x:[`Засинають, <b>як</b> (= коли) вдарять морози. — сполучник`, `Розкажи, <b>як</b> сонечко сідає. — сполучне слово`, `<b>Як</b> гарно навкруги! — частка`]}
+        ]
+      }
+    ]
+  },
+
+  /* ---------- 3. ВИДИ ПІДРЯДНИХ ---------- */
+  {
+    tab: "Види підрядних", dot: "3",
+    title: "Види підрядних частин",
+    intro: "Вид підрядної частини визначаємо за <b>питанням</b>, яке ставимо від головної. Є три основні типи: <b>означальні</b>, <b>з’ясувальні</b> та <b>обставинні</b>. Обери групу.",
+    groups: [
+      {
+        label: "Три типи",
+        cards: [
+          {r:"Означальні", d:"який? чий? котрий?", x:[`Книжка, ${m("яку я прочитав")}, цікава.`]},
+          {r:"З’ясувальні", d:"питання непрямих відмінків: кого? чого? що? кому?", x:[`Я знаю, ${m("що ти прийдеш")}.`]},
+          {r:"Обставинні", d:"місця, часу, способу дії, міри, порівняння, мети, причини, умови, допусту, наслідку", x:[`Ми залишились удома, ${m("бо йшов дощ")}.`]}
+        ]
+      },
+      {
+        label: "Означальні",
+        cards: [
+          {r:"Питання означальної", d:"пояснює іменник у головній: який? чий? котрий?", x:[`Ми піднялися на гору, ${m("з якої видно краєвид")}.`]},
+          {r:"Зі вказівним словом", d:"хто саме? що саме? — пояснює той, такий, все", x:[`Той, ${m("хто працює")}, не голодує.`]},
+          {r:"Зі словом «де»", d:"пояснює іменник, а не дієслово", x:[`Це місто, ${m("де я народився")}, давнє.`]},
+          {r:"Сполучні слова", d:"чим приєднується означальна", x:[g("який, котрий, чий, що, де, куди")]}
+        ]
+      },
+      {
+        label: "З’ясувальні",
+        cards: [
+          {r:"Питання з’ясувальної", d:"кого? чого? кому? що? ким? чим? (на) кому?", x:[`Я знаю, ${m("що ти прийдеш")}.`]},
+          {r:"Після дієслів мовлення й думки", d:"сказати, знати, думати, бачити, чути", x:[`Мати сказала, ${m("що вернеться пізно")}.`]},
+          {r:"Зі сполучним словом", d:"куди, чому, коли, хто", x:[`Я не знаю, ${m("куди подівся мій зошит")}.`]},
+          {r:"Сполучники й сполучні слова", d:"чим приєднується з’ясувальна", x:[g("що, щоб, ніби, чи; хто, який, де, куди, коли, чому")]}
+        ]
+      },
+      {
+        label: "Обставинні: місце, час, спосіб",
+        cards: [
+          {r:"Місця", d:"де? куди? звідки? · де, куди, звідки", x:[`Ми зупинилися там, ${m("де починався ліс")}.`]},
+          {r:"Часу", d:"коли? відколи? доки? · коли, поки, доки, ледве, як", x:[`${m("Коли розвиднілося")}, ми вирушили.`]},
+          {r:"Способу дії", d:"як? яким способом? · як (так … як)", x:[`Робіть так, ${m("як я вам показав")}.`]},
+          {r:"Міри і ступеня", d:"наскільки? · чим … тим, так", x:[`${m("Чим далі ми йшли")}, тим густіший був ліс.`]},
+          {r:"Порівняльні", d:"подібно до чого? · як, ніби, мов, наче", x:[`Вона усміхалася, ${m("ніби знала таємницю")}.`]}
+        ]
+      },
+      {
+        label: "Обставинні: мета, причина, умова",
+        cards: [
+          {r:"Мети", d:"навіщо? для чого? · аби, щоб", x:[`Він увімкнув світло, ${m("щоб краще бачити")}.`]},
+          {r:"Причини", d:"чому? через що? · бо, тому що", x:[`Ми залишились удома, ${m("бо йшов дощ")}.`]},
+          {r:"Умови", d:"за якої умови? · якщо, якби, коли", x:[`${m("Якщо буде сонячно")}, підемо в парк.`]},
+          {r:"Допустові", d:"незважаючи на що? · хоч, дарма що", x:[`${m("Хоч надворі було холодно")}, діти гралися.`]},
+          {r:"Наслідкові", d:"без питання · так що", x:[`Сніг падав усю ніч, ${m("так що дороги замело")}.`]}
+        ]
+      }
+    ]
+  },
+
+  /* ---------- 4. ВИДИ ПІДРЯДНОСТІ ---------- */
+  {
+    tab: "Види підрядності", dot: "4",
+    title: "Види підрядності",
+    intro: "У СПР може бути <b>кілька підрядних частин</b>. Вид підрядності залежить від того, як вони пов’язані з головною та між собою. На схемах <b>[ ]</b> — головна частина, <b>( )</b> — підрядна, а стрілка йде до залежної частини.",
+    groups: [
+      {
+        label: "Однорідна",
+        tall: true,
+        cards: [
+          {r:"Однорідна підрядність", d:"підрядні залежать від одного слова й відповідають на те саме питання", x:[`Олег слухає, ${m("як співають птахи")}, ${m("як шумить вода")}.`]},
+          {r:"Схема", d:"підрядні рівноправні, кожна залежить від головної", x:[`Олег слухає, як співають птахи, як шумить вода.`, SCH(["[ ]","(як)","(як)"],[[0,1],[0,2]])]}
+        ]
+      },
+      {
+        label: "Неоднорідна",
+        tall: true,
+        cards: [
+          {r:"Різні питання", d:"підрядні залежать від головної, але мають різне значення", x:[`${m("Коли ліси звучать у небесах")}, мені здається, ${m("що збираю трави я в лугах")}.`]},
+          {r:"Різні слова", d:"кожна підрядна пояснює інше слово в головній", x:[`Ми любимо пісню, ${m("що радує душу")}, і працю, ${m("що радує дух")}.`]},
+          {r:"Схема: різні питання", d:"підрядні відповідають на різні питання", x:[`Коли ліси звучать, мені здається, що збираю трави.`, SCH(["(коли)","[ ]","(що)"],[[1,0],[1,2]])]},
+          {r:"Схема: різні слова", d:"кожна підрядна залежить від свого слова", x:[`Ми любимо пісню, що радує душу, і працю, що радує дух.`, SCH(["[ пісню","(що)","працю ]","(що)"],[[0,1],[2,3]])]}
+        ]
+      },
+      {
+        label: "Послідовна",
+        tall: true,
+        cards: [
+          {r:"Ланцюжок", d:"друга підрядна залежить від першої, а не від головної", x:[`Микола поставив ліхтар, ${m("аби видно було")}, ${m("де вночі пропливе пароплав")}.`]},
+          {r:"Схема", d:"кожна частина залежить від попередньої", x:[`Микола поставив ліхтар, аби видно було, де пропливе пароплав.`, SCH(["[ ]","(аби)","(де)"],[[0,1],[1,2]])]}
+        ]
+      },
+      {
+        label: "Мішана",
+        tall: true,
+        cards: [
+          {r:"Поєднання видів", d:"послідовна підрядність разом з однорідною", x:[`Я знаю, ${m("що весна прийде")}, ${m("коли розтане сніг")} і ${m("зазеленіє трава")}.`]},
+          {r:"Схема", d:"спочатку ланцюжок, потім однорідні підрядні", x:[`Я знаю, що весна прийде, коли розтане сніг і зазеленіє трава.`, SCH(["[ ]","(що)","(коли)","(коли)"],[[0,1],[1,2],[1,3]])]}
+        ]
+      }
+    ]
+  },
+
+  /* ---------- 5. РОЗДІЛОВІ ЗНАКИ ---------- */
+  {
+    tab: "Розділові знаки", dot: "5",
+    title: "Розділові знаки в СПР",
+    intro: "Між частинами складнопідрядного речення <b>ставиться кома</b>. Обери групу правил.",
+    groups: [
+      {
+        label: "Кома між частинами",
+        cards: [
+          {r:"Підрядна після головної", d:"кома перед сполучником або сполучним словом", x:[`Ми вийшли з дому, коли розвиднілося.`]},
+          {r:"Підрядна перед головною", d:"кома ставиться після підрядної частини", x:[`Коли розвиднілося, ми вийшли з дому.`]},
+          {r:"Підрядна всередині головної", d:"виділяється комами з обох боків", x:[`Хлопець, який вчора прийшов, мій друг.`]},
+          {r:"Сполучник чи сполучне слово", d:"кома стоїть перед ними обома", x:[`Я знаю, <b>що</b> ти прийдеш.`, `Це місто, <b>де</b> я народився.`]}
+        ]
+      },
+      {
+        label: "Складені сполучники",
+        cards: [
+          {r:"Кома ставиться один раз", d:"перед усім сполучником або всередині нього — залежно від інтонації", x:[`Вони поїхали, <b>тому що</b> був дощ.`, `Вони поїхали <b>тому</b>, що був дощ.`]},
+          {r:"Підрядна перед головною", d:"усередині складеного сполучника кома НЕ ставиться", x:[`Після того як тісто піднялося, робимо кружечки.`]}
+        ]
+      },
+      {
+        label: "Коли кома не ставиться",
+        cards: [
+          {r:"Підрядна починається з «не»", d:"кома перед такою підрядною не ставиться", x:[`Мене цікавить <b>не як</b> це сталося, а які наслідки.`]},
+          {r:"Підрядна з одного слова", d:"підрядна частина — лише сполучне слово", x:[`Мати повернеться, та не знать <b>коли</b>.`]},
+          {r:"Сурядний сполучник між підрядними", d:"між однорідними підрядними кома перед сурядним сполучником не ставиться", x:[`Я знаю, де ви будете відпочивати <b>і</b> туди поїдете.`]}
+        ]
+      },
+      {
+        label: "Збіг сполучників",
+        cards: [
+          {r:"Протиставний + підрядний", d:"кома перед а, але, проте, зате; між сполучниками її немає", x:[`Дай Боже, щоб мене любили, <b>але щоб</b> і я любив.`]},
+          {r:"Є слово «то» / «так»", d:"між двома підрядними сполучниками кома НЕ ставиться", x:[`Брати шепотіли, що коли треба буде, <b>то</b> вони стануть один за одним.`]},
+          {r:"Немає слова «то» / «так»", d:"кома ставиться й між сполучниками", x:[`Брати шепотіли, що, коли треба буде, вони стануть один за одним.`]}
+        ]
+      }
+    ]
+  }
+];
+
+let activeSub = 0;
+let activeGroup = 0;
+
+const subtabbar = document.getElementById('subtabbar');
+const lessonArea = document.getElementById('lessonArea');
+
+function currentSection(){ return SUBS[activeSub]; }
+
+const drawStore = {};
+function sectionKey(){ return 's' + activeSub + '__g' + activeGroup; }
+function saveCurrentDrawing(){ if(window.getDrawingSnapshot) drawStore[sectionKey()] = window.getDrawingSnapshot(); }
+function restoreCurrentDrawing(){ if(window.setDrawingSnapshot) window.setDrawingSnapshot(drawStore[sectionKey()] || null); }
+
+function renderSubs(){
+  subtabbar.innerHTML = SUBS.map((s,i)=>`
+    <button class="tab ${i===activeSub?'active':''}" data-i="${i}">
+      <span class="dot">${s.dot}</span>${s.tab}
+    </button>`).join('');
+  subtabbar.querySelectorAll('.tab').forEach(btn=>{
+    attachTapToggle(btn, ()=>{
+      saveCurrentDrawing();
+      activeSub = +btn.dataset.i;
+      activeGroup = 0;
+      renderSubs();
+      renderContent();
+    });
+  });
+}
+
+function renderContent(){
+  const s = currentSection();
+  const grp = s.groups[activeGroup];
+  let html = `<p class="section-title">${s.title}</p><p class="section-intro">${s.intro}</p>`;
+  if(s.groups.length > 1){
+    html += `<div class="grouptoggle">${s.groups.map((g,i)=>`
+      <button class="gtab ${i===activeGroup?'active':''}" data-i="${i}">${g.label}</button>`).join('')}</div>`;
+  }
+  html += `<div class="cardgrid">${grp.cards.map(c=>`
+    <div class="flip ${grp.tall?'tall':''}" data-kind="card">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <div class="flip-rule">${c.r}</div>
+          <div class="flip-desc">${c.d||''}</div>
+          <div class="flip-hint">натисни →</div>
+        </div>
+        <div class="flip-face flip-back">
+          ${c.x.map(e=>`<div class="flip-example">${e}</div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('')}</div>`;
+  lessonArea.innerHTML = html;
+
+  lessonArea.querySelectorAll('.gtab').forEach(btn=>{
+    attachTapToggle(btn, ()=>{
+      saveCurrentDrawing();
+      activeGroup = +btn.dataset.i;
+      renderContent();
+    });
+  });
+  lessonArea.querySelectorAll('[data-kind="card"]').forEach(el=>{
+    attachTapToggle(el, ()=>{ el.classList.toggle('open'); });
+  });
+  syncCanvasAfterRender();
+}
+
+function syncCanvasAfterRender(){
+  if(window.resizeDrawCanvas){
+    requestAnimationFrame(()=> requestAnimationFrame(()=>{
+      window.resizeDrawCanvas();
+      restoreCurrentDrawing();
+    }));
+  }
+}
+
+function attachTapToggle(el, handler){
+  if(!el) return;
+  let sx = 0, sy = 0, penTap = false, tracking = false;
+  el.addEventListener('pointerdown', (e)=>{
+    tracking = true; sx = e.clientX; sy = e.clientY; penTap = e.pointerType === 'pen';
+    el.classList.add('pressed');
+  }, {passive:true});
+  el.addEventListener('pointerup', (e)=>{
+    el.classList.remove('pressed');
+    if(!tracking) return;
+    tracking = false;
+    if(penTap && window.isDrawingActive && window.isDrawingActive()) return;
+    if(Math.hypot(e.clientX - sx, e.clientY - sy) > 10) return;
+    handler(e);
+  });
+  el.addEventListener('pointercancel', ()=>{ tracking = false; el.classList.remove('pressed'); });
+  el.addEventListener('pointerleave', ()=>{ if(tracking) el.classList.remove('pressed'); });
+}
+
+renderSubs();
+renderContent();
+
+// ======================================================================
+// МАЛЮВАННЯ ПОВЕРХ ЕКРАНА (режим "учитель")
+// Малюнок кожної вкладки/групи зберігається окремо.
+// ======================================================================
+(function(){
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  const toggleBtn = document.getElementById('drawToggleBtn');
+  const toolbar = document.getElementById('drawToolbar');
+  const toolbarMini = document.getElementById('drawToolbarMini');
+  const minimizeBtn = document.getElementById('minimizeBtn');
+  const xthinBtn = document.getElementById('xthinBtn');
+  const thinBtn = document.getElementById('thinBtn');
+  const thickBtn = document.getElementById('thickBtn');
+  const eraserBtn = document.getElementById('eraserBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const swatches = document.querySelectorAll('.swatch');
+
+  let drawingActive = false;
+  let isDrawing = false;
+  let currentColor = "#F5304A";
+  let currentWidth = 4;
+  let eraserMode = false;
+  let lastX = 0, lastY = 0;
+  let activePointerId = null;
+
+  window.isDrawingActive = function(){ return drawingActive; };
+
+  function currentDocHeight(){
+    return Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, window.innerHeight);
+  }
+
+  function resizeCanvas(){
+    const docWidth = document.documentElement.clientWidth;
+    const docHeight = currentDocHeight();
+    const prev = document.createElement('canvas');
+    prev.width = canvas.width; prev.height = canvas.height;
+    if(canvas.width && canvas.height){ prev.getContext('2d').drawImage(canvas, 0, 0); }
+    canvas.width = docWidth * devicePixelRatio;
+    canvas.height = docHeight * devicePixelRatio;
+    canvas.style.width = docWidth + 'px';
+    canvas.style.height = docHeight + 'px';
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if(prev.width && prev.height){
+      ctx.drawImage(prev, 0, 0, prev.width / devicePixelRatio, prev.height / devicePixelRatio);
+    }
+  }
+  window.resizeDrawCanvas = resizeCanvas;
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('orientationchange', resizeCanvas);
+  if(window.ResizeObserver){ new ResizeObserver(()=> resizeCanvas()).observe(document.body); }
+
+  window.clearDrawing = function(){ ctx.clearRect(0, 0, canvas.width, canvas.height); };
+  window.getDrawingSnapshot = function(){
+    try{ return (canvas.width && canvas.height) ? canvas.toDataURL('image/png') : null; }catch(e){ return null; }
+  };
+  window.setDrawingSnapshot = function(dataURL){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if(!dataURL) return;
+    const img = new Image();
+    img.onload = function(){ ctx.drawImage(img, 0, 0, canvas.width / devicePixelRatio, canvas.height / devicePixelRatio); };
+    img.src = dataURL;
+  };
+
+  function setActive(on){
+    drawingActive = on;
+    toolbar.classList.toggle('show', on);
+    toolbar.classList.remove('mini');
+    toolbarMini.classList.remove('show');
+    toggleBtn.classList.toggle('on', on);
+    toggleBtn.title = on ? 'Вимкнути малювання' : 'Малювати';
+  }
+  toggleBtn.addEventListener('click', ()=> setActive(!drawingActive));
+
+  minimizeBtn.addEventListener('click', ()=>{
+    toolbar.classList.remove('show'); toolbar.classList.add('mini'); toolbarMini.classList.add('show');
+  });
+  toolbarMini.addEventListener('click', ()=>{
+    toolbar.classList.remove('mini'); toolbar.classList.add('show'); toolbarMini.classList.remove('show');
+  });
+
+  swatches.forEach(sw=>{
+    sw.addEventListener('click', ()=>{
+      swatches.forEach(s=>s.classList.remove('selected'));
+      sw.classList.add('selected');
+      currentColor = sw.dataset.color;
+      eraserMode = false;
+      eraserBtn.classList.remove('selected');
+    });
+  });
+
+  function setWidth(btn, w){
+    btn.addEventListener('click', ()=>{
+      currentWidth = w;
+      [xthinBtn,thinBtn,thickBtn].forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  }
+  setWidth(xthinBtn, 2);
+  setWidth(thinBtn, 5);
+  setWidth(thickBtn, 11);
+
+  eraserBtn.addEventListener('click', ()=>{
+    eraserMode = !eraserMode;
+    eraserBtn.classList.toggle('selected', eraserMode);
+  });
+  clearBtn.addEventListener('click', ()=>{ window.clearDrawing(); });
+
+  function pointerPos(e){
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top, pressure: e.pressure || 0.5 };
+  }
+  function isOnControls(e){
+    return !!(e.target.closest && e.target.closest('#drawToolbar, #drawToolbarMini, #drawToggleBtn'));
+  }
+
+  document.addEventListener('pointerdown', (e)=>{
+    if(!drawingActive) return;
+    if(e.pointerType !== 'pen') return;
+    if(isOnControls(e)) return;
+    e.preventDefault();
+    isDrawing = true;
+    activePointerId = e.pointerId;
+    const p = pointerPos(e);
+    lastX = p.x; lastY = p.y;
+  }, { passive: false });
+
+  document.addEventListener('pointermove', (e)=>{
+    if(!drawingActive || !isDrawing) return;
+    if(e.pointerId !== activePointerId) return;
+    e.preventDefault();
+    const p = pointerPos(e);
+    ctx.globalCompositeOperation = eraserMode ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = currentColor;
+    const pressureFactor = 0.6 + (p.pressure || 0.5) * 0.8;
+    ctx.lineWidth = (eraserMode ? currentWidth * 3 : currentWidth) * pressureFactor;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastX = p.x; lastY = p.y;
+  }, { passive: false });
+
+  function stopDrawing(e){
+    if(e && e.pointerId !== undefined && e.pointerId !== activePointerId) return;
+    isDrawing = false; activePointerId = null;
+  }
+  document.addEventListener('pointerup', stopDrawing);
+  document.addEventListener('pointercancel', stopDrawing);
+
+  document.addEventListener('touchmove', function(e){
+    if(drawingActive && e.touches && e.touches[0] && e.touches[0].touchType === 'stylus'){ e.preventDefault(); }
+  }, { passive: false });
+})();
+</script>
+</body>
+</html>
