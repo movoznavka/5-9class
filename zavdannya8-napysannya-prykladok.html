@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Прикладка як різновид означення · Завдання</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1EAFC;--bg-soft:#F8F4FE;--card:#FFFFFF;--ink:#0F2238;--ink-soft:#5B7690;--line:rgba(15,34,56,.1);
+--c1-a:#C9A6FF;--c1-b:#8B5CF6;--c1-sh:rgba(139,92,246,.45);--c3-b:#17A863;--c2-b:#EF6A66;--terra:#EF6A66;--amber:#C56A0E;
+--correct-bg:#E2F6EA;--correct-ink:#128A54;--wrong-bg:#FBE6E1;--wrong-ink:#C8442B;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px;position:relative}
+.wrap{max-width:760px;margin:0 auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;margin-bottom:22px;border-bottom:1.5px solid rgba(15,34,56,.12)}
+.kicker{font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(28px,6.5vw,44px);line-height:1.08;margin:0 0 22px;text-transform:uppercase}
+h1 .hl{color:var(--c1-b)}
+.topictoggle{display:flex;gap:10px;margin-bottom:14px}
+.topictoggle button{flex:1;padding:15px;border-radius:20px;border:none;background:var(--card);font-family:'Manrope',sans-serif;font-weight:800;font-size:14.5px;color:var(--ink-soft);cursor:pointer;box-shadow:0 8px 18px -14px rgba(15,34,56,.4)}
+.topictoggle button.active{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;box-shadow:0 10px 20px -10px var(--c1-sh)}
+.tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:34px}
+.tab{padding:10px 15px 10px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.9);background:#fff;color:var(--ink-soft);font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 10px 20px -12px rgba(15,34,56,.5);transition:transform .13s ease}
+.tab:hover{transform:translateY(-2px)}
+.tab .dot{width:22px;height:22px;border-radius:8px;background:rgba(139,92,246,.15);color:var(--c1-b);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.tab.active{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--c1-sh)}
+.tab.active .dot{background:rgba(255,255,255,.28);color:#fff}
+.card{background:var(--card);border-radius:28px;padding:40px 24px 28px;box-shadow:0 20px 44px -28px rgba(15,34,56,.5)}
+.section-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;margin:0 0 8px}
+.section-intro{color:var(--ink-soft);font-size:14.5px;line-height:1.6;margin:0 0 18px}
+.section-intro b{color:var(--ink)}
+.s{background:#17A863;color:#fff;border-radius:6px;padding:1px 7px;font-weight:700}
+.m{background:var(--terra);color:#fff;border-radius:6px;padding:1px 7px;font-weight:700}
+.d{background:var(--c1-b);color:#fff;border-radius:6px;padding:1px 7px;font-weight:700}
+.cardwrap{position:relative}
+.qflag{position:absolute;top:-24px;right:14px;z-index:20;width:fit-content;max-width:calc(100% - 28px);padding:10px 16px;border-radius:18px;line-height:1.3;background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;box-shadow:0 12px 22px -8px var(--c1-sh);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.qflag.drag{cursor:grabbing;transform:scale(1.06)}
+.demo{padding:30px 18px 20px;text-align:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:clamp(17px,3.4vw,22px);line-height:1.7;background:var(--bg-soft);border-radius:20px;margin-bottom:14px}
+.subj{position:relative;display:inline-block}
+.subj .lbl{position:absolute;left:50%;transform:translateX(-50%);top:-1.45em;font-size:.5em;font-weight:800;letter-spacing:.02em;color:var(--c3-b);white-space:nowrap}
+.cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.cardgrid{grid-template-columns:1fr}}
+.flip{perspective:1200px;height:170px;cursor:pointer;position:relative}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.flip.open .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;border-radius:20px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center}
+.flip-front{background:var(--bg-soft)}
+.flip-back{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;transform:rotateY(180deg);align-items:center;text-align:center}
+.flip-rule{font-family:'Manrope',sans-serif;font-weight:800;font-size:15.5px;line-height:1.32}
+.flip-desc{font-size:12.5px;margin-top:7px;opacity:.8;line-height:1.4}
+.flip-example{font-size:15px;font-weight:700;margin-bottom:5px;line-height:1.4}
+.flip-hint{position:absolute;bottom:9px;right:14px;font-size:10px;font-weight:700;opacity:.45}
+.qprog{font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+.qtext{font-family:'Manrope',sans-serif;font-size:19px;font-weight:700;line-height:1.4;margin:0 0 18px}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:13px;text-align:left;width:100%;padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--bg-soft);cursor:pointer;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:500;color:var(--ink);transition:transform .12s ease}
+.opt:hover{transform:translateY(-1px)}
+.opt[disabled]{cursor:default}.opt[disabled]:hover{transform:none}
+.tile{position:relative;width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--c1-b);background:linear-gradient(150deg,rgba(255,255,255,.8),rgba(139,92,246,.2));border:1px solid rgba(255,255,255,.7)}
+.badge{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff}
+.badge.ok{background:var(--c3-b)}.badge.no{background:var(--c2-b)}
+.opt.correct{background:var(--correct-bg)}.opt.wrong{background:var(--wrong-bg)}.opt.dim{opacity:.5}
+.feedback{margin-top:16px;padding:13px 16px;border-radius:16px;font-size:14px;font-weight:600;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:var(--correct-bg);color:var(--correct-ink)}
+.feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink)}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+.btn{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;padding:12px 22px;border-radius:999px;border:none;cursor:pointer}
+.btn.primary{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;box-shadow:0 10px 20px -8px var(--c1-sh)}
+.btn.ghost{background:transparent;color:var(--ink-soft)}
+.btn:disabled{opacity:.3;cursor:default;box-shadow:none}
+.tab.pressed{transform:scale(.95);box-shadow:inset 0 3px 8px rgba(15,34,56,.25)}
+.topictoggle button.pressed{transform:scale(.97)}
+.opt.pressed{transform:scale(.98)}.btn.pressed{transform:scale(.95);filter:brightness(.94)}
+.flip.pressed .flip-inner{transform:scale(.97)}.flip.open.pressed .flip-inner{transform:rotateY(180deg) scale(.97)}
+.done-screen{text-align:center}
+.done-screen .ring{width:110px;height:110px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 16px 30px -12px var(--c1-sh);display:flex;align-items:center;justify-content:center}
+.done-screen .big{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;color:#fff}
+footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft);font-weight:600}
+#drawCanvas{position:absolute;top:0;left:0;z-index:9998;pointer-events:none}
+#drawToggleBtn{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:linear-gradient(150deg,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(155deg,var(--c1-a),var(--c1-b));box-shadow:0 14px 28px -10px var(--c1-sh),inset 0 1px 1px rgba(255,255,255,.6);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;transition:transform .18s cubic-bezier(.34,1.56,.64,1)}
+#drawToggleBtn svg{width:24px;height:24px;transition:transform .25s ease}
+#drawToggleBtn:active{transform:scale(.9)}
+#drawToggleBtn.on{background:linear-gradient(150deg,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(155deg,#FFB020,var(--c2-b))}
+#drawToggleBtn.on svg{transform:rotate(90deg)}
+#drawToolbar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(130%) scale(.94);opacity:0;display:flex;align-items:center;gap:12px;background:linear-gradient(150deg,rgba(255,255,255,.7),rgba(255,255,255,.25));backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,.7);padding:9px 16px;border-radius:999px;box-shadow:0 24px 48px -20px rgba(15,34,56,.5);z-index:9999;transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .2s ease;pointer-events:none}
+#drawToolbar.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto}
+#drawToolbar.mini{transform:translateX(-50%) translateY(130%) scale(.94);opacity:0;pointer-events:none}
+#drawToolbarMini{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(130%) scale(.9);opacity:0;width:40px;height:26px;border-radius:14px;border:1px solid rgba(255,255,255,.5);background:linear-gradient(155deg,var(--c1-a),var(--c1-b));display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .2s ease;pointer-events:none}
+#drawToolbarMini svg{width:18px;height:18px}
+#drawToolbarMini.show{transform:translateX(-50%) translateY(0) scale(1);opacity:1;pointer-events:auto}
+.swatch{position:relative;width:25px;height:25px;border-radius:50%;border:none;box-shadow:0 3px 8px -2px rgba(15,34,56,.35);cursor:pointer;padding:0;transition:transform .15s}
+.swatch::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--ink);opacity:0;transform:scale(.7);transition:all .15s}
+.swatch.selected{transform:scale(1.08)}.swatch.selected::after{opacity:1;transform:scale(1)}
+.tool-btn{width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.55);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tool-btn svg{width:16px;height:16px}.tool-btn .dot{border-radius:50%;background:currentColor}
+#xthinBtn .dot{width:3.5px;height:3.5px}#thinBtn .dot{width:7px;height:7px}#thickBtn .dot{width:12.5px;height:12.5px}
+.tool-btn.selected{background:var(--c1-b);color:#fff;transform:scale(1.06)}
+.tool-sep{width:1px;height:22px;background:rgba(15,34,56,.15)}
+@media(max-width:480px){#drawToolbar{max-width:94vw;overflow-x:auto;padding:8px 13px;gap:9px}.swatch{width:21px;height:21px}.tool-btn{width:30px;height:30px}}
+
+.card{padding:26px 22px;margin-bottom:16px}
+.lbl-card{font-family:'Manrope',sans-serif;font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--c1-b);margin-bottom:10px}
+.th p{font-size:15.5px;line-height:1.65;margin:0 0 12px}
+.th ul{margin:0 0 12px;padding-left:20px;line-height:1.7;font-size:15px}
+.memo{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-radius:20px;padding:15px 18px;font-weight:700;font-size:14.5px;line-height:1.5;box-shadow:0 12px 22px -12px var(--c1-sh)}
+.it{display:block;width:100%;text-align:left;padding:12px 14px;border-radius:16px;border:none;background:var(--bg-soft);font:500 15px Inter,sans-serif;color:var(--ink);cursor:pointer;margin-bottom:8px}
+.it.sel{box-shadow:inset 0 0 0 2px var(--c1-b);background:#fff}.it.correct{background:var(--correct-bg)}.it.wrong{background:var(--wrong-bg)}.it.miss{outline:2px dashed var(--correct-ink)}.it.dim{opacity:.5}.it[disabled]{cursor:default}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:16px;background:var(--bg-soft);margin-bottom:8px}
+.srow .t{font-weight:600;font-size:15px}.srow.correct{background:var(--correct-bg)}.srow.wrong{background:var(--wrong-bg)}
+.pill{padding:7px 12px;border-radius:999px;border:none;background:#fff;font:800 12px Manrope,sans-serif;color:var(--ink-soft);cursor:pointer;margin:2px}
+.pill.on{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fb{margin-top:12px;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;line-height:1.55}
+.fb.ok{background:var(--correct-bg);color:var(--correct-ink)}.fb.bad{background:var(--wrong-bg);color:var(--wrong-ink)}.fb.info{background:var(--bg-soft);color:var(--ink)}
+.ta{width:100%;padding:12px 14px;border-radius:14px;border:2px solid transparent;background:var(--bg-soft);font:500 15px Inter,sans-serif;color:var(--ink);resize:vertical;margin-bottom:6px}
+.tk{display:inline-block;padding:6px 7px;border-radius:10px;border:none;background:#fff;font:600 16px Inter,sans-serif;color:var(--ink);cursor:pointer;margin:3px 2px}
+.tk.ok{background:var(--correct-bg);color:var(--correct-ink);box-shadow:inset 0 0 0 2px var(--correct-ink)}.tk.bad{background:var(--wrong-bg);color:var(--wrong-ink)}.tk.miss{outline:2px dashed var(--correct-ink)}.tk.on{box-shadow:inset 0 0 0 2px var(--c1-b)}
+.btn{margin-top:10px}.tabbar{margin-bottom:22px}
+
+h1,.section-title,.pghead{color:#3B2A63}
+.pghead{font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;line-height:1.25;margin:0 0 14px}
+.pghead small{display:block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--c1-b);margin-top:4px}
+h1{font-size:clamp(22px,5vw,34px)}
+.blank{display:inline-block;min-width:68px;padding:2px 10px;border-radius:10px;border:none;background:#fff;box-shadow:inset 0 0 0 2px var(--c1-b);font:700 15px Inter,sans-serif;color:var(--c1-b);cursor:pointer;margin:0 2px}
+.blank.ok{background:var(--correct-bg);color:var(--correct-ink);box-shadow:inset 0 0 0 2px var(--correct-ink)}.blank.bad{background:var(--wrong-bg);color:var(--wrong-ink);box-shadow:inset 0 0 0 2px var(--wrong-ink)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{padding:10px 14px;border-radius:14px;border:none;background:var(--bg-soft);font:600 15px Inter,sans-serif;color:var(--ink);cursor:pointer}
+.chip.sel{box-shadow:inset 0 0 0 2px var(--c1-b);background:#fff}.chip.dim{opacity:.4}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><div class="kicker">Українська мова · 8 клас</div><div class="kicker" style="opacity:.4">Синтаксис</div></div>
+  <h1>Прикладка як різновид означення</h1>
+  <div class="tabbar" id="subtabbar"></div>
+  <div id="lessonArea"></div>
+  <footer>@movoznavka</footer>
+</div>
+<canvas id="drawCanvas"></canvas>
+<button id="drawToggleBtn" title="Малювати"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20L4.6 16.6C4.7 15.9 5.03 15.26 5.55 14.79L15.3 5.7C16.09 4.96 17.34 4.99 18.09 5.78L18.34 6.04C19.08 6.83 19.04 8.08 18.25 8.81L8.5 17.9C8 18.37 7.37 18.66 6.7 18.75L4 20Z" stroke="white" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.5 7.5L16.5 10.3" stroke="white" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+<div id="drawToolbar">
+  <button class="swatch selected" style="background:#F5304A" data-color="#F5304A"></button>
+  <button class="swatch" style="background:#3355EE" data-color="#3355EE"></button>
+  <button class="swatch" style="background:#17A863" data-color="#17A863"></button>
+  <button class="swatch" style="background:#0F2238" data-color="#0F2238"></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn selected" id="xthinBtn" title="Дуже тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thinBtn" title="Тонка лінія"><span class="dot"></span></button>
+  <button class="tool-btn" id="thickBtn" title="Товста лінія"><span class="dot"></span></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="eraserBtn" title="Ластик"><svg viewBox="0 0 24 24" fill="none"><path d="M18.5 13.5L10.5 21.5H5.5L2.5 18.5C2.11 18.11 2.11 17.48 2.5 17.09L13.5 6.09C13.89 5.7 14.52 5.7 14.91 6.09L18.5 9.68C19.5 10.68 19.5 12.5 18.5 13.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 13.5L15 19.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+  <button class="tool-btn" id="clearBtn" title="Очистити все"><svg viewBox="0 0 24 24" fill="none"><path d="M5 7H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M9.5 7V4.8C9.5 4.36 9.86 4 10.3 4H13.7C14.14 4 14.5 4.36 14.5 4.8V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 7L7.6 19.2C7.63 19.9 8.2 20.5 8.9 20.5H15.1C15.8 20.5 16.37 19.9 16.4 19.2L17 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <div class="tool-sep"></div>
+  <button class="tool-btn" id="minimizeBtn" title="Згорнути панель"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>
+<button id="drawToolbarMini" title="Розгорнути панель"><svg viewBox="0 0 24 24" fill="none"><path d="M6 15L12 9L18 15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<script>
+
+const S=s=>'<span class="s">'+s+'</span>',M=s=>'<span class="m">'+s+'</span>';
+const LET=["А","Б","В","Г"];
+const st={};const g=id=>st[id]||(st[id]={});
+const mf=(str,why)=>{const a=[],t=str.split(' ').map((x,i)=>{if(x.includes('§'))a.push(i);return x.replace(/§/g,'')});return{t:t.join(' '),a,why}};
+const E3=["окремо","через дефіс","у лапках"];
+const PAGES=[
+{e:"🔎",n:"Знайдіть прикладки",ex:"Вправа 329",tasks:[
+{id:"a1",type:"find",step:1,ins:"Читай текст по одному реченню. Натисни на слова, які є прикладками (ще раз — зняти позначку), і натисни «Перевірити».",items:[
+mf("Півтора століття тому, коли кріпосники-поневолювачі§ своїми циркулярами-указами§ намагались довести, що нема, не було й не може бути мови у народу Малоросії, син§ кріпака§ Тарас Шевченко мовив своє й увічнив на папері слово своїх батьків.","Прикладки: кріпосники-поневолювачі, циркулярами-указами, син кріпака."),
+mf("Колишній козачок-служка§ у покоях пана§ Енгельгардта материзну свою назвав не Малоросією, а виспівав: Україна.","Прикладки: козачок-служка, пан (при прізвищі)."),
+mf("Щороку 22 травня Україна відзначає знаменну дату — роковини перепоховання праху генія українського народу — Великого Кобзаря§ Тараса Шевченка.","Прикладка: Кобзаря (при імені Тараса Шевченка)."),
+mf("Виконуючи волю поета, що висловлена ним у вірші «Заповіт»§, прах його перевезли з Петербурга й поховали на Чернечій горі поблизу міста Канева§.","Прикладки: «Заповіт» (назва твору), Канева (власна назва після слова «міста»).")]},
+{id:"a1b",type:"choice",num:0,ins:"Поясни, чим виражені знайдені прикладки.",qs:[{q:"Чим виражені прикладки в тексті?",o:["іменниками","прикметниками","дієсловами","прислівниками"],a:0,why:"Прикладка — це означення, виражене іменником."}]}]},
+{e:"✍️",n:"Розставте розділові знаки",ex:"Вправа 330",tasks:[{id:"a2",type:"choice",num:1,ins:"Як записати виділену частину речення — окремо, через дефіс чи в лапках?",qs:[
+{q:"<b>Мати Україна</b> — радість солов’їна, що цвіте під сонцем, як в росі калина.",o:E3,a:0,why:"Загальна назва стоїть перед власною — пишемо окремо."},
+{q:"Терни чорніють, і стежина скута, і спить під снігом <b>чарівниця рута</b>.",o:E3,a:0,why:"Прикладка стоїть перед означуваним словом — пишемо окремо."},
+{q:"Я хочу на <b>озеро Світязь</b>, в туман таємничих лісів.",o:E3,a:0,why:"Загальна + власна географічна назва — окремо, без лапок."},
+{q:"Лілові хмари <b>Іван чаю</b> пливуть над прірвами в ніч.",o:E3,a:1,why:"Складна назва рослини — через дефіс: іван-чаю."},
+{q:"<b>Довженко художник, Довженко людина, Довженко громадянин</b> — це було одно, це була гармонія.",o:E3,a:1,why:"Іменники можуть мінятися місцями, прикладка характеризує особу — дефіс."},
+{q:"<b>Пісня Боже великий єдиний, нам Україну храни</b> стала народно-церковним гімном.",o:E3,a:2,why:"Назва твору — в лапках."},
+{q:"З <b>ріки Дніпра</b> бере веселка воду.",o:E3,a:0,why:"Загальна назва стоїть перед власною — окремо."}]}]},
+{e:"📖",n:"Проаналізуйте текст",ex:"Вправа 331",tasks:[
+{id:"a3",type:"find",step:1,ins:"Читай текст по одному реченню й натискай на прикладки.",items:[
+mf("Криниці нашої літератури освячені кришталевим словом поетів-геніїв§.","Прикладка: поетів-геніїв."),
+mf("До них належить і легендарна співачка§ «Досвітніх вогнів» Леся Українка, і незламна жінка-борець§ Ліна Костенко.","Прикладки: співачка, жінка-борець."),
+mf("Якщо Лесю свого часу звали «квітка ломикамінь», то Ліну Костенко — жінкою-легендою§, поетом-бунтарем§.","Прикладки: жінкою-легендою, поетом-бунтарем (образні)."),
+mf("Про неї кажуть: «мати-берегиня,§ поетеса-хранителька§ згасаючого вогню», символ§ віри§ і§ надії§ (Л. Овідійчук).","Прикладки: мати-берегиня, поетеса-хранителька, символ віри і надії.")]},
+{id:"a3b",type:"choice",num:1,ins:"Визнач стиль тексту й роль прикладок.",qs:[
+{q:"Який стиль має текст?",o:["науковий","публіцистичний","офіційно-діловий","розмовний"],a:1,why:"Образність і оцінність — ознаки публіцистичного стилю."},
+{q:"Яку роль виконують прикладки в тексті?",o:["образно й емоційно характеризують постаті","називають наукові терміни","вказують на дату й місце події","позначають кількість"],a:0,why:"Прикладки дають образну оцінку письменниць."}]}]},
+{e:"🧩",n:"Доповніть речення",ex:"Вправа 332",tasks:[
+{id:"a4",type:"fill",ins:"Натисни слово з довідки, а потім пропуск, куди воно підходить. Натисни на заповнений пропуск, щоб прибрати слово.",sents:[
+"1. {0}-саморуб! Порубай військо вороже!","2. А мій {1}-чоботар черевички полатав!","3. {2}-дружечки вінок загинали, а {3}-свашечки в долоні плескати, а {4}-батько розгулявся гладко.","4. Ой ви {5}-сизокрилочки, підніміться вгору! Ой ви {6}-запорожці, верніться додому!","5. Обізветься доля на тім боці моря: «{7}-бурлаче, дурний розум маєш, що ти свою долю марне проклинаєш!»","6. Маю {8}-дрімоту, маю {9}-зіботу, всі вони допомагають: сон навівають."],
+bank:["Батько","меч","ластівочки","чорногуз","зозульки","хлопці","галочки","тітонька","козак","дрімота"],
+acc:[["меч"],["Батько"],["ластівочки","зозульки"],["галочки"],["чорногуз"],["зозульки","ластівочки"],["хлопці"],["козак"],["тітонька","дрімота"],["дрімота","тітонька"]]},
+{id:"a4b",type:"choice",num:0,ins:"Обґрунтуй свій вибір.",qs:[{q:"Чому вставлені слова є означуваними, а не прикладками?",o:["вони називають предмет, а слово після дефіса образно його характеризує","вони стоять перед дефісом, тому завжди є прикладками","вони виражені прикметниками","вони пишуться з великої літери"],a:0,why:"Означуване слово називає предмет, а прикладка (друге слово) його характеризує."}]}]},
+{e:"💬",n:"Доберіть прикладки",ex:"Вправа 333",tasks:[
+{id:"a5",type:"choice",num:1,ins:"Обери словосполучення, у якому до поданого слова дібрано прикладку.",qs:[
+{q:"Слово «учень»",o:["відмінний учень","учень-відмінник","учень школи","учень швидко"],a:1,why:"Учень-відмінник: «відмінник» — іменник-прикладка."},
+{q:"Слово «директор»",o:["директор-новатор","новий директор","директор школи","директор учора"],a:0,why:"«Новатор» — іменник-прикладка."},
+{q:"Слово «кабінет»",o:["хімічний кабінет","кабінет директора","кабінет-лабораторія","кабінет угорі"],a:2,why:"«Лабораторія» — прикладка."},
+{q:"Слово «восьмикласник»",o:["веселий восьмикласник","восьмикласник із Луцька","восьмикласник вчора","восьмикласник-відмінник"],a:3,why:"«Відмінник» — прикладка."},
+{q:"Слово «школа»",o:["нова школа","школа-інтернат","школа мистецтв","школа далеко"],a:1,why:"«Інтернат» — прикладка."},
+{q:"Слово «клас»",o:["клас-майстерня","великий клас","клас із вікнами","клас уранці"],a:0,why:"«Майстерня» — прикладка."},
+{q:"Слово «учитель»",o:["добрий учитель","учитель із досвідом","учитель-історик","учитель удома"],a:2,why:"«Історик» — прикладка (фах)."}]},
+{id:"a5b",type:"write",ins:"Склади речення з прикладками до двох слів із вправи.",f:[{p:"Твої речення:",s:"Учень-відмінник відповів біля дошки. Наш директор-новатор запровадив нові курси."}]}]},
+{e:"🔥",n:"Хто є хто?",ex:"Додаткове завдання",tasks:[{id:"x1",type:"sort",ins:"Розподіл складніших випадків: де є прикладка, а де її немає.",cats:["прикладка","не прикладка"],items:[
+{t:"вишиванка як символ України",c:0},{t:"пан професор",c:0},{t:"учитель математики",c:1},{t:"книга брата",c:0===1?0:1},{t:"лікар-терапевт",c:0},{t:"липа як лікарська рослина",c:0}],note:"«Учитель математики», «книга брата» — неузгоджені означення, а не прикладки."}]},
+{e:"⚖️",n:"Порівняйте написання",ex:"Вправа 334",tasks:[
+{id:"a6",type:"sort",ins:"Розподіл прикладок за способом написання.",cats:["через дефіс","окремо","у лапках"],items:[
+{t:"в перлах-росах",c:0},{t:"майор Коваленко",c:1},{t:"поему «Мар’яна-черниця»",c:2},{t:"річка Дніпро",c:1},{t:"Дніпро-ріка",c:0}],note:"Дефіс: іменники можуть мінятися місцями або власна назва стоїть перед загальною. Окремо: загальна назва перед власною. Лапки: назви творів."},
+{id:"a6b",type:"write",ins:"Сформулюй лінгвістичне доведення.",f:[{p:"Чому одні прикладки пишуться через дефіс, другі — окремо, а треті — в лапках?",s:"Загальна + власна назва — окремо (майор Коваленко, річка Дніпро); власна + загальна — через дефіс (Дніпро-ріка); образна прикладка — дефіс (перлах-росах); назви творів беруться в лапки."}]}]},
+{e:"🔥",n:"Дефіс чи окремо?",ex:"Додаткове завдання",tasks:[{id:"x2",type:"choice",num:1,ins:"Обери правильний запис.",qs:[
+{q:"Спочатку родове, потім видове поняття:",o:["риба-карась","риба карась","карась риба"],a:1,why:"Ширше → вужче — пишемо окремо."},
+{q:"Означуване слово входить до складу терміна:",o:["жук короїд","жук-короїд","жук «короїд»"],a:1,why:"У складі терміна — дефіс."},
+{q:"Загальноприйняті в побуті назви людей:",o:["добродій Степан","добродій-Степан","«добродій» Степан"],a:0,why:"Без дефіса."},
+{q:"Іменники можуть мінятися місцями (фах):",o:["учитель фізик","учитель-фізик","учитель «фізик»"],a:1,why:"Дефіс: учитель-фізик і фізик-учитель."},
+{q:"Власна назва перед загальною:",o:["Еверест гора","Еверест-гора","«Еверест» гора"],a:1,why:"Власна + загальна — дефіс."}]}]},
+{e:"🌿",n:"Відновіть текст",ex:"Вправа 335",tasks:[
+{id:"a7",type:"fill",ins:"Добери слова-прикладки з довідки до виділених слів (прикладка — в тому самому відмінку, що й означуване слово).",sents:[
+"Ліс… Над головою чарівні смарагдові крони-{0}, підперті стовбурами-{1}.","Довгі та вузькі хвойнки-{2} сосни завжди зібрані у пару. Після відмирання такі хвойнки відпадають укупі.","Якийсь невиразний шум іде по лісу, може, то вітер-{3} гонить його.","Спокійно стоять обіч дороги непорушні дуби-{4}, а берези-{5} вже давно звішали мало не до землі свої віти-{6}.","На дубах поліщуки-{7} влаштували справжні пасіки.","Метушаться бджоли-{8} над квітами рослин-{9}."],
+bank:["шатра","колонами","близнюки","пустунець","велетні","сестриці","сережки","бортники","трудівниці","медоносів"],
+acc:[["шатра"],["колонами"],["близнюки"],["пустунець"],["велетні"],["сестриці"],["сережки"],["бортники"],["трудівниці"],["медоносів"]]},
+{id:"a7b",type:"choice",num:0,ins:"Визнач синтаксичну роль.",qs:[{q:"Яку синтаксичну роль виконують дібрані слова?",o:["прикладка (різновид означення)","підмет","додаток","обставина"],a:0,why:"Вони називають предмет по-іншому й уточнюють його — це прикладки."}]}]},
+{e:"📝",n:"Складіть речення",ex:"Вправа 336",tasks:[
+{id:"a8",type:"choice",num:1,ins:"Спочатку визнач означуване слово в кожному словосполученні.",qs:[
+{q:"ріка Десна",o:["ріка","Десна"],a:0,why:"Прикладка — Десна."},
+{q:"письменник-гуманіст Олександр Довженко",o:["письменник-гуманіст","Олександр Довженко"],a:1,why:"При імені людини прикладка — загальна назва."},
+{q:"газета «Літературна Україна»",o:["«Літературна Україна»","газета"],a:1,why:"Прикладка — назва в лапках."},
+{q:"чебрець-трава",o:["трава","чебрець"],a:1,why:"Означуване — чебрець, прикладка — трава."},
+{q:"роман «Роксолана»",o:["роман","«Роксолана»"],a:0,why:"Прикладка — «Роксолана»."},
+{q:"журнал «Дніпро»",o:["«Дніпро»","журнал"],a:1,why:"Прикладка — «Дніпро»."},
+{q:"учений-мовознавець",o:["учений","мовознавець"],a:0,why:"Прикладка — мовознавець."},
+{q:"острів Зміїний",o:["острів","Зміїний"],a:0,why:"Прикладка — Зміїний."},
+{q:"гора Говерла",o:["Говерла","гора"],a:1,why:"Прикладка — Говерла."},
+{q:"поема «Гайдамаки»",o:["поема","«Гайдамаки»"],a:0,why:"Прикладка — «Гайдамаки»."},
+{q:"журнал «Древо пізнання»",o:["«Древо пізнання»","журнал"],a:1,why:"Прикладка — назва в лапках."},
+{q:"конкурс «Розумні, кмітливі, винахідливі»",o:["конкурс","«Розумні, кмітливі, винахідливі»"],a:0,why:"Прикладка — назва в лапках."}]},
+{id:"a8b",type:"write",ins:"Склади 2–3 речення з обраних словосполучень і визнач у них прикладку та синтаксичну роль означуваного слова.",f:[{p:"Твої речення:",s:"Річка Десна бере початок у Росії (означуване «річка» — підмет, «Десна» — прикладка). Ми читали роман «Роксолана» (означуване «роман» — додаток, «Роксолана» — прикладка)."}]}]},
+{e:"🔥",n:"Знайди помилку",ex:"Додаткове завдання",tasks:[{id:"x3",type:"choice",num:1,ins:"У кожному запитанні знайди речення з помилкою в написанні.",qs:[
+{q:"Де помилка?",o:["Ми читали оповідання «Федько-халамидник».","Журнал Дивослово цікавий.","Ресторан «Астур» відкрився вчора.","Торт «Київський» смачний."],a:1,why:"Назва журналу має бути в лапках: журнал «Дивослово»."},
+{q:"Де помилка?",o:["Гора Еверест найвища.","Вишиванка як символ України відома у світі.","Липа в якості лікарської рослини корисна.","Мій друг-спортсмен переміг."],a:2,why:"Суржик «в якості»; правильно: липа як лікарська рослина."},
+{q:"Де помилка?",o:["Львівський університет імені «Івана Франка».","Місто Львів старовинне.","Газета «День» вийшла.","Сусід-нечема знову шумить."],a:0,why:"Назву після слова «імені» в лапки не беремо."}]}]},
+{e:"🎯",n:"Перевірте написання назв",ex:"Вправа 337",tasks:[{id:"a9",type:"choice",num:1,ins:"Обери правильне пояснення написання виділеної прикладки.",qs:[
+{q:"Я жив колись у <b>готелі «Україна»</b>.",o:["у лапках: назва закладу","без лапок: є слово «імені»","без лапок: загальна назва"],a:0,why:"Назва закладу — в лапках."},
+{q:"Минулого року я скінчив навчання в <b>Київському університеті імені Тараса Шевченка</b>.",o:["у лапках: назва закладу","без лапок: є слово «імені»","без лапок: загальна назва"],a:1,why:"Назву після слова «імені» в лапки не беремо."},
+{q:"У Будинку вчителя відбувся <b>вечір пам’яті Василя Стуса</b>.",o:["у лапках: назва твору","без лапок: після слова «пам’яті»","у лапках: назва закладу"],a:1,why:"Після слів «імені, на ім’я, пам’яті» лапок немає."},
+{q:"Народ зберігав перекази й пісні про волелюбне Запорожжя <b>як символ боротьби</b> за національне визволення.",o:["прикладка зі словом «як» (у ролі кого?)","прикладка в лапках","прикладка з дефісом"],a:0,why:"Прикладка приєднується словом «як» і відповідає на питання «у ролі кого?»."},
+{q:"<b>Поема «Гайдамаки»</b> Тараса Шевченка вийшла окремою книжкою.",o:["у лапках: назва твору","без лапок: є слово «імені»","через дефіс"],a:0,why:"Назва твору — в лапках."},
+{q:"<b>Жіночий клуб «Берегиня»</b> став дуже популярним.",o:["у лапках: назва організації","без лапок: загальна назва","через дефіс"],a:0,why:"Назва організації — в лапках."},
+{q:"У театрі імені Миколи Куліша прем’єра <b>п’єси «97»</b>.",o:["у лапках: назва твору","без лапок: після слова «імені»","через дефіс"],a:0,why:"Назва п’єси — в лапках, а «імені Миколи Куліша» — без лапок."}]}]}
+];
+const TASKS=PAGES.flatMap(p=>p.tasks);const find=id=>TASKS.find(k=>k.id===id);
+let act=0;const drawStore={};
+const area=document.getElementById('lessonArea'),tabs=document.getElementById('subtabbar');
+const B=(a,k,x)=>`data-a="${a}" data-k="${k}" ${x||''}`;
+function rFind(k){const s=g(k.id),a=s.a||(s.a={}),d=s.d||(s.d={});
+ const okOf=(it,si)=>{const sel=Object.keys(a[si]||{}).filter(x=>a[si][x]).map(Number);return sel.length===it.a.length&&it.a.every(x=>sel.includes(x))};
+ const doneOf=si=>k.step?!!d[si]:!!s.done;
+ const row=(it,si)=>{const sel=a[si]||{},dn=doneOf(si),ok=dn&&okOf(it,si);
+  return `<div class="srow${dn?(ok?' correct':' wrong'):''}" style="display:block">${it.t.split(' ').map((w,i)=>{let c='tk';if(dn){c+=it.a.includes(i)&&sel[i]?' ok':(sel[i]?' bad':(it.a.includes(i)?' miss':''))}else if(sel[i])c+=' on';return `<button class="${c}" ${B('ft',k.id,'data-s="'+si+'" data-i="'+i+'"')} ${dn?'disabled':''}>${w}</button>`}).join('')}${dn?`<div class="fb ${ok?'ok':'bad'}" style="margin-top:8px">${it.why}</div>`:''}</div>`};
+ const N=k.items.length;
+ if(!k.step){const h=k.items.map(row).join('');if(!s.done)return h+`<button class="btn primary" ${B('chk',k.id)}>Перевірити</button>`;return h+`<button class="btn ghost" ${B('rst',k.id)}>Спробувати ще раз</button>`}
+ const i=s.i||0;
+ if(i>=N){const n=k.items.filter((it,j)=>okOf(it,j)).length;return `<div class="fb info">Правильно: ${n} з ${N} речень.</div><button class="btn ghost" ${B('rst',k.id)}>Пройти ще раз</button>`}
+ return `<div class="qprog">Речення ${i+1} з ${N}</div>`+row(k.items[i],i)+(d[i]?`<button class="btn primary" ${B('nx',k.id)}>${i===N-1?'Завершити':'Далі →'}</button>`:`<button class="btn primary" ${B('chk',k.id)}>Перевірити</button>`)}
+function rFill(k){const s=g(k.id),pl=s.pl||(s.pl={}),used=Object.values(pl);
+ const bl=n=>{const w=pl[n]!=null?k.bank[pl[n]]:'…';let c='blank';if(s.done)c+=pl[n]!=null&&k.acc[n].includes(w)?' ok':' bad';return `<button class="${c}" ${B('bl',k.id,'data-n="'+n+'"')} ${s.done?'disabled':''}>${w}</button>`};
+ let h=k.sents.map(x=>`<div class="srow" style="display:block;line-height:2.3;font-size:16px">${x.replace(/\{(\d+)\}/g,(_,n)=>bl(+n))}</div>`).join('');
+ h+=`<div class="bank">${k.bank.map((w,j)=>`<button class="chip${used.includes(j)?' dim':''}${s.sel===j?' sel':''}" ${B('bk',k.id,'data-j="'+j+'"')} ${s.done?'disabled':''}>${w}</button>`).join('')}</div>`;
+ if(!s.done)return h+`<button class="btn primary" ${B('chk',k.id)}>Перевірити</button>`;
+ const n=k.acc.filter((ac,i)=>pl[i]!=null&&ac.includes(k.bank[pl[i]])).length;
+ return h+`<div class="fb ${n==k.acc.length?'ok':'bad'}">Правильно: ${n} з ${k.acc.length}.${n<k.acc.length?'<br>Правильні слова: '+k.acc.map((ac,i)=>(i+1)+') '+ac[0]).join('; '):''}</div><button class="btn ghost" ${B('rst',k.id)}>Спробувати ще раз</button>`}
+function rSort(k){const s=g(k.id),a=s.a||(s.a={});
+ let h=k.items.map((it,i)=>`<div class="srow${s.done?(a[i]===it.c?' correct':' wrong'):''}"><span class="t">${it.t}</span><span>${k.cats.map((ct,j)=>`<button class="pill${a[i]===j?' on':''}" ${B('so',k.id,'data-i="'+i+'" data-j="'+j+'"')} ${s.done?'disabled':''}>${ct}</button>`).join('')}</span></div>`).join('');
+ if(!s.done)return h+`<button class="btn primary" ${B('chk',k.id)}>Перевірити</button>`;
+ const bad=k.items.filter((it,i)=>a[i]!==it.c),n=k.items.length-bad.length;
+ return h+`<div class="fb ${bad.length?'bad':'ok'}">Правильно: ${n} з ${k.items.length}.${bad.length?'<br>Виправ: '+bad.map(it=>it.t+' — '+k.cats[it.c]).join('; '):''}${k.note?'<br>'+k.note:''}</div><button class="btn ghost" ${B('rst',k.id)}>Спробувати ще раз</button>`}
+function rMatch(k){const s=g(k.id),m=s.m||(s.m={}),used=Object.values(m);
+ const L=k.pairs.map((p,i)=>`<button class="it${s.act===i?' sel':''}${s.done?(m[i]===i?' correct':' wrong'):''}" ${B('ml',k.id,'data-i="'+i+'"')} ${s.done?'disabled':''}>${p[0]}${m[i]!=null?' → '+k.pairs[m[i]][1]:''}</button>`).join('');
+ const R=k.order.map(j=>`<button class="it${used.includes(j)?' dim':''}" ${B('mr',k.id,'data-j="'+j+'"')} ${s.done?'disabled':''}>${k.pairs[j][1]}</button>`).join('');
+ let h=`<div class="cols"><div>${L}</div><div>${R}</div></div>`;
+ if(!s.done)return h+`<button class="btn primary" ${B('chk',k.id)}>Перевірити</button>`;
+ const n=k.pairs.filter((p,i)=>m[i]===i).length;
+ return h+`<div class="fb ${n==k.pairs.length?'ok':'bad'}">Правильно: ${n} з ${k.pairs.length}.<br>${k.pairs.map(p=>p[0]+' '+p[1]).join('; ')}. Прикладка — друге слово в кожній парі.</div><button class="btn ghost" ${B('rst',k.id)}>Спробувати ще раз</button>`}
+function rCom(k){const s=g(k.id),a=s.a||(s.a={});
+ let h=k.items.map((str,si)=>{const tk=str.split(' '),key=tk.map(t=>t.endsWith(',')),sel=a[si]||(a[si]={}),ok=s.done&&tk.every((_,i)=>!!sel[i]===key[i]);
+  return `<div class="srow${s.done?(ok?' correct':' wrong'):''}" style="display:block">${tk.map((t,i)=>`<button class="tk${sel[i]?' on':''}" ${B('cm',k.id,'data-s="'+si+'" data-i="'+i+'"')} ${s.done?'disabled':''}>${t.replace(/,$/,'')}${sel[i]?',':''}</button>`).join('')}${s.done&&!ok?`<div class="fb info">${str}</div>`:''}</div>`}).join('');
+ if(!s.done)return h+`<button class="btn primary" ${B('chk',k.id)}>Перевірити</button>`;
+ return h+`<button class="btn ghost" ${B('rst',k.id)}>Спробувати ще раз</button>`}
+function rCh(k){const s=g(k.id),a=s.a||(s.a={});
+ let h=k.qs.map((q,qi)=>{const r=a[qi];
+  return `<div style="margin-bottom:18px"><div class="qtext" style="font-size:16px;margin-bottom:10px">${k.num?(qi+1)+'. ':''}${q.q}</div>${q.o.map((o,i)=>`<button class="it${r!=null?(i===q.a?' correct':(i===r?' wrong':' dim')):''}" ${B('ch',k.id,'data-q="'+qi+'" data-i="'+i+'"')} ${r!=null?'disabled':''}>${LET[i]}. ${o}</button>`).join('')}${r!=null?`<div class="fb ${r===q.a?'ok':'bad'}">${r===q.a?'Правильно. ':'Неправильно. '}${q.why}</div>`:''}</div>`}).join('');
+ if(Object.keys(a).length===k.qs.length){const n=k.qs.filter((q,i)=>a[i]===q.a).length;h+=`<div class="fb info">Результат: ${n} з ${k.qs.length}</div><button class="btn ghost" ${B('rst',k.id)}>Пройти ще раз</button>`}
+ return h}
+function rWr(k){const s=g(k.id),v=s.v||(s.v={});
+ let h=k.f.map((f,i)=>`<div class="qprog" style="margin:12px 0 6px">${f.p}</div><textarea class="ta" rows="3" ${B('in',k.id,'data-i="'+i+'"')}>${v[i]||''}</textarea>${s.show?`<div class="fb info"><b>Зразок:</b> ${f.s}</div>`:''}`).join('');
+ return h+(s.show?'':`<button class="btn primary" ${B('show',k.id)}>Показати зразок</button>`)}
+
+const R={find:rFind,fill:rFill,sort:rSort,match:rMatch,commas:rCom,choice:rCh,write:rWr};
+function render(){
+ const p=PAGES[act];
+ tabs.innerHTML=PAGES.map((x,i)=>`<button class="tab ${i===act?'active':''}" data-t="${i}"><span class="dot">${x.e}</span>${i+1}</button>`).join('');
+ area.innerHTML=`<div class="pghead">${p.e} Завдання ${act+1}. ${p.n}</div>`+p.tasks.map(k=>`<div class="card"><p class="section-intro" style="margin-bottom:14px">${k.ins}</p>${R[k.type](k)}</div>`).join('');
+ if(window.resizeDrawCanvas)requestAnimationFrame(()=>requestAnimationFrame(()=>{resizeDrawCanvas();setDrawingSnapshot(drawStore[act]||null)}));
+}
+tabs.addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(!b)return;if(window.getDrawingSnapshot)drawStore[act]=getDrawingSnapshot();act=+b.dataset.t;render();window.scrollTo(0,0)});
+area.addEventListener('input',e=>{const b=e.target.closest('[data-a="in"]');if(b)(g(b.dataset.k).v||(g(b.dataset.k).v={}))[+b.dataset.i]=b.value});
+area.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled||b.dataset.a==='in')return;
+ const d=b.dataset,s=g(d.k),a=d.a;
+ if(a==='ft'||a==='cm'){const x=(s.a||(s.a={}));const y=x[+d.s]||(x[+d.s]={});y[+d.i]=!y[+d.i]}
+ else if(a==='so'){(s.a||(s.a={}))[+d.i]=+d.j}
+ else if(a==='ml'){s.act=+d.i}
+ else if(a==='mr'){if(s.act==null)return;const m=s.m||(s.m={});for(const i in m)if(m[i]===+d.j)delete m[i];m[s.act]=+d.j;s.act=null}
+ else if(a==='ch'){(s.a||(s.a={}))[+d.q]=+d.i}
+ else if(a==='bk'){if(Object.values(s.pl||{}).includes(+d.j))return;s.sel=s.sel===+d.j?null:+d.j}
+ else if(a==='bl'){const pl=s.pl||(s.pl={});if(s.sel!=null){pl[+d.n]=s.sel;s.sel=null}else delete pl[+d.n]}
+ else if(a==='nx'){s.i=(s.i||0)+1}
+ else if(a==='chk'){if(find(d.k).step)(s.d||(s.d={}))[s.i||0]=true;else s.done=true}
+ else if(a==='show')s.show=true;
+ else if(a==='rst')delete st[d.k];
+ render()});
+render();
+
+// МАЛЮВАННЯ ПОВЕРХ ЕКРАНА (режим "учитель"), чорнило кожної вкладки/питання зберігається окремо
+(function(){
+  const canvas=document.getElementById('drawCanvas'),ctx=canvas.getContext('2d');
+  const toggleBtn=document.getElementById('drawToggleBtn'),toolbar=document.getElementById('drawToolbar'),toolbarMini=document.getElementById('drawToolbarMini');
+  const xthinBtn=document.getElementById('xthinBtn'),thinBtn=document.getElementById('thinBtn'),thickBtn=document.getElementById('thickBtn'),eraserBtn=document.getElementById('eraserBtn');
+  const swatches=document.querySelectorAll('.swatch');
+  let drawingActive=false,isDrawing=false,currentColor="#F5304A",currentWidth=4,eraserMode=false,lastX=0,lastY=0,activePointerId=null;
+  window.isDrawingActive=()=>drawingActive;
+  function resizeCanvas(){
+    const w=document.documentElement.clientWidth,h=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight,window.innerHeight);
+    const prev=document.createElement('canvas');prev.width=canvas.width;prev.height=canvas.height;
+    if(canvas.width&&canvas.height)prev.getContext('2d').drawImage(canvas,0,0);
+    canvas.width=w*devicePixelRatio;canvas.height=h*devicePixelRatio;
+    canvas.style.width=w+'px';canvas.style.height=h+'px';
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);ctx.lineCap='round';ctx.lineJoin='round';
+    if(prev.width&&prev.height)ctx.drawImage(prev,0,0,prev.width/devicePixelRatio,prev.height/devicePixelRatio);
+  }
+  window.resizeDrawCanvas=resizeCanvas;resizeCanvas();
+  window.addEventListener('resize',resizeCanvas);window.addEventListener('orientationchange',resizeCanvas);
+  if(window.ResizeObserver)new ResizeObserver(()=>resizeCanvas()).observe(document.body);
+  window.clearDrawing=()=>ctx.clearRect(0,0,canvas.width,canvas.height);
+  window.getDrawingSnapshot=()=>{try{return(canvas.width&&canvas.height)?canvas.toDataURL('image/png'):null;}catch(e){return null;}};
+  window.setDrawingSnapshot=function(url){
+    ctx.clearRect(0,0,canvas.width,canvas.height);if(!url)return;
+    const img=new Image();img.onload=()=>ctx.drawImage(img,0,0,canvas.width/devicePixelRatio,canvas.height/devicePixelRatio);img.src=url;
+  };
+  function setActive(on){
+    drawingActive=on;toolbar.classList.toggle('show',on);toolbar.classList.remove('mini');toolbarMini.classList.remove('show');
+    toggleBtn.classList.toggle('on',on);toggleBtn.title=on?'Вимкнути малювання':'Малювати';
+  }
+  toggleBtn.addEventListener('click',()=>setActive(!drawingActive));
+  document.getElementById('minimizeBtn').addEventListener('click',()=>{toolbar.classList.remove('show');toolbar.classList.add('mini');toolbarMini.classList.add('show');});
+  toolbarMini.addEventListener('click',()=>{toolbar.classList.remove('mini');toolbar.classList.add('show');toolbarMini.classList.remove('show');});
+  swatches.forEach(sw=>sw.addEventListener('click',()=>{
+    swatches.forEach(s=>s.classList.remove('selected'));sw.classList.add('selected');
+    currentColor=sw.dataset.color;eraserMode=false;eraserBtn.classList.remove('selected');
+  }));
+  function setW(btn,w){btn.addEventListener('click',()=>{currentWidth=w;[xthinBtn,thinBtn,thickBtn].forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');});}
+  setW(xthinBtn,2);setW(thinBtn,5);setW(thickBtn,11);
+  eraserBtn.addEventListener('click',()=>{eraserMode=!eraserMode;eraserBtn.classList.toggle('selected',eraserMode);});
+  document.getElementById('clearBtn').addEventListener('click',()=>window.clearDrawing());
+  function pos(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,pressure:e.pressure||.5};}
+  const onControls=e=>!!(e.target.closest&&e.target.closest('#drawToolbar, #drawToolbarMini, #drawToggleBtn'));
+  document.addEventListener('pointerdown',e=>{
+    if(!drawingActive||e.pointerType!=='pen'||onControls(e))return;
+    e.preventDefault();isDrawing=true;activePointerId=e.pointerId;const p=pos(e);lastX=p.x;lastY=p.y;
+  },{passive:false});
+  document.addEventListener('pointermove',e=>{
+    if(!drawingActive||!isDrawing||e.pointerId!==activePointerId)return;
+    e.preventDefault();const p=pos(e);
+    ctx.globalCompositeOperation=eraserMode?'destination-out':'source-over';ctx.strokeStyle=currentColor;
+    ctx.lineWidth=(eraserMode?currentWidth*3:currentWidth)*(0.6+(p.pressure||.5)*.8);
+    ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p.x,p.y);ctx.stroke();lastX=p.x;lastY=p.y;
+  },{passive:false});
+  function stop(e){if(e&&e.pointerId!==undefined&&e.pointerId!==activePointerId)return;isDrawing=false;activePointerId=null;}
+  document.addEventListener('pointerup',stop);document.addEventListener('pointercancel',stop);
+  document.addEventListener('touchmove',e=>{if(drawingActive&&e.touches&&e.touches[0]&&e.touches[0].touchType==='stylus')e.preventDefault();},{passive:false});
+})();
+
+
+
+</script>
+</body>
+</html>
