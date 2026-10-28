@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Написання прикладок · Урок</title>
+<title>Правопис прикладок · Урок</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#D3F0F2;--bg-soft:#E9F8F9;--card:#FFFFFF;--ink:#0F2238;--ink-soft:#5B7690;--line:rgba(15,34,56,.1);
---c1-a:#4FD0D8;--c1-b:#0E7C8C;--c1-sh:rgba(14,124,140,.4);--c3-b:#17A863;--c2-b:#EF6A66;--terra:#EF6A66;--amber:#C56A0E;
+:root{--bg:#FFE9DC;--bg-soft:#FFF4EC;--card:#FFFFFF;--ink:#0F2238;--ink-soft:#5B7690;--line:rgba(15,34,56,.1);
+--c1-a:#FFB27A;--c1-b:#E8590C;--c1-sh:rgba(232,89,12,.4);--c3-b:#17A863;--c2-b:#EF6A66;--terra:#EF6A66;--amber:#C56A0E;
 --correct-bg:#E2F6EA;--correct-ink:#128A54;--wrong-bg:#FBE6E1;--wrong-ink:#C8442B;}
 *{box-sizing:border-box}html,body{margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;padding:28px 16px 64px;position:relative}
@@ -23,7 +23,7 @@ h1 .hl{color:var(--c1-b)}
 .tabbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:34px}
 .tab{padding:10px 15px 10px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.9);background:#fff;color:var(--ink-soft);font-family:'Manrope',sans-serif;font-weight:800;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 10px 20px -12px rgba(15,34,56,.5);transition:transform .13s ease}
 .tab:hover{transform:translateY(-2px)}
-.tab .dot{width:22px;height:22px;border-radius:8px;background:rgba(14,124,140,.15);color:var(--c1-b);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.tab .dot{width:22px;height:22px;border-radius:8px;background:rgba(232,89,12,.15);color:var(--c1-b);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
 .tab.active{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-color:transparent;box-shadow:0 12px 22px -8px var(--c1-sh)}
 .tab.active .dot{background:rgba(255,255,255,.28);color:#fff}
 .card{background:var(--card);border-radius:28px;padding:40px 24px 28px;box-shadow:0 20px 44px -28px rgba(15,34,56,.5)}
@@ -41,7 +41,7 @@ h1 .hl{color:var(--c1-b)}
 .subj .lbl{position:absolute;left:50%;transform:translateX(-50%);top:-1.45em;font-size:.5em;font-weight:800;letter-spacing:.02em;color:var(--c3-b);white-space:nowrap}
 .cardgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:560px){.cardgrid{grid-template-columns:1fr}}
-.flip{perspective:1200px;height:190px;cursor:pointer;position:relative}
+.flip{perspective:1200px;height:170px;cursor:pointer;position:relative}
 .flip-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
 .flip.open .flip-inner{transform:rotateY(180deg)}
 .flip-face{position:absolute;inset:0;border-radius:20px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center}
@@ -57,7 +57,7 @@ h1 .hl{color:var(--c1-b)}
 .opt{display:flex;align-items:center;gap:13px;text-align:left;width:100%;padding:9px 14px 9px 9px;border-radius:18px;border:none;background:var(--bg-soft);cursor:pointer;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:500;color:var(--ink);transition:transform .12s ease}
 .opt:hover{transform:translateY(-1px)}
 .opt[disabled]{cursor:default}.opt[disabled]:hover{transform:none}
-.tile{position:relative;width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--c1-b);background:linear-gradient(150deg,rgba(255,255,255,.8),rgba(14,124,140,.2));border:1px solid rgba(255,255,255,.7)}
+.tile{position:relative;width:30px;height:30px;min-width:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--c1-b);background:linear-gradient(150deg,rgba(255,255,255,.8),rgba(232,89,12,.2));border:1px solid rgba(255,255,255,.7)}
 .badge{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff}
 .badge.ok{background:var(--c3-b)}.badge.no{background:var(--c2-b)}
 .opt.correct{background:var(--correct-bg)}.opt.wrong{background:var(--wrong-bg)}.opt.dim{opacity:.5}
@@ -99,15 +99,64 @@ footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft);
 .tool-btn.selected{background:var(--c1-b);color:#fff;transform:scale(1.06)}
 .tool-sep{width:1px;height:22px;background:rgba(15,34,56,.15)}
 @media(max-width:480px){#drawToolbar{max-width:94vw;overflow-x:auto;padding:8px 13px;gap:9px}.swatch{width:21px;height:21px}.tool-btn{width:30px;height:30px}}
+
+.card{padding:26px 22px;margin-bottom:16px}
+.lbl-card{font-family:'Manrope',sans-serif;font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--c1-b);margin-bottom:10px}
+.th p{font-size:15.5px;line-height:1.65;margin:0 0 12px}
+.th ul{margin:0 0 12px;padding-left:20px;line-height:1.7;font-size:15px}
+.memo{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff;border-radius:20px;padding:15px 18px;font-weight:700;font-size:14.5px;line-height:1.5;box-shadow:0 12px 22px -12px var(--c1-sh)}
+.it{display:block;width:100%;text-align:left;padding:12px 14px;border-radius:16px;border:none;background:var(--bg-soft);font:500 15px Inter,sans-serif;color:var(--ink);cursor:pointer;margin-bottom:8px}
+.it.sel{box-shadow:inset 0 0 0 2px var(--c1-b);background:#fff}.it.correct{background:var(--correct-bg)}.it.wrong{background:var(--wrong-bg)}.it.miss{outline:2px dashed var(--correct-ink)}.it.dim{opacity:.5}.it[disabled]{cursor:default}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 12px;border-radius:16px;background:var(--bg-soft);margin-bottom:8px}
+.srow .t{font-weight:600;font-size:15px}.srow.correct{background:var(--correct-bg)}.srow.wrong{background:var(--wrong-bg)}
+.pill{padding:7px 12px;border-radius:999px;border:none;background:#fff;font:800 12px Manrope,sans-serif;color:var(--ink-soft);cursor:pointer;margin:2px}
+.pill.on{background:linear-gradient(155deg,var(--c1-a),var(--c1-b));color:#fff}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fb{margin-top:12px;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;line-height:1.55}
+.fb.ok{background:var(--correct-bg);color:var(--correct-ink)}.fb.bad{background:var(--wrong-bg);color:var(--wrong-ink)}.fb.info{background:var(--bg-soft);color:var(--ink)}
+.ta{width:100%;padding:12px 14px;border-radius:14px;border:2px solid transparent;background:var(--bg-soft);font:500 15px Inter,sans-serif;color:var(--ink);resize:vertical;margin-bottom:6px}
+.tk{display:inline-block;padding:6px 7px;border-radius:10px;border:none;background:#fff;font:600 16px Inter,sans-serif;color:var(--ink);cursor:pointer;margin:3px 2px}
+.tk.ok{background:var(--correct-bg);color:var(--correct-ink);box-shadow:inset 0 0 0 2px var(--correct-ink)}.tk.bad{background:var(--wrong-bg);color:var(--wrong-ink)}.tk.miss{outline:2px dashed var(--correct-ink)}.tk.on{box-shadow:inset 0 0 0 2px var(--c1-b)}
+.btn{margin-top:10px}.tabbar{margin-bottom:22px}
+
+h1,.section-title,.pghead{color:#5C2A0F}
+.pghead{font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;line-height:1.25;margin:0 0 14px}
+.pghead small{display:block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--c1-b);margin-top:4px}
+h1{font-size:clamp(22px,5vw,34px)}
+.blank{display:inline-block;min-width:68px;padding:2px 10px;border-radius:10px;border:none;background:#fff;box-shadow:inset 0 0 0 2px var(--c1-b);font:700 15px Inter,sans-serif;color:var(--c1-b);cursor:pointer;margin:0 2px}
+.blank.ok{background:var(--correct-bg);color:var(--correct-ink);box-shadow:inset 0 0 0 2px var(--correct-ink)}.blank.bad{background:var(--wrong-bg);color:var(--wrong-ink);box-shadow:inset 0 0 0 2px var(--wrong-ink)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{padding:10px 14px;border-radius:14px;border:none;background:var(--bg-soft);font:600 15px Inter,sans-serif;color:var(--ink);cursor:pointer}
+.chip.sel{box-shadow:inset 0 0 0 2px var(--c1-b);background:#fff}.chip.dim{opacity:.4}
+
+.pk{background:#FFC9A0;color:#5C2400;border-radius:7px;padding:1px 7px;font-weight:800}
+.rule{font-size:16px;line-height:1.65;margin:0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media(max-width:560px){.pair{grid-template-columns:1fr}}
+.pc{border-radius:20px;padding:16px 18px}
+.pc h4{margin:0 0 10px;font:800 13px Manrope,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.pc.g{background:#E6F8EE}.pc.g h4{color:#128A54}
+.pc.v{background:#FFE8D6}.pc.v h4{color:#C2410C}
+.pc.w{background:#FDECEC}.pc.w h4{color:#D8393E}
+.ex{font:700 18px Manrope,sans-serif;padding:6px 0;line-height:1.4;color:#5C2400}
+.ex small{display:block;font:500 13px Inter,sans-serif;color:var(--ink-soft)}
+.swap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:12px 16px;border-radius:18px;background:var(--bg-soft);margin-bottom:10px;font:700 18px Manrope,sans-serif;color:#5C2400}
+.swap b{color:var(--c1-b);font-size:22px}.swap span:last-child{text-align:right}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:10px;font:800 12px Manrope,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.cols2 span:first-child{color:#128A54}.cols2 span:last-child{color:#C2410C;text-align:right}
+.note{background:#FFF6D9;border-radius:20px;padding:16px 18px;font-size:15px;line-height:1.6}
+.note h4{margin:0 0 6px;font:800 15px Manrope,sans-serif;color:#7A5200}
+.big{font:700 clamp(19px,4vw,24px)/1.6 Manrope,sans-serif;text-align:center;padding:26px 16px;background:var(--bg-soft);border-radius:20px;margin:14px 0;color:#5C2400}
+.sub{font:800 17px Manrope,sans-serif;color:#5C2A0F;margin:0 0 10px}
+.card+.card{margin-top:0}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><div class="kicker">Прикладка · 8 клас</div><div class="kicker" style="opacity:.4">Синтаксис</div></div>
-  <h1>Написання <span class="hl">прикладок</span></h1>
-  <div class="topictoggle" id="topictoggle"></div>
+  <div class="topbar"><div class="kicker">Правопис прикладок · 8 клас</div><div class="kicker" style="opacity:.4">Синтаксис</div></div>
+  <h1>При<span class="hl">кладка</span></h1>
   <div class="tabbar" id="subtabbar"></div>
-  <div class="cardwrap"><div class="qflag" id="qFlag"><div>Разом чи окремо? З дефісом?</div><div>Дивись на порядок слів і значення</div></div><div class="card" id="lessonArea"></div></div>
+  <div id="lessonArea"></div>
   <footer>@movoznavka</footer>
 </div>
 <canvas id="drawCanvas"></canvas>
@@ -130,130 +179,48 @@ footer{text-align:center;margin-top:22px;font-size:12.5px;color:var(--ink-soft);
 <button id="drawToolbarMini" title="Розгорнути панель"><svg viewBox="0 0 24 24" fill="none"><path d="M6 15L12 9L18 15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 
 <script>
-/* ЯК ДОДАТИ МАТЕРІАЛ: увесь контент — в TOPICS. Правило = type:"cards" (картки-фліпи),
-   Вправи = type:"quiz" (opts — варіанти, a — індекс правильного). Щоб додати картку
-   чи питання, скопіюй існуючий об'єкт у масиві cards / questions і зміни текст. */
-function ex(w){return {word:w};}
-function S(t){return '<span class="s">'+t+'</span>';}
-function M(t){return '<span class="m">'+t+'</span>';}
-const TOPICS = {
-  rule: { label:"Правило", subs:[
-    { id:"r1", tab:"Дефіс чи окремо", dot:"1", type:"cards", title:"Пишемо з дефісом або окремо",
-      intro:"Написання прикладки залежить від порядку слів і від того, що вона означає. Прикладку виділено зеленим, означуване слово — червоним. Натискай на картки, щоб побачити приклади.",
-      cards:[
-        {rule:"Спочатку родове, потім видове поняття", desc:"ширше → вужче: пишемо окремо", examples:[ex(`${M('риба')} ${S('карась')}`),ex(`${M('гриб')} ${S('мухомор')}`)]},
-        {rule:"Спочатку видове, потім родове поняття", desc:"вужче → ширше: пишемо через дефіс", examples:[ex(`${M('карась')}-${S('риба')}`),ex(`${M('мухомор')}-${S('гриб')}`)]},
-        {rule:"Означуване слово входить до складу терміна", desc:"пишемо через дефіс", examples:[ex(`${M('гриб')}-${S('паразит')}`),ex(`${M('жук')}-${S('короїд')}`),ex(`${M('заєць')}-${S('русак')}`),ex(`${M('льон')}-${S('довгунець')}`)]},
-        {rule:"Спочатку загальна, потім власна назва", desc:"пишемо окремо", examples:[ex(`${M('ріка')} ${S('Дунай')}`),ex(`${M('гора')} ${S('Еверест')}`)]},
-        {rule:"Спочатку власна, потім загальна назва", desc:"пишемо через дефіс", examples:[ex(`${M('Дунай')}-${S('ріка')}`),ex(`${M('Еверест')}-${S('гора')}`)]}
-      ]},
-    { id:"r2", tab:"Прикладки, близькі до прикметників", dot:"2", type:"cards", title:"Прикладки, близькі до прикметників, і слова, що міняються місцями",
-      intro:"Якщо прикладка за значенням близька до прикметника, її написання залежить від місця щодо означуваного слова. Якщо ж іменники можуть мінятися місцями, пишемо через дефіс.",
-      cards:[
-        {rule:"Прикладка стоїть перед означуваним словом", desc:"пишемо окремо (хвалько = хвалькуватий)", examples:[ex(`${S('хвалько')} ${M('Павло')}`),ex(`${S('нечема')} ${M('сусід')}`)]},
-        {rule:"Прикладка стоїть після означуваного слова", desc:"пишемо через дефіс", examples:[ex(`${M('Павло')}-${S('хвалько')}`),ex(`${M('сусід')}-${S('нечема')}`)]},
-        {rule:"Іменники можуть мінятися місцями", desc:"означальну роль виконує другий іменник (вік, фах, національність, заняття): дефіс", examples:[ex(`${M('дівчина')}-${S('вірменка')}`),ex(`${M('вірменка')}-${S('дівчина')}`),ex(`${M('учитель')}-${S('фізик')}`),ex(`${M('поет')}-${S('початківець')}`)]},
-        {rule:"Загальноприйняті в побуті назви людей", desc:"пишемо без дефіса", examples:[ex(`${S('добродій')} ${M('Степан')}`),ex(`${S('добродій')} ${M('лікар')}`),ex(`${S('пан')} ${M('професор')}`)]}
-      ]},
-    { id:"r3", tab:"Прикладка зі словом «як»", dot:"3", type:"cards", title:"Прикладка зі словом «як»",
-      intro:"Прикладка може приєднуватися до означуваного слова за допомогою слова <b>як</b>. Тоді вона відповідає на питання <b>у ролі кого?</b> Уникай суржикової конструкції <b>«у якості когось»</b>.",
-      cards:[
-        {rule:"Прикладка зі словом як", desc:"у ролі кого?", examples:[ex(`${M('Вишиванка')} як ${S('символ України')} відома далеко за її межами.`)]},
-        {rule:"Правильно", desc:"вживаємо «як»", examples:[ex(`${M('Липа')} як ${S('лікарська рослина')} дуже корисна.`)]},
-        {rule:"Неправильно", desc:"суржик: «в якості»", examples:[ex(`Липа в якості лікарської рослини дуже корисна.`)]}
-      ]},
-    { id:"r4", tab:"Лапки", dot:"4", type:"cards", title:"Пишемо в лапках",
-      intro:"Назви газет, журналів, установ, творів мистецтва, продуктів пишемо <b>з великої літери і в лапках</b>. Прикладки, що приєднуються словами <b>імені, на ім'я, пам'яті</b>, у лапки не беремо.",
-      cards:[
-        {rule:"Газети, журнали", desc:"з великої літери, у лапках", examples:[ex(`${M('журнал')} ${S('«Дивослово»')}`)]},
-        {rule:"Установи", desc:"заводи, ресторани, заклади", examples:[ex(`${M('завод')} ${S('«Арсенал»')}`),ex(`${M('ресторан')} ${S('«Астур»')}`)]},
-        {rule:"Твори мистецтва", desc:"оповідання, повісті, картини", examples:[ex(`${M('оповідання')} ${S('«Федько-халамидник»')}`)]},
-        {rule:"Продукти", desc:"торти, цукерки, масло", examples:[ex(`${M('торт')} ${S('«Київський»')}`)]},
-        {rule:"Слова імені, на ім'я, пам'яті", desc:"назву після них у лапки не беремо", examples:[ex(`Львівський національний університет імені І. Франка`)]}
-      ]}
-  ]}
-};
-const LETTERS=["А","Б","В","Г","Д","Е"];
-const TOPIC_ORDER=["rule"];
-let activeTopic="rule",activeSub=0,quizIdx=0,quizAnswers={};
-const topictoggle=document.getElementById('topictoggle'),subtabbar=document.getElementById('subtabbar'),lessonArea=document.getElementById('lessonArea');
-function resetNav(){activeSub=0;quizIdx=0;quizAnswers={};}
-function resetQuiz(){quizIdx=0;quizAnswers={};}
-function currentSection(){return TOPICS[activeTopic].subs[activeSub];}
-const drawStore={};
-function sectionKey(){let k=activeTopic+'__'+activeSub;if(currentSection().type==="quiz")k+='__q'+quizIdx;return k;}
-function saveCurrentDrawing(){if(window.getDrawingSnapshot)drawStore[sectionKey()]=window.getDrawingSnapshot();}
-function restoreCurrentDrawing(){if(window.setDrawingSnapshot)window.setDrawingSnapshot(drawStore[sectionKey()]||null);}
 
-function renderTopics(){
-  if(TOPIC_ORDER.length<2){topictoggle.style.display="none";return;}
-  topictoggle.innerHTML=TOPIC_ORDER.map(k=>`<button class="${k===activeTopic?'active':''}" data-key="${k}">${TOPICS[k].label}</button>`).join('');
-  topictoggle.querySelectorAll('button').forEach(b=>attachTapToggle(b,()=>{saveCurrentDrawing();activeTopic=b.dataset.key;resetNav();renderAll();}));
+const P=s=>'<span class="pk">'+s+'</span>';
+const ex=a=>a.map(x=>`<div class="ex">${x}</div>`).join('');
+const pair=(a,b,ta,tb)=>`<div class="pair"><div class="pc g"><h4>🟢 ${ta||'Окремо'}</h4>${ex(a)}</div><div class="pc v"><h4>🟣 ${tb||'Через дефіс'}</h4>${ex(b)}</div></div>`;
+const swap=(a,b)=>`<div class="swap"><span>${a}</span><b>⇄</b><span>${b}</span></div>`;
+const hdr=`<div class="cols2"><span>🟢 Окремо</span><span>🟣 Через дефіс</span></div>`;
+const TABS=[
+{tab:"Родова й видова назва",e:"🔎",t:"Пишемо окремо чи через дефіс?",html:`
+<div class="card"><p class="rule">Якщо спочатку стоїть <b>родова (ширша) назва</b>, а потім <b>видова (конкретніша)</b> — пишемо окремо. Якщо навпаки — через дефіс.</p>
+${pair(['риба '+P('карась'),'гриб '+P('мухомор')],['карась-'+P('риба'),'мухомор-'+P('гриб')])}</div>
+<div class="note"><h4>📌 Виняток</h4>Якщо прикладка входить до складу терміна, пишемо через дефіс:<div class="ex" style="margin-top:6px">гриб-${P('паразит')}, жук-${P('короїд')}, заєць-${P('русак')}, заєць-${P('біляк')}, льон-${P('довгунець')}.</div></div>`},
+{tab:"Загальна та власна назва",e:"📍",t:"Порядок слів має значення",html:`
+<div class="card"><p class="rule">Якщо спочатку стоїть <b>загальна назва</b>, а потім <b>власна</b> — пишемо окремо. Якщо спочатку власна, а потім загальна — через дефіс.</p>
+<div style="margin-top:16px">${hdr}${swap('ріка '+P('Дунай'),P('Дунай')+'-ріка')}${swap('гора '+P('Еверест'),P('Еверест')+'-гора')}</div></div>
+<div class="memo">💡 Запам’ятай:<br>Загальна назва + власна назва → окремо.<br>Власна назва + загальна назва → дефіс.</div>`},
+{tab:"Прикладка характеризує особу",e:"👤",t:"Коли прикладка схожа на прикметник?",html:`
+<div class="card"><p class="rule">Якщо прикладку можна замінити прикметником, її написання залежить від порядку слів.</p>
+${pair([P('хвалько')+' Павло<small>→ хвалькуватий Павло</small>',P('нечема')+' сусід<small>→ нечемний сусід</small>'],['Павло-'+P('хвалько'),'сусід-'+P('нечема')])}</div>
+<div class="card"><p class="sub">👥 Назви за фахом, віком, національністю</p><p class="rule" style="margin-bottom:12px">Якщо обидва іменники можуть мінятися місцями, а другий характеризує перший, пишемо через дефіс.</p>
+${swap('дівчина-'+P('вірменка'),'вірменка-'+P('дівчина'))}${swap('учитель-'+P('фізик'),'фізик-'+P('учитель'))}${swap('поет-'+P('початківець'),'початківець-'+P('поет'))}</div>
+<div class="note"><h4>📌 Зверни увагу!</h4>Загальноприйняті ввічливі назви людей пишемо окремо:<div class="ex" style="margin-top:6px">${P('добродій')} Степан, ${P('добродій')} лікар, ${P('пан')} професор.</div></div>`},
+{tab:"Прикладка зі словом «як»",e:"💬",t:"Прикладка зі словом «як»",html:`
+<div class="card"><p class="rule">Прикладка може приєднуватися за допомогою слова <b>як</b>. Якщо вона означає <b>«у ролі кого?», «у ролі чого?»</b>, комами її не відокремлюємо.</p>
+<div class="big">Вишиванка ${P('як символ України')} відома далеко за її межами.</div>
+<p class="rule" style="text-align:center">Вишиванка відома в ролі чого? → <b>символу України</b>.</p></div>
+<div class="card"><p class="sub">⚠️ Говорімо правильно!</p><div class="pair" style="margin-top:0"><div class="pc g"><h4>✅ Правильно</h4><div class="ex">Липа ${P('як лікарська рослина')} дуже корисна.</div></div><div class="pc w"><h4>❌ Неправильно</h4><div class="ex">Липа в якості лікарської рослини дуже корисна.</div></div></div></div>
+<div class="memo">💡 Запам’ятай: замість «у якості» вживаємо «як».</div>`},
+{tab:"Прикладки в лапках",e:"📖",t:"Коли використовуємо лапки?",html:`
+<div class="card"><p class="rule">Назви газет, журналів, установ, творів мистецтва, підприємств і продуктів пишемо <b>з великої літери та в лапках</b>.</p>
+<div class="pair"><div class="pc v"><h4>У лапках</h4>${ex(['📰 журнал '+P('«Дивослово»'),'🏭 завод '+P('«Арсенал»'),'🍽️ ресторан '+P('«Астур»'),'📚 оповідання '+P('«Федько-халамидник»'),'🎂 торт '+P('«Київський»')])}</div>
+<div class="pc g"><h4>Без лапок</h4><p style="margin:0 0 8px;font-size:14.5px;line-height:1.5">Назви, що приєднуються словами <b>імені, на ім’я, пам’яті</b>, у лапки не беремо.</p><div class="ex">🎓 Львівський національний університет імені І. Франка.</div></div></div></div>`}
+];
+let act=0;const drawStore={};
+const area=document.getElementById('lessonArea'),tabs=document.getElementById('subtabbar');
+function render(){
+ const t=TABS[act];
+ tabs.innerHTML=TABS.map((x,i)=>`<button class="tab ${i===act?'active':''}" data-t="${i}"><span class="dot">${i+1}</span>${x.tab}</button>`).join('');
+ area.innerHTML=`<div class="pghead">${t.e} ${t.t}</div>`+t.html;
+ if(window.resizeDrawCanvas)requestAnimationFrame(()=>requestAnimationFrame(()=>{resizeDrawCanvas();setDrawingSnapshot(drawStore[act]||null)}));
 }
-function renderSubs(){
-  const subs=TOPICS[activeTopic].subs;
-  subtabbar.innerHTML=subs.map((s,i)=>`<button class="tab ${i===activeSub?'active':''}" data-i="${i}"><span class="dot">${s.dot}</span>${s.tab}</button>`).join('');
-  subtabbar.querySelectorAll('.tab').forEach(b=>attachTapToggle(b,()=>{saveCurrentDrawing();activeSub=+b.dataset.i;resetQuiz();renderSubs();renderContent();}));
-}
-function renderContent(){
-  const s=currentSection();
-  let html=`<p class="section-title">${s.title}</p><p class="section-intro">${s.intro}</p>`;
-  if(s.type==="cards"){
-    if(s.demo)html+=`<div class="demo">${s.demo}</div>`;
-    if(s.cards.length)html+=`<div class="cardgrid">${s.cards.map(c=>`<div class="flip"><div class="flip-inner"><div class="flip-face flip-front"><div class="flip-rule">${c.rule}</div><div class="flip-desc">${c.desc||''}</div><div class="flip-hint">натисни →</div></div><div class="flip-face flip-back">${c.examples.map(e=>`<div class="flip-example">${e.word}</div>`).join('')}</div></div></div>`).join('')}</div>`;
-    lessonArea.innerHTML=html;
-    lessonArea.querySelectorAll('.flip').forEach(el=>attachTapToggle(el,()=>el.classList.toggle('open')));
-  } else { lessonArea.innerHTML=html; renderQuiz(s); }
-  syncCanvasAfterRender();
-}
-function syncCanvasAfterRender(){
-  if(window.resizeDrawCanvas)requestAnimationFrame(()=>requestAnimationFrame(()=>{window.resizeDrawCanvas();restoreCurrentDrawing();}));
-}
-function renderQuiz(s){
-  const total=s.questions.length;
-  if(quizIdx>=total){
-    const correct=Object.values(quizAnswers).filter(r=>r.correct).length;
-    const d=document.createElement('div');
-    d.innerHTML=`<div class="done-screen"><div class="ring"><div class="big">${correct}/${total}</div></div><p class="section-intro">${correct===total?'Ідеально! Матеріал засвоєно 🎉':'Непогано — можна пройти ще раз.'}</p><button class="btn primary" id="quizRestart">Пройти ще раз</button></div>`;
-    lessonArea.appendChild(d);
-    attachTapToggle(document.getElementById('quizRestart'),()=>{resetQuiz();renderContent();});
-    return;
-  }
-  const q=s.questions[quizIdx],rec=quizAnswers[quizIdx],box=document.createElement('div');
-  box.innerHTML=`<div class="qprog">Питання ${quizIdx+1} з ${total}</div><p class="qtext">«${q.q}»</p>
-    <div class="options">${s.opts.map((o,i)=>`<button class="opt" data-i="${i}" ${rec?'disabled':''}><span class="tile"><span>${LETTERS[i]}</span></span><span>${o}</span></button>`).join('')}</div>
-    <div class="feedback ${rec?'show '+(rec.correct?'ok':'bad'):''}">${rec?(rec.correct?'<b>Правильно.</b>':`Правильна відповідь — ${LETTERS[q.a]}. ${s.opts[q.a]}`):''}</div>
-    <div class="nav-row"><button class="btn ghost" id="quizPrev" ${quizIdx===0?'disabled':''}>← Назад</button><button class="btn primary" id="quizNext" ${rec?'':'disabled'}>${quizIdx===total-1?'До результату':'Далі →'}</button></div>`;
-  lessonArea.appendChild(box);
-  if(rec)box.querySelectorAll('.opt').forEach((b,i)=>{
-    const t=b.querySelector('.tile');
-    if(i===q.a){b.classList.add('correct');t.insertAdjacentHTML('beforeend','<span class="badge ok">✓</span>');}
-    else if(i===rec.picked){b.classList.add('wrong');t.insertAdjacentHTML('beforeend','<span class="badge no">✕</span>');}
-    else b.classList.add('dim');
-  });
-  box.querySelectorAll('.opt').forEach(b=>attachTapToggle(b,()=>{
-    if(quizAnswers[quizIdx])return;
-    const picked=+b.dataset.i;quizAnswers[quizIdx]={picked,correct:picked===q.a};renderContent();
-  }));
-  attachTapToggle(document.getElementById('quizPrev'),()=>{saveCurrentDrawing();quizIdx--;renderContent();});
-  attachTapToggle(document.getElementById('quizNext'),()=>{saveCurrentDrawing();quizIdx++;renderContent();});
-}
-function attachTapToggle(el,handler){
-  if(!el)return;
-  let sx=0,sy=0,penTap=false,tracking=false;
-  el.addEventListener('pointerdown',e=>{tracking=true;sx=e.clientX;sy=e.clientY;penTap=e.pointerType==='pen';el.classList.add('pressed');},{passive:true});
-  el.addEventListener('pointerup',e=>{
-    el.classList.remove('pressed');
-    if(!tracking)return;tracking=false;
-    if(penTap&&window.isDrawingActive&&window.isDrawingActive())return;
-    if(Math.hypot(e.clientX-sx,e.clientY-sy)>10)return;
-    handler(e);
-  });
-  el.addEventListener('pointercancel',()=>{tracking=false;el.classList.remove('pressed');});
-  el.addEventListener('pointerleave',()=>{if(tracking)el.classList.remove('pressed');});
-}
-function renderAll(){renderTopics();renderSubs();renderContent();}
-renderAll();
+tabs.addEventListener('click',e=>{const b=e.target.closest('[data-t]');if(!b)return;if(window.getDrawingSnapshot)drawStore[act]=getDrawingSnapshot();act=+b.dataset.t;render();window.scrollTo(0,0)});
+render();
 
 // МАЛЮВАННЯ ПОВЕРХ ЕКРАНА (режим "учитель"), чорнило кожної вкладки/питання зберігається окремо
 (function(){
@@ -314,11 +281,9 @@ renderAll();
   document.addEventListener('touchmove',e=>{if(drawingActive&&e.touches&&e.touches[0]&&e.touches[0].touchType==='stylus')e.preventDefault();},{passive:false});
 })();
 
-(function(){const f=document.getElementById('qFlag');let ox=0,oy=0,x=0,y=0,on=false;
-f.addEventListener('pointerdown',e=>{if(e.pointerType==='pen'&&window.isDrawingActive&&window.isDrawingActive())return;on=true;ox=e.clientX-x;oy=e.clientY-y;f.setPointerCapture(e.pointerId);f.classList.add('drag');});
-f.addEventListener('pointermove',e=>{if(!on)return;x=e.clientX-ox;y=e.clientY-oy;f.style.transform='translate('+x+'px,'+y+'px) scale(1.06)';});
-const end=()=>{on=false;f.classList.remove('drag');f.style.transform='translate('+x+'px,'+y+'px)';};
-f.addEventListener('pointerup',end);f.addEventListener('pointercancel',end);})();
+
+
+
 </script>
 </body>
 </html>
